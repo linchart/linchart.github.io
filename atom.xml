@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>linchart</title>
+  <subtitle>I&#39;m on the way to the future, where you are there.</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2017-03-05T15:03:19.932Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>山久丰</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>博客的搭建</title>
+    <link href="http://yoursite.com/2017/03/05/blog/"/>
+    <id>http://yoursite.com/2017/03/05/blog/</id>
+    <published>2017-03-04T18:08:32.626Z</published>
+    <updated>2017-03-05T15:03:19.932Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p>这个博客的搭建，完全得益于<a href="https://zhangslob.github.io/2017/02/28/%E6%95%99%E4%BD%A0%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%EF%BC%8CHexo-Github/" target="_blank" rel="external">教你免费搭建个人博客，Hexo&amp;Github</a>和<a href="http://www.jianshu.com/p/1cd86fac2585" target="_blank" rel="external">使用GitHub和Hexo搭建免费静态Blog</a>这两篇文章，非常详细地描述了基于hexo+github搭建个人博客的准备工作及安装和配置流程。</p>
+<h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><p>虽然上面这两篇文章写得很详细，但是我在按着教程搭建的过程中还是遇到一些小问题，这里记录一下：<br>1、注意运行路径<br>在浏览器中查看自带的hello world文章，需要执行 hexo generate 和hexo server两个命令，这里要注意一下这两个命令的执行路径，需要在hello world文章路径下执行。<br>2、MarkdownPad无法预览<br>win10下首次安装MarkdownPad会出现右侧浏览页面无法浏览的情况，<br><img src="http://i.imgur.com/O9hUr8v.png" alt=""><br>这种情况下需要安装<a href="http://markdownpad.com/download/awesomium_v1.6.6_sdk_win.exe" target="_blank" rel="external">Awesomium 1.6.6 SDK</a>，安装完成之后问题可解决。<br><img src="http://i.imgur.com/oous83g.png" alt=""><br>3、yilia主题头像无法显示<br>若加载头像后，头像无法显示，需要将’themes/yilia/layout/_partial’路径下的文件left-col.ejs中的第6行修改为：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;img src=<span class="string">"&lt;%=theme.avatar%&gt;"</span> class=<span class="string">"js-avatar show"</span>&gt;</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;参考文档&quot;&gt;&lt;a href=&quot;#参考文档&quot; class=&quot;headerlink&quot; title=&quot;参考文档&quot;&gt;&lt;/a&gt;参考文档&lt;/h1&gt;&lt;p&gt;这个博客的搭建，完全得益于&lt;a href=&quot;https://zhangslob.github.io/2017/02/28/%
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
