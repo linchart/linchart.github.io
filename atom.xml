@@ -17,8 +17,8 @@
   
   <entry>
     <title>爬取微信文章（一）</title>
-    <link href="http://yoursite.com/2017/03/13/WeChat_Article1.html"/>
-    <id>http://yoursite.com/2017/03/13/WeChat_Article1.html</id>
+    <link href="http://yoursite.com/2017/03/13/WeChat_Article1"/>
+    <id>http://yoursite.com/2017/03/13/WeChat_Article1</id>
     <published>2017-03-13T09:59:18.349Z</published>
     <updated>2017-03-14T07:48:05.298Z</updated>
     
@@ -61,8 +61,8 @@
   
   <entry>
     <title>博客的搭建</title>
-    <link href="http://yoursite.com/2017/03/05/blog.html"/>
-    <id>http://yoursite.com/2017/03/05/blog.html</id>
+    <link href="http://yoursite.com/2017/03/05/blog"/>
+    <id>http://yoursite.com/2017/03/05/blog</id>
     <published>2017-03-04T18:08:32.626Z</published>
     <updated>2017-03-05T15:26:40.715Z</updated>
     
