@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-03-14T07:48:05.298Z</updated>
+  <updated>2017-03-14T07:57:28.142Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,13 +17,12 @@
   
   <entry>
     <title>爬取微信文章（一）</title>
-    <link href="http://yoursite.com/2017/03/13/WeChat_Article1"/>
-    <id>http://yoursite.com/2017/03/13/WeChat_Article1</id>
+    <link href="http://yoursite.com/posts/2017/03/13/WeChat_Article1.html"/>
+    <id>http://yoursite.com/posts/2017/03/13/WeChat_Article1.html</id>
     <published>2017-03-13T09:59:18.349Z</published>
-    <updated>2017-03-14T07:48:05.298Z</updated>
+    <updated>2017-03-14T07:57:28.142Z</updated>
     
-    <content type="html"><![CDATA[<p>&emsp;&emsp;有时在微信公众号上面看到一些写的比较好的文章，但又没有时间细看，闲下来想找这些文章的时候又忘了是在哪个公众号看的了、文章名字也想不起来，因此想搞个爬虫把想看的文章爬下来，一来可以在闲时咀嚼一下，二来也可以收藏一些好文章，做些知识积累。<br><em>只是想把自己平常做的一些东西记录下来，非教程</em></p>
-<a id="more"></a>   
+    <content type="html"><![CDATA[<p>&emsp;&emsp;有时在微信公众号上面看到一些写的比较好的文章，但又没有时间细看，闲下来想找这些文章的时候又忘了是在哪个公众号看的了、文章名字也想不起来，因此想搞个爬虫把想看的文章爬下来，一来可以在闲时咀嚼一下，二来也可以收藏一些好文章，做些知识积累。<br><em>只是想把自己平常做的一些东西记录下来，非教程</em><br><a id="more"></a>   </p>
 <h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><ul>
 <li>Python 3.5.1   </li>
 </ul>
@@ -50,7 +49,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;&amp;emsp;&amp;emsp;有时在微信公众号上面看到一些写的比较好的文章，但又没有时间细看，闲下来想找这些文章的时候又忘了是在哪个公众号看的了、文章名字也想不起来，因此想搞个爬虫把想看的文章爬下来，一来可以在闲时咀嚼一下，二来也可以收藏一些好文章，做些知识积累。&lt;br&gt;&lt;em&gt;只是想把自己平常做的一些东西记录下来，非教程&lt;/em&gt;&lt;/p&gt;
+      &lt;p&gt;&amp;emsp;&amp;emsp;有时在微信公众号上面看到一些写的比较好的文章，但又没有时间细看，闲下来想找这些文章的时候又忘了是在哪个公众号看的了、文章名字也想不起来，因此想搞个爬虫把想看的文章爬下来，一来可以在闲时咀嚼一下，二来也可以收藏一些好文章，做些知识积累。&lt;br&gt;&lt;em&gt;只是想把自己平常做的一些东西记录下来，非教程&lt;/em&gt;&lt;br&gt;
     
     </summary>
     
@@ -61,12 +60,12 @@
   
   <entry>
     <title>博客的搭建</title>
-    <link href="http://yoursite.com/2017/03/05/blog"/>
-    <id>http://yoursite.com/2017/03/05/blog</id>
+    <link href="http://yoursite.com/posts/2017/03/05/blog.html"/>
+    <id>http://yoursite.com/posts/2017/03/05/blog.html</id>
     <published>2017-03-04T18:08:32.626Z</published>
-    <updated>2017-03-05T15:26:40.715Z</updated>
+    <updated>2017-03-14T07:58:02.018Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p>这个博客的搭建，完全得益于<a href="https://zhangslob.github.io/2017/02/28/%E6%95%99%E4%BD%A0%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%EF%BC%8CHexo-Github/" target="_blank" rel="external">教你免费搭建个人博客，Hexo&amp;Github</a>和<a href="http://www.jianshu.com/p/1cd86fac2585" target="_blank" rel="external">使用GitHub和Hexo搭建免费静态Blog</a>这两篇文章，非常详细地描述了基于hexo+github搭建个人博客的准备工作及安装和配置流程。</p>
+    <content type="html"><![CDATA[<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p>这个博客的搭建，完全得益于<a href="https://zhangslob.github.io/2017/02/28/%E6%95%99%E4%BD%A0%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%EF%BC%8CHexo-Github/" target="_blank" rel="external">教你免费搭建个人博客，Hexo&amp;Github</a>和<a href="http://www.jianshu.com/p/1cd86fac2585" target="_blank" rel="external">使用GitHub和Hexo搭建免费静态Blog</a>这两篇文章，非常详细地描述了基于hexo+github搭建个人博客的准备工作及安装和配置流程。<br><a id="more"></a></p>
 <h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><p>虽然上面这两篇文章写得很详细，但是我在按着教程搭建的过程中还是遇到一些小问题，这里记录一下：   </p>
 <h2 id="1、注意运行路径"><a href="#1、注意运行路径" class="headerlink" title="1、注意运行路径"></a>1、注意运行路径</h2><p>在浏览器中查看自带的hello world文章，需要执行 hexo generate 和hexo server两个命令，这里要注意一下这两个命令的执行路径，需要在hello world文章路径下执行。   </p>
 <h2 id="2、MarkdownPad无法预览"><a href="#2、MarkdownPad无法预览" class="headerlink" title="2、MarkdownPad无法预览"></a>2、MarkdownPad无法预览</h2><p>win10下首次安装MarkdownPad会出现右侧浏览页面无法浏览的情况，<br><img src="http://i.imgur.com/O9hUr8v.png" alt=""><br>这种情况下需要安装<a href="http://markdownpad.com/download/awesomium_v1.6.6_sdk_win.exe" target="_blank" rel="external">Awesomium 1.6.6 SDK</a>，安装完成之后问题可解决。<br><img src="http://i.imgur.com/oous83g.png" alt=""></p>
@@ -83,9 +82,11 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;参考文档&quot;&gt;&lt;a href=&quot;#参考文档&quot; class=&quot;headerlink&quot; title=&quot;参考文档&quot;&gt;&lt;/a&gt;参考文档&lt;/h1&gt;&lt;p&gt;这个博客的搭建，完全得益于&lt;a href=&quot;https://zhangslob.github.io/2017/02/28/%
+      &lt;h1 id=&quot;参考文档&quot;&gt;&lt;a href=&quot;#参考文档&quot; class=&quot;headerlink&quot; title=&quot;参考文档&quot;&gt;&lt;/a&gt;参考文档&lt;/h1&gt;&lt;p&gt;这个博客的搭建，完全得益于&lt;a href=&quot;https://zhangslob.github.io/2017/02/28/%E6%95%99%E4%BD%A0%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%EF%BC%8CHexo-Github/&quot;&gt;教你免费搭建个人博客，Hexo&amp;amp;Github&lt;/a&gt;和&lt;a href=&quot;http://www.jianshu.com/p/1cd86fac2585&quot;&gt;使用GitHub和Hexo搭建免费静态Blog&lt;/a&gt;这两篇文章，非常详细地描述了基于hexo+github搭建个人博客的准备工作及安装和配置流程。&lt;br&gt;
     
     </summary>
+    
+      <category term="其他" scheme="http://yoursite.com/categories/%E5%85%B6%E4%BB%96/"/>
     
     
   </entry>
