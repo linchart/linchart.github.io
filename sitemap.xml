@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/posts/2017/08/01/perceptron_model.html</loc>
+    
+    <lastmod>2017-08-02T13:55:30.976Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/posts/2017/03/15/TF-IDF.html</loc>
     
     <lastmod>2017-03-16T06:09:16.931Z</lastmod>

@@ -6,18 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>爬取微信文章（一） | linchart</title>
+  <title>感知机模型 | linchart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;emsp;&amp;emsp;有时在微信公众号上面看到一些写的比较好的文章，但又没有时间细看，闲下来想找这些文章的时候又忘了是在哪个公众号看的了、文章名字也想不起来，因此想搞个爬虫把想看的文章爬下来，一来可以在闲时咀嚼一下，二来也可以收藏一些好文章，做些知识积累。只是想把自己平常做的一些东西记录下来，非教程">
+  <meta name="description" content="&amp;emsp;&amp;emsp;刚从广发项目撤出来，未来几周应该都不会很忙，趁着闲暇时间整理一下机器学习方面的知识。&amp;emsp;&amp;emsp;先从最简单的感知机模型说起。感知机是一种二分类的线性模型，其假设训练数据集是线性可分的，目标是找到一个能够将训练数据集的正样本和负样本完全正确分割开的分离超平面。其实，模型只要找到该分离超平面，学习目的就达到了，并不要求样本能被最大限度地划分。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="爬取微信文章（一）">
-<meta property="og:url" content="http://yoursite.com/posts/2017/03/13/WeChat_Article1.html">
+<meta property="og:title" content="感知机模型">
+<meta property="og:url" content="http://yoursite.com/posts/2017/08/01/perceptron_model.html">
 <meta property="og:site_name" content="linchart">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;有时在微信公众号上面看到一些写的比较好的文章，但又没有时间细看，闲下来想找这些文章的时候又忘了是在哪个公众号看的了、文章名字也想不起来，因此想搞个爬虫把想看的文章爬下来，一来可以在闲时咀嚼一下，二来也可以收藏一些好文章，做些知识积累。只是想把自己平常做的一些东西记录下来，非教程">
-<meta property="og:updated_time" content="2017-03-14T08:05:48.201Z">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;刚从广发项目撤出来，未来几周应该都不会很忙，趁着闲暇时间整理一下机器学习方面的知识。&amp;emsp;&amp;emsp;先从最简单的感知机模型说起。感知机是一种二分类的线性模型，其假设训练数据集是线性可分的，目标是找到一个能够将训练数据集的正样本和负样本完全正确分割开的分离超平面。其实，模型只要找到该分离超平面，学习目的就达到了，并不要求样本能被最大限度地划分。">
+<meta property="og:image" content="http://i.imgur.com/jH3FvKL.png">
+<meta property="og:image" content="http://i.imgur.com/RtXJNgB.png">
+<meta property="og:image" content="http://i.imgur.com/cZbjVQP.png">
+<meta property="og:image" content="http://i.imgur.com/0vGucMO.png">
+<meta property="og:image" content="http://i.imgur.com/WftOMnU.png">
+<meta property="og:updated_time" content="2017-08-02T13:55:30.976Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="爬取微信文章（一）">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;有时在微信公众号上面看到一些写的比较好的文章，但又没有时间细看，闲下来想找这些文章的时候又忘了是在哪个公众号看的了、文章名字也想不起来，因此想搞个爬虫把想看的文章爬下来，一来可以在闲时咀嚼一下，二来也可以收藏一些好文章，做些知识积累。只是想把自己平常做的一些东西记录下来，非教程">
+<meta name="twitter:title" content="感知机模型">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;刚从广发项目撤出来，未来几周应该都不会很忙，趁着闲暇时间整理一下机器学习方面的知识。&amp;emsp;&amp;emsp;先从最简单的感知机模型说起。感知机是一种二分类的线性模型，其假设训练数据集是线性可分的，目标是找到一个能够将训练数据集的正样本和负样本完全正确分割开的分离超平面。其实，模型只要找到该分离超平面，学习目的就达到了，并不要求样本能被最大限度地划分。">
+<meta name="twitter:image" content="http://i.imgur.com/jH3FvKL.png">
   
     <link rel="alternative" href="/atom.xml" title="linchart" type="application/atom+xml">
   
@@ -157,49 +163,86 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-WeChat_Article1" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-perceptron_model" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      爬取微信文章（一）
+      感知机模型
     </h1>
   
 
         
-        <a href="/posts/2017/03/13/WeChat_Article1.html" class="archive-article-date">
-  	<time datetime="2017-03-13T09:59:18.349Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-13</time>
+        <a href="/posts/2017/08/01/perceptron_model.html" class="archive-article-date">
+  	<time datetime="2017-08-01T03:16:20.734Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&emsp;&emsp;有时在微信公众号上面看到一些写的比较好的文章，但又没有时间细看，闲下来想找这些文章的时候又忘了是在哪个公众号看的了、文章名字也想不起来，因此想搞个爬虫把想看的文章爬下来，一来可以在闲时咀嚼一下，二来也可以收藏一些好文章，做些知识积累。<br><em>只是想把自己平常做的一些东西记录下来，非教程</em><br><a id="more"></a>   </p>
-<h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><ul>
-<li>Python 3.5.1   </li>
+        <p>&emsp;&emsp;刚从广发项目撤出来，未来几周应该都不会很忙，趁着闲暇时间整理一下机器学习方面的知识。<br>&emsp;&emsp;先从最简单的感知机模型说起。感知机是一种二分类的线性模型，其假设训练数据集是线性可分的，目标是找到一个能够将训练数据集的正样本和负样本完全正确分割开的分离超平面。其实，模型只要找到该分离超平面，学习目的就达到了，并不要求样本能被最大限度地划分。<br><a id="more"></a>   </p>
+<h1 id="分类器"><a href="#分类器" class="headerlink" title="分类器"></a>分类器</h1><p>&emsp;&emsp;分类器能够通过输入的特征向量映射到给定类别中的一个，也就是所谓的物以聚类人以群分。如下图一，蓝色直线将A和B完全分割开，那么该直线$y=ax+b$就是一个分类器。根据分类器是否线性可分的性质，分类器有线性分类器(图一)和非线性分类器（图二图三），从类别上，有二元分类器（图一）和多元分类器（两个类别以上，图二图三），而本章要讨论的感知机模型，就是一个二分类线性模型。<div align="center"><img src="http://i.imgur.com/jH3FvKL.png" alt=""></div>   </p>
+<h1 id="感知机模型"><a href="#感知机模型" class="headerlink" title="感知机模型"></a>感知机模型</h1><p>&emsp;&emsp;感知机模型很简单，为什么说它简单呢，因为该模型只用了一个线性方程$y = ax + b$ 以及 一个符号函数$sign(x)$（初中的知识是不是？）<br>&emsp;&emsp;下面来看下感知机模型的定义。<br>&emsp;&emsp;假设有$N$维的特征输入$X = \lbrace x_1,x_2,…,x_n \rbrace $，输出的类别有两类$ Y = \lbrace +1,-1\rbrace $，则由特征输入映射到类别输出的函数$$f(x) = sign(w*x+b)$$称为感知机模型，其中，$w$ 和$b$是我们要求解的模型的参数，这里的$w$其实是一个跟特征输入维度一样$N$维的权值向量（也称为权重），而参数$b$为偏置（在二维平面上，$b$就是截距）。<br>&emsp;&emsp;我们从公式上去解读下为什么说感知机模型是一个线性二分类模型。<br>&emsp;&emsp;先看符号函数里面的线性方程$$y=w*x+b$$显然，方程$ y = w*x +b $在二维平面上是一条直线，在三维空间上是一个平面，在四维甚至更高维空间上就是一个超平面。（哈哈哈，这个实在是画不出来）<div align="center"><img src="http://i.imgur.com/RtXJNgB.png" alt=""></div><br>也就是说，不管是在二维三维空间还是更高维空间，超平面都可以将空间一分为二，并且都可以表示成方程$ y = w*x +b $，所以感知机模型首先是一个线性模型。<br>&emsp;&emsp;再看符号函数，这个更简单，符号函数的定义如下：<br>$$<br>sign(x)=\begin{cases}<br>+1,\quad x\geq 0\\<br>-1, \quad x&lt;0<br>\end{cases}$$   </p>
+<p>如果$x&gt;=0$则$f(x)=+1$，否则$f(x)=-1$。那么对于函数$f(x) = sign(w*x+b)$，如果输入样本$w*x+b&gt;=0$，那么该样本会被判为+1类，否则判为-1类。举个例子，回到上文图一，对于直线上方有$w*x+b&gt;0$，所以所有的A样本都会归为+1类，对于直线下方有$w*x+b&lt;0$，这样所有的B样本都会归为-1类。因此，感知机模型是一个线性二分类模型，其任务就是，找到这样的一个超平面，能够把两个不同的分类完全分割开。   </p>
+<h1 id="学习策略"><a href="#学习策略" class="headerlink" title="学习策略"></a>学习策略</h1><p>&emsp;&emsp;原理清楚了，那么现在的问题是，给定一个包含正负类的训练样本，我们应该如何找出这样的一个超平面，使之能够将正样例和负样例点完全分割开，也就是应该如何确定模型的参数$w$和$b$ <div align="center"> <img src="http://i.imgur.com/cZbjVQP.png" alt=""> </div><br>&emsp;&emsp;如上图，如何找到一条直线，使之能够将蓝色实例和褐色实例分割开（这里只是举个例子哈，在实际构建模型过程中，涉及的数据动不动就成百上千万，你想拿支笔来，往两个样本点之间一画一条直线，这是妥妥的不行的，更何况实际处理的数据维度一般都有两位数以上）。直接求解好像无从下手，不妨先假设参数$w$和$b$已知，也就是说这个超平面$S$我们已经找到了，但是不知道这超平面对样例数据的分类效果怎样。如何去评估分类的效果呢，一个很自然的想法就是看有多少样例数据是误分类的，也就是将总误分类数作为模型的损失函数，但是这样的函数对于参数$w$和$b$来说不是连续可导的，难以优化。另一种方法就是可以通过衡量误分类点到超平面的总距离来评估效果。高中的时候我们就学过点到平面的距离的公式是这样子的。$$d=\frac{|A*x_0+B*y_0+C*z_0+D|}{\sqrt{A^2+B^2+C^2}}$$ 其中$(A,B,C)$是平面法向量，在这里是权值向量，上面距离公式也可以简写成$$d=\frac{1}{||w||}|wx_0+b|$$ 其中$w=(A,B,C)$， 这里||w||也称为$w$的L2范数。<br>依然以上文图一为例，对于任意一个样本点$(x_i,y_i)$:</p>
+<ul>
+<li>如果该样本点是位于直线上方，并且刚好属于类别A的话，那么该样本点被直线正确分类，此时有$w*x_i+b&gt;0,y_i=+1$，显然$-y_i*(w*x_i+b)&lt;0$   </li>
+<li>如果该样本点位于直线下方，并且刚好属于类别B的的话，那么该样本点被直线正确分类，此时有$w*x_i+b&lt;0,y_i=-1$，显然$-y_i*(w*x_i+b)&lt;0$   </li>
+<li>如果该样本点位于直线上方，并且刚好属于类别B的的话，那么该样本点被直线错误分类，此时有$w*x_i+b&gt;0,y_i=-1$，显然$-y_i*(w*x_i+b)&gt;0$   </li>
+<li>如果该样本点位于直线下方，并且刚好属于类别A的的话，那么该样本点被直线错误分类，此时有$w*x_i+b<0,y_i=+1$，显然$-y_i*(w*x_i+b)>0$   </0,y_i=+1$，显然$-y_i*(w*x_i+b)></li>
 </ul>
-<h1 id="使用的库"><a href="#使用的库" class="headerlink" title="使用的库"></a>使用的库</h1><ul>
-<li>re</li>
-<li>pdfkit</li>
-<li>requests</li>
-<li>BeautifulSoup   </li>
+<p>&emsp;&emsp;所以，对于误分类的点$(x_i,y_i)$来说$-y_i*(w*x_i+b)&gt;0$成立。<br>&emsp;&emsp;我们可以用$-y_i*(w*x_i+b)$（相当于$|w*x_i+b|$）去衡量误分类点的效果，$w*x_i+b$值越大，说明该点离分离超平面越远，误分类效果越差（虽然分错了就是分错了）。如下图中的红色直线对于点A的分类效果明显比点B的要差   </p>
+<p><div align="center"><img src="http://i.imgur.com/0vGucMO.png" alt=""> </div><br>有了单个误分类点离超平面的距离，那么对于所有的误分类点有：$$ -\frac{1}{||w||}\sum_i^m y_i(wx_i+b)$$ 其中$m$为误分类点数量。当不考虑$\frac{1}{||w||}$时（$\frac{1}{||w||}$恒大于0，去掉的话不影响评估效果），就得到感知机模型的损失函数$Loss  Function$（用来度量模型预测的好坏）：$$ L(w,b) =-\sum_i^m y_i(wx_i+b)$$既然误分类点离分离超平面越远，误分类效果越差，那么，误分类点离分离超平面越近，误分类效果越好，当$$-\sum_i^m y_i(wx_i+b) = 0$$时，样本没有被误分类，所有样本都被超平面恰当地分割开。所以只要找到$w$和$b$使得$L(w,b)$取最小值，此时超平面的分类效果是最好的，这个时候我们可以将参数$w$和$b$的求解转化为最小化函数$L(w,b)$ $$minL(w,b) = -\sum_i^m y_i(wx_i+b)$$   </p>
+<h1 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h1><p>&emsp;&emsp;最优化方法有很多，比如牛顿下降法、拉格朗日乘子法、共轭梯度下降法、梯度下降法，这里使用最简单也最常用的一样方法：随机梯度下降法（梯度下降法的一种方法）来优化上文提到的损失函数$L(w,b)$ $$L(w,b) = -\sum_i^m y_i(wx_i+b)$$ 梯度其实就是求偏导，随机梯度下降其实就是一次随机选一个误分类点，使其函数值$L(w,b)$往着负梯度方向移动，不断逼近最小值的一个过程。函数$L(w,b)$关于参数$w$和$b$的梯度分别为：$$\nabla_w L(w,b)= -\sum_i^m y_i x_i $$ $$\nabla_b L(w,b)= -\sum_i^m y_i $$ 现在，我们随便找一个分割超平面，比如$w=0,b=0$（注意$w$是一个向量），然后随机选一个实例点，判断$-y_i*(w*x_i+b)$ 是否大于等于0，如果大于等于0则说明该点被误分类，这时对$(w,b)$进行如下更新（如果$-y_i*(w*x_i+b)$小于0则不更新$w$和$b$）：$$w \leftarrow w+\eta y_i x_i$$ $$b \leftarrow b+\eta y_i$$ 这里的$\eta$$(0&lt;=\eta&lt;=1)$为步长，也称为学习率，这样，通过不断选取误分类点，更新参数$(w,b)$，降低函数$L(w,b)$的值，直到$L(w,b)=0$时对应的$(w,b)$的取值就是要求解的值。<br>算法很简单，分成4步，也就是：   </p>
+<ul>
+<li>(1)选取初值$(w_0,b_0)$;   </li>
+<li>(2)在训练数据集中随机选取一个数据$(x_i,y_i)$;   </li>
+<li>(3)如果$-y_i*(w*x_i+b)&gt;=0$，则进行如下更新：$$w \leftarrow w+\eta y_i x_i$$ $$b \leftarrow b+\eta y_i$$   </li>
+<li>(4)转至(2)，直至数据集中没有误分类的点或者达到指定的迭代次数。</li>
 </ul>
-<h1 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h1><p>输入微信文章名称或者对应的文章链接，输出文章的pdf文件。</p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><ul>
-<li>如果同时提供文章链接和文章名称，则优先通过文章链接爬取，如果文章链接爬取失败，则通过文章名称爬取；   </li>
-<li>如果仅提供文章链接，则通过文章链接爬取；</li>
-<li>如果仅提供文章名称，则通过搜狗微信接口搜索微信文章，找到对应文章链接，然后在通过文章链接爬取。</li>
-</ul>
-<h1 id="爬取流程"><a href="#爬取流程" class="headerlink" title="爬取流程"></a>爬取流程</h1><h2 id="获取文章链接"><a href="#获取文章链接" class="headerlink" title="获取文章链接"></a>获取文章链接</h2><p>将提供的文章名称传入<a href="http://weixin.sogou.com/weixin" target="_blank" rel="external">搜狗微信搜索引擎搜索</a>，将结果列表中的第一篇文章作为目标文章下载。下面代码返回目标文章链接。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_article_link</span><span class="params">(query)</span>:</span></div><div class="line">    base_url = <span class="string">r'http://weixin.sogou.com/weixin'</span></div><div class="line">    User_Agent = <span class="string">'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'</span></div><div class="line">    Host = <span class="string">'weixin.sogou.com'</span></div><div class="line">    Connection = <span class="string">'keep-alive'</span></div><div class="line">    headers = &#123;<span class="string">'User-Agent'</span>: User_Agent, <span class="string">'Host'</span>: Host, <span class="string">'Connection'</span>: Connection&#125;</div><div class="line">    params = &#123;<span class="string">'type'</span>: <span class="number">2</span>, <span class="string">'ie'</span>: <span class="string">'utf-8'</span>, <span class="string">'w'</span>: <span class="string">'01019900'</span>, <span class="string">'sut'</span>: <span class="string">'707'</span>,<span class="string">'query'</span>:query&#125;</div><div class="line">    request = requests.get(base_url, headers=headers, params=params)</div><div class="line">    request.encoding = <span class="string">'utf-8'</span></div><div class="line">    bsobj = BeautifulSoup(request.text, <span class="string">'lxml'</span>)</div><div class="line">    <span class="comment"># 仅提取列表中的第一篇文章</span></div><div class="line">    first_article_link = bsobj.select(<span class="string">'#sogou_vr_11002601_title_0'</span>)[<span class="number">0</span>][<span class="string">'href'</span>]</div><div class="line">    <span class="keyword">return</span> first_article_link</div></pre></td></tr></table></figure>
-<h2 id="将文章转为html"><a href="#将文章转为html" class="headerlink" title="将文章转为html"></a>将文章转为html</h2><p>解析文章链接，将文章内容保存为html文件。这里需要注意的是，在解析文章的时候，如果文章中包含有图片的话，正常情况下是无法下载下来的，因为爬取的文章链接为临时链接，非永久链接，无法直接解析src里面的链接。但是，data-src这个属性的值还是可以解析出来的，所以只要把data-src替换为src就可以下载图片了。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_article_html</span><span class="params">(link)</span>:</span></div><div class="line">    <span class="comment"># 为了保险起见，这里使用不同的headers</span></div><div class="line">    User_Agent = <span class="string">'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.11 TaoBrowser/3.0 Safari/536.11'</span></div><div class="line">    article_headers = &#123;<span class="string">'User_Agent'</span>: User_Agent&#125;</div><div class="line">    article_obj = requests.get(link, headers=article_headers)</div><div class="line">    article_obj.encoding = <span class="string">'utf-8'</span></div><div class="line">    soup = BeautifulSoup(article_obj.content, <span class="string">'html5lib'</span>)</div><div class="line">    <span class="comment"># 以实际的文章名称为准</span></div><div class="line">    article_name = soup.select(<span class="string">'#activity-name'</span>)[<span class="number">0</span>].text.strip()</div><div class="line">    content = soup.find(<span class="string">'div'</span>, &#123;<span class="string">'id'</span>: <span class="string">'page-content'</span>&#125;)</div><div class="line">    html = str(content)</div><div class="line">    <span class="comment"># 把属性data-src替换成src,前面无法将属性src解析出来，data-src，只是LAZY用的，</span></div><div class="line">    <span class="comment"># 延迟加载图片所以显示不出来，LAZYLOAD</span></div><div class="line">    src_compile = re.compile(<span class="string">'data-src'</span>)</div><div class="line">    html_new = re.sub(src_compile, <span class="string">'src'</span>, html)</div><div class="line">    <span class="comment"># 存储成html</span></div><div class="line">    <span class="keyword">with</span> open(<span class="string">'wechat_article.html'</span>, <span class="string">'w'</span>, encoding=<span class="string">'GB18030'</span>) <span class="keyword">as</span> f:</div><div class="line">        f.write(html_new)</div><div class="line">    <span class="keyword">return</span> article_name</div></pre></td></tr></table></figure>
-<h2 id="html转pdf"><a href="#html转pdf" class="headerlink" title="html转pdf"></a>html转pdf</h2><p>html文件转pdf调用了pdfkit这个包，使用这个包需要安装<a href="http://wkhtmltopdf.org/downloads.html" target="_blank" rel="external">wkhtmltopdf</a>软件（pdfkit依赖于wkhtmltopdf，因此需要配置路径）。<br>在运行过程中，发现pdfkit在html转pdf时，生成的pdf文件名中如果包含有| / *这些特殊符号时会报错，因此如果以原文章名对pdf命名失败时，仅保留文章名的汉字、字母和数字进行命名。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">html_to_pdf</span><span class="params">(query_article)</span>:</span></div><div class="line">    path_wk = <span class="string">r'D:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'</span></div><div class="line">    config = pdfkit.configuration(wkhtmltopdf=path_wk)</div><div class="line">    options = &#123;</div><div class="line">        <span class="string">'page-size'</span>: <span class="string">'Letter'</span>,</div><div class="line">        <span class="string">'encoding'</span>: <span class="string">"GB18030"</span>,</div><div class="line">        <span class="string">'custom-header'</span>: [</div><div class="line">            (<span class="string">'Accept-Encoding'</span>, <span class="string">'gzip'</span>)</div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">try</span> :</div><div class="line">        pdfkit.from_file(<span class="string">'wechat_article.html'</span>, <span class="string">'%s.pdf'</span> % query_article, configuration=config, options=options)</div><div class="line">    <span class="keyword">except</span>:</div><div class="line">        name_compile = re.compile(<span class="string">'[a-zA-Z\u4e00-\u9fa5][a-zA-Z0-9\u4e00-\u9fa5]+'</span>)</div><div class="line">        pdf_name = re.findall(name_compile,query_article)[<span class="number">0</span>]</div><div class="line">        pdfkit.from_file(<span class="string">'wechat_article.html'</span>, <span class="string">'%s.pdf'</span> % pdf_name, configuration=config, options=options)</div><div class="line">        print(<span class="string">'文件名已被修改为:%s'</span> %pdf_name)</div></pre></td></tr></table></figure>
-<h1 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h1><p>最后附上文章爬取的完整代码。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#coding:utf-8</span></div><div class="line"><span class="comment">#author:linchart</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> requests</div><div class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</div><div class="line"><span class="keyword">import</span> re</div><div class="line"><span class="keyword">import</span> pdfkit</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_article_link</span><span class="params">(query)</span>:</span></div><div class="line">    base_url = <span class="string">r'http://weixin.sogou.com/weixin'</span></div><div class="line">    User_Agent = <span class="string">'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'</span></div><div class="line">    Host = <span class="string">'weixin.sogou.com'</span></div><div class="line">    Connection = <span class="string">'keep-alive'</span></div><div class="line">    headers = &#123;<span class="string">'User-Agent'</span>: User_Agent, <span class="string">'Host'</span>: Host, <span class="string">'Connection'</span>: Connection&#125;</div><div class="line">    params = &#123;<span class="string">'type'</span>: <span class="number">2</span>, <span class="string">'ie'</span>: <span class="string">'utf-8'</span>, <span class="string">'w'</span>: <span class="string">'01019900'</span>, <span class="string">'sut'</span>: <span class="string">'707'</span>,<span class="string">'query'</span>:query&#125;</div><div class="line">    request = requests.get(base_url, headers=headers, params=params)</div><div class="line">    request.encoding = <span class="string">'utf-8'</span></div><div class="line">    bsobj = BeautifulSoup(request.text, <span class="string">'lxml'</span>)</div><div class="line">    <span class="comment"># 仅提取列表中的第一篇文章</span></div><div class="line">    first_article_link = bsobj.select(<span class="string">'#sogou_vr_11002601_title_0'</span>)[<span class="number">0</span>][<span class="string">'href'</span>]</div><div class="line">    <span class="keyword">return</span> first_article_link</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_article_html</span><span class="params">(link)</span>:</span></div><div class="line">    <span class="comment"># 需要不同的headers</span></div><div class="line">    User_Agent = <span class="string">'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.11 TaoBrowser/3.0 Safari/536.11'</span></div><div class="line">    article_headers = &#123;<span class="string">'User_Agent'</span>: User_Agent&#125;</div><div class="line">    article_obj = requests.get(link, headers=article_headers)</div><div class="line">    article_obj.encoding = <span class="string">'utf-8'</span></div><div class="line">    soup = BeautifulSoup(article_obj.content, <span class="string">'html5lib'</span>)</div><div class="line">    <span class="comment"># 以实际的文章名称为准</span></div><div class="line">    article_name = soup.select(<span class="string">'#activity-name'</span>)[<span class="number">0</span>].text.strip()</div><div class="line">    content = soup.find(<span class="string">'div'</span>, &#123;<span class="string">'id'</span>: <span class="string">'page-content'</span>&#125;)</div><div class="line">    html = str(content)</div><div class="line">    <span class="comment"># 把属性data-src替换成src,前面无法将属性src解析出来，data-src，只是LAZY用的，</span></div><div class="line">    <span class="comment"># 延迟加载图片所以显示不出来，LAZYLOAD</span></div><div class="line">    src_compile = re.compile(<span class="string">'data-src'</span>)</div><div class="line">    html_new = re.sub(src_compile, <span class="string">'src'</span>, html)</div><div class="line">    <span class="comment"># 存储成html</span></div><div class="line">    <span class="keyword">with</span> open(<span class="string">'wechat_article.html'</span>, <span class="string">'w'</span>, encoding=<span class="string">'GB18030'</span>) <span class="keyword">as</span> f:</div><div class="line">        f.write(html_new)</div><div class="line">    <span class="keyword">return</span> article_name</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">html_to_pdf</span><span class="params">(query_article)</span>:</span></div><div class="line">    path_wk = <span class="string">r'D:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'</span></div><div class="line">    config = pdfkit.configuration(wkhtmltopdf=path_wk)</div><div class="line">    options = &#123;</div><div class="line">        <span class="string">'page-size'</span>: <span class="string">'Letter'</span>,</div><div class="line">        <span class="string">'encoding'</span>: <span class="string">"GB18030"</span>,</div><div class="line">        <span class="string">'custom-header'</span>: [</div><div class="line">            (<span class="string">'Accept-Encoding'</span>, <span class="string">'gzip'</span>)</div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">try</span> :</div><div class="line">        pdfkit.from_file(<span class="string">'wechat_article.html'</span>, <span class="string">'%s.pdf'</span> % query_article, configuration=config, options=options)</div><div class="line">    <span class="keyword">except</span>:</div><div class="line">        name_compile = re.compile(<span class="string">'[a-zA-Z\u4e00-\u9fa5][a-zA-Z0-9\u4e00-\u9fa5]+'</span>)</div><div class="line">        pdf_name = re.findall(name_compile,query_article)[<span class="number">0</span>]</div><div class="line">        pdfkit.from_file(<span class="string">'wechat_article.html'</span>, <span class="string">'%s.pdf'</span> % pdf_name, configuration=config, options=options)</div><div class="line">        print(<span class="string">'文件名已被修改为:%s'</span> %pdf_name)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">wechat_article</span><span class="params">(query=None,link=None)</span>:</span></div><div class="line">    <span class="keyword">if</span> link :</div><div class="line">        <span class="keyword">try</span> :</div><div class="line">            article_name = get_article_html(link)</div><div class="line">            html_to_pdf(article_name)</div><div class="line">            print(<span class="string">'文章下载成功'</span>)</div><div class="line">        <span class="keyword">except</span> :</div><div class="line">            article_link = get_article_link(query)</div><div class="line">            get_article_html(article_link)</div><div class="line">            html_to_pdf(query)</div><div class="line">            print(<span class="string">'文章下载成功'</span>)</div><div class="line">    <span class="keyword">else</span> :</div><div class="line">        article_link = get_article_link(query)</div><div class="line">        get_article_html(article_link)</div><div class="line">        html_to_pdf(query)</div><div class="line">        print(<span class="string">'文章下载成功'</span>)</div><div class="line"></div><div class="line"><span class="comment"># PDF可以用中文命名，但是命名中不可以包含* \/|等特殊字符。</span></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    link = <span class="keyword">None</span></div><div class="line">    query = <span class="string">'文本分析|词频与余弦相似度'</span></div><div class="line">    wechat_article(query=query,link=link)</div></pre></td></tr></table></figure></p>
+<p>用python实现基于随机梯度下降的简单感知机模型。</p>
+<pre><code class="python"><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">import</span> random
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+%matplotlib inline
+<span class="keyword">from</span> sklearn.datasets.samples_generator <span class="keyword">import</span> make_blobs
+<span class="comment">#随机生成特征维度为2，分别以[-1,-1],[1,1]为中心，类别方差为0.4,0.5的两个类</span>
+x,y = make_blobs(n_samples=<span class="number">100</span>,n_features=<span class="number">2</span>,centers=[[<span class="number">-1</span>,<span class="number">-1</span>],[<span class="number">1</span>,<span class="number">1</span>]],cluster_std=[<span class="number">0.4</span>,<span class="number">0.5</span>])
+<span class="comment"># 将 0 替换成-1</span>
+y[y==<span class="number">0</span>] = <span class="number">-1</span>
+w = np.zeros(<span class="number">2</span>)<span class="comment">#初始权重赋值为0</span>
+b = <span class="number">0</span> <span class="comment">#初始偏置为0</span>
+k=<span class="number">200</span> <span class="comment">#最大迭代次数</span>
+l_rate = <span class="number">0.5</span> <span class="comment">#学习率</span>
+i=<span class="number">0</span>
+<span class="keyword">while</span> i &lt;= k:
+    i = i+<span class="number">1</span>
+    <span class="comment">#生成随机数</span>
+    random_num = random.randint(<span class="number">0</span>,<span class="number">99</span>)
+    <span class="comment">#损失函数</span>
+    <span class="keyword">if</span> sum(-y[random_num]*(w*x[random_num] + b)) &gt;= <span class="number">0</span>:
+        <span class="comment">#梯度更新权重</span>
+        w = w + l_rate*y[random_num]*x[random_num]
+        <span class="comment">#梯度更新偏置</span>
+        b = b + l_rate*y[random_num]
+<span class="comment">#---------------------画图-------------------------</span>
+
+x1 = <span class="number">-3.0</span>
+y1 = -(b + w[<span class="number">0</span>] * x1) /w[<span class="number">1</span>]
+x2 = <span class="number">3.0</span>
+y2 = -(b + w[<span class="number">0</span>] * x2) / w[<span class="number">1</span>]
+plt.figure(figsize=(<span class="number">8</span>, <span class="number">6</span>))  
+plt.plot([x1,x2],[y1,y2],<span class="string">'r'</span>)
+plt.scatter(x[:,<span class="number">0</span>],x[:,<span class="number">1</span>],marker=<span class="string">'o'</span>,c=y,s=<span class="number">50</span>)
+plt.xlabel(<span class="string">'x1'</span>)
+plt.ylabel(<span class="string">'x2'</span>)
+plt.show()
+</code></pre>
+<p>&emsp;&emsp;因为这里的两个样本区分度太明显，所以经过几次迭代就已经收敛了。最终求得参数$w=[1.03972853 \  0.97360177] ,b=0$，根据参数$(w,b)$画出的直线如下图所示：<div align="center"><img src="http://i.imgur.com/WftOMnU.png" alt=""></div><br>完美地将两个不同的样本分隔开！</p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>&emsp;&emsp;感知机模型假设训练数据集是线性可分的，如果线性不可分，算法会一直震荡无法收敛，所以其无法处理一些复杂的数据，如在分类器中提到的图二和图三。考虑到实际业务的数据一般比较复杂，简单的感知机模型无法有效地处理如此复杂的数据，所以在建模中很少会使用该模型。但是感知机模型还是比较重要的，为什么这么说呢，因为只要稍微修改下模型的损失函数，感知机模型就可转变为广受欢迎的分类神器：支持向量机，而通过简单的堆叠可演变为神经网络模型。</p>
 
       
 
@@ -234,11 +277,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
         		</li>
       		
 		</ul>
@@ -294,7 +333,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/posts/2017/03/13/WeChat_Article1.html" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/posts/2017/08/01/perceptron_model.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -308,18 +347,9 @@
   
 <nav id="article-nav">
   
-    <a href="/posts/2017/03/15/TF-IDF.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          TF-IDF原理及应用
-        
-      </div>
-    </a>
   
-  
-    <a href="/posts/2017/03/05/blog.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">博客的搭建</div>
+    <a href="/posts/2017/03/15/TF-IDF.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">TF-IDF原理及应用</div>
       <i class="icon-circle-right"></i>
     </a>
   
