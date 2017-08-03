@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-08-02T14:07:12.688Z</updated>
+  <updated>2017-08-03T01:29:36.188Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/posts/2017/08/01/perceptron_model.html"/>
     <id>http://yoursite.com/posts/2017/08/01/perceptron_model.html</id>
     <published>2017-08-01T03:16:20.734Z</published>
-    <updated>2017-08-02T14:07:12.688Z</updated>
+    <updated>2017-08-03T01:29:36.188Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;刚从广发项目撤出来，未来几周应该都不会很忙，趁着闲暇时间整理一下机器学习方面的知识。<br>&emsp;&emsp;先从最简单的感知机模型说起。感知机是一种二分类的线性模型，其假设训练数据集是线性可分的，目标是找到一个能够将训练数据集的正样本和负样本完全正确分割开的分离超平面。其实，模型只要找到该分离超平面，学习目的就达到了，并不要求样本能被最大限度地划分。<br><a id="more"></a>   </p>
 <h1 id="分类器"><a href="#分类器" class="headerlink" title="分类器"></a>分类器</h1><p>&emsp;&emsp;分类器能够通过输入的特征向量映射到给定类别中的一个，也就是所谓的物以聚类人以群分。如下图一，蓝色直线将A和B完全分割开，那么该直线$y=ax+b$就是一个分类器。根据分类器是否线性可分的性质，分类器有线性分类器(图一)和非线性分类器（图二图三），从类别上，有二元分类器（图一）和多元分类器（两个类别以上，图二图三），而本章要讨论的感知机模型，就是一个二分类线性模型。<div align="center"><img src="http://i.imgur.com/jH3FvKL.png" alt=""></div>   </p>
@@ -80,7 +80,8 @@ plt.xlabel(<span class="string">'x1'</span>)
 plt.ylabel(<span class="string">'x2'</span>)
 plt.show()
 </code></pre>
-<p>&emsp;&emsp;因为这里的两个样本区分度太明显，所以经过几次迭代就已经收敛了。最终求得参数$w=[1.03972853 \  0.97360177] ,b=0$，根据参数$(w,b)$画出的直线如下图所示：<div align="center"><img src="http://i.imgur.com/WftOMnU.png" alt=""></div><br>完美地将两个不同的样本分隔开！</p>
+<p>&emsp;&emsp;因为这里的两个样本区分度太明显，所以经过几次迭代就已经收敛了。最终求得参数$w=[1.03972853 \  0.97360177] ,b=0$，根据参数$(w,b)$画出的直线如下图所示：<div align="center"><img src="http://i.imgur.com/WftOMnU.png" alt=""></div><br>&emsp;&emsp;选取不同的初始值$(w,b)$或者不同的误分类点，划分的超平面很有可能会不一样，这也就是为什么在线性可分数据集中，用感知机模型求出来的解有无穷多个。如下面直线$A,B,C$都可作为解。</p>
+<p><div align="center"> <img src="http://i.imgur.com/ibURFh2.png" alt=""></div> </p>
 <h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>&emsp;&emsp;感知机模型假设训练数据集是线性可分的，如果线性不可分，算法会一直震荡无法收敛，所以其无法处理一些复杂的数据，如在分类器中提到的图二和图三。考虑到实际业务的数据一般比较复杂，简单的感知机模型无法有效地处理如此复杂的数据，所以在建模中很少会使用该模型。但是感知机模型还是比较重要的，为什么这么说呢，因为只要稍微修改下模型的损失函数，感知机模型就可转变为广受欢迎的分类神器：支持向量机，而通过简单的堆叠可演变为神经网络模型。</p>
 ]]></content>
     
