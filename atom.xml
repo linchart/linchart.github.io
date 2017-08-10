@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-08-10T09:39:11.797Z</updated>
+  <updated>2017-08-10T14:15:11.875Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,20 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/posts/2017/08/10/SVM.html"/>
+    <id>http://yoursite.com/posts/2017/08/10/SVM.html</id>
+    <published>2017-08-10T14:15:11.873Z</published>
+    <updated>2017-08-10T14:15:11.875Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>梯度下降</title>
@@ -204,11 +218,11 @@ plt.show()
   </entry>
   
   <entry>
-    <title>爬取微信文章（一）</title>
+    <title>爬取微信文章</title>
     <link href="http://yoursite.com/posts/2017/03/13/WeChat_Article1.html"/>
     <id>http://yoursite.com/posts/2017/03/13/WeChat_Article1.html</id>
     <published>2017-03-13T09:59:18.349Z</published>
-    <updated>2017-03-14T08:05:48.201Z</updated>
+    <updated>2017-08-10T14:23:05.155Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;有时在微信公众号上面看到一些写的比较好的文章，但又没有时间细看，闲下来想找这些文章的时候又忘了是在哪个公众号看的了、文章名字也想不起来，因此想搞个爬虫把想看的文章爬下来，一来可以在闲时咀嚼一下，二来也可以收藏一些好文章，做些知识积累。<br><em>只是想把自己平常做的一些东西记录下来，非教程</em><br><a id="more"></a>   </p>
 <h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><ul>

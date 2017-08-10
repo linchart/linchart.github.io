@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/posts/2017/03/13/WeChat_Article1.html</loc>
+    
+    <lastmod>2017-08-10T14:23:05.155Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/posts/2017/08/10/SVM.html</loc>
+    
+    <lastmod>2017-08-10T14:15:11.875Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/posts/2017/08/07/Gradient_descent.html</loc>
     
     <lastmod>2017-08-10T09:39:11.797Z</lastmod>
@@ -19,13 +33,6 @@
     <loc>http://yoursite.com/posts/2017/03/15/TF-IDF.html</loc>
     
     <lastmod>2017-03-16T06:09:16.931Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/posts/2017/03/13/WeChat_Article1.html</loc>
-    
-    <lastmod>2017-03-14T08:05:48.201Z</lastmod>
     
   </url>
   
