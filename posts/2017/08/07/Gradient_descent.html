@@ -6,14 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: python | linchart</title>
+  <title>梯度下降 | linchart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="linchart">
-<meta property="og:url" content="http://yoursite.com/tags/python/index.html">
+  <meta name="description" content="&amp;emsp;&amp;emsp;李航在其《统计学习方法》中提到，机器学习的核心由三大块组成，分别为模型、策略、算法，其实说白了，机器学习就是一个模型 + 一个损失函数 + 一个最优化算法。损失函数是为了让模型能够更好地拟合或分类数据，最优化算法是用来优化损失函数的，而在机器学习中，最常用的最优化算法应该算梯度下降了，这篇文章就来讲讲梯度下降，探究下它是如何优化损失函数的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="梯度下降">
+<meta property="og:url" content="http://yoursite.com/posts/2017/08/07/Gradient_descent.html">
 <meta property="og:site_name" content="linchart">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;李航在其《统计学习方法》中提到，机器学习的核心由三大块组成，分别为模型、策略、算法，其实说白了，机器学习就是一个模型 + 一个损失函数 + 一个最优化算法。损失函数是为了让模型能够更好地拟合或分类数据，最优化算法是用来优化损失函数的，而在机器学习中，最常用的最优化算法应该算梯度下降了，这篇文章就来讲讲梯度下降，探究下它是如何优化损失函数的。">
+<meta property="og:image" content="http://i.imgur.com/dBpYr7I.png">
+<meta property="og:image" content="http://i.imgur.com/fjgYW4z.png">
+<meta property="og:image" content="http://i.imgur.com/WLUBgKm.png">
+<meta property="og:image" content="http://i.imgur.com/Gge2YPo.png">
+<meta property="og:image" content="http://i.imgur.com/MCvj18T.png">
+<meta property="og:image" content="http://i.imgur.com/rGou5cf.png">
+<meta property="og:image" content="http://i.imgur.com/eopLnnE.png">
+<meta property="og:image" content="http://i.imgur.com/XlxR2g8.png">
+<meta property="og:image" content="http://i.imgur.com/txXGQRl.png">
+<meta property="og:image" content="http://i.imgur.com/rdbGBMV.png">
+<meta property="og:image" content="http://i.imgur.com/4PAFFYu.png">
+<meta property="og:updated_time" content="2017-08-10T09:39:11.797Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linchart">
+<meta name="twitter:title" content="梯度下降">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;李航在其《统计学习方法》中提到，机器学习的核心由三大块组成，分别为模型、策略、算法，其实说白了，机器学习就是一个模型 + 一个损失函数 + 一个最优化算法。损失函数是为了让模型能够更好地拟合或分类数据，最优化算法是用来优化损失函数的，而在机器学习中，最常用的最优化算法应该算梯度下降了，这篇文章就来讲讲梯度下降，探究下它是如何优化损失函数的。">
+<meta name="twitter:image" content="http://i.imgur.com/dBpYr7I.png">
   
     <link rel="alternative" href="/atom.xml" title="linchart" type="application/atom+xml">
   
@@ -153,106 +169,197 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Gradient_descent" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/posts/2017/03/15/TF-IDF.html" class="archive-article-date">
-  	<time datetime="2017-03-15T09:36:24.153Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-15</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/posts/2017/03/15/TF-IDF.html">TF-IDF原理及应用</a>
+    <h1 class="article-title" itemprop="name">
+      梯度下降
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/posts/2017/08/07/Gradient_descent.html" class="archive-article-date">
+  	<time datetime="2017-08-07T08:19:01.063Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&emsp;&emsp;李航在其《统计学习方法》中提到，机器学习的核心由三大块组成，分别为模型、策略、算法，其实说白了，机器学习就是一个模型 + 一个损失函数 + 一个最优化算法。损失函数是为了让模型能够更好地拟合或分类数据，最优化算法是用来优化损失函数的，而在机器学习中，最常用的最优化算法应该算梯度下降了，这篇文章就来讲讲梯度下降，探究下它是如何优化损失函数的。<br><a id="more"></a>   </p>
+<h1 id="梯度下降原理"><a href="#梯度下降原理" class="headerlink" title="梯度下降原理"></a>梯度下降原理</h1><p>&emsp;&emsp;上文的感知机模型中有提到，梯度，其实就是求偏导，梯度下降就是沿着梯度的负方向移动。为了更直观地理解梯度下降，这里举一个网上的例子（实在想不出比这个更形象的解析了），比如我们现在站在山上的某个位置，如下图中的点A，目标是要最快速地下到山脚下，怎么一步一步走下去呢？我们可以选择往相对当前位置来说最陡峭的地方向下移动（也就是梯度的负方向），这样一直走到山脚。这个山脚有可能是整个大山的最低处（B点），也有可能是大山的局部低处（C或D点），这取决于我们移动的方向和幅度。这种情况下，梯度下降不一定能够找到全局最优解，有可能是一个局部最优解。  </p>
+<div align="center"> <img src="http://i.imgur.com/dBpYr7I.png" alt=""> </div><br>但如果是下面这个凸函数图，我们就一定可以移动到最低处，因为不管我们处于山上的哪一个位置，只要我们保持每次移动都是向下的，就一定能到达最低点。这种情况下，梯度下降法得到的解就一定是全局最优解。<br><div align="center"><img src="http://i.imgur.com/fjgYW4z.png" alt=""></div>   
+
+<h1 id="梯度下降算法"><a href="#梯度下降算法" class="headerlink" title="梯度下降算法"></a>梯度下降算法</h1><p>梯度下降算法如下（该算法摘抄自李航《统计学习方法》）：<br>输入：目标函数$f(x)$，梯度函数$g(x) = \nabla f(x)$，计算精度$\epsilon $<br>输出：$f(x)$的极小点$x^*$<br>&emsp;&emsp;(1) 取初始值$x^{(0)} \in R^n$，置$k=0$<br>&emsp;&emsp;(2) 计算$f(x^{(k)})$<br>&emsp;&emsp;(3) 计算梯度$g_k = g(x^{(k)})$，当$||g_k||&lt;\epsilon$时，停止迭代，令$x^* = x^{(k)}$；否则，令$p_k = -g(x^{(k)})$，求$\lambda_k　$使得$$f(x^{(k)}+ \lambda_k p_k) = min f(x^{(k)} + \lambda p_k) $$<br>&emsp;&emsp;(4) 置$x^{(k+1)} = x^{(k)} + \lambda_k p_k $，计算$f(x^{(k+1)})$，当$||f(x^{(k+1)}) - f(x^{(k)})|| &lt; \epsilon$ 或 $x^{(k+1)} - x^{(k)} &lt; \epsilon$时，停止迭代，令$x^* = x^{(k+1)}$<br>&emsp;&emsp;(5) 否则，令$k=k+1$，转$(3)$   </p>
+<p>&emsp;&emsp;这里的$p_k$是搜索方向，$\lambda_k$是步长。假设有一个损失函数$y = x^2 - 4*x - 5 $，目标是找到$x$的值使得$y$取最小值，使用梯度下降求解如下：    </p>
+<ul>
+<li>梯度<br>$$\nabla x = -(2*x - 4)$$  </li>
+<li>更新$x$的值<br>$$x \leftarrow x + \eta \nabla x $$   </li>
+</ul>
+<p>设$x$的初始值为10，学习速率$\eta$为0.2，则<br>第一次迭代：梯度$$\nabla x =-(2*10 - 4) = -16$$<br>&emsp;&emsp;$x$的值相应更新为$$ x = 10 - 0.2 * 16 = 6.8$$<br>&emsp;&emsp;对应的$y$值为$$y = 6.8*6.8 - 4*6.8 - 5 = 14.04$$<br>第二次迭代：梯度$$\nabla x =-(2*6.8 - 4) = -9.6$$<br>&emsp;&emsp;$x$的值相应更新为$$ x = 6.8 + 0.2 * （-9.6） = 4.88$$<br>&emsp;&emsp;对应的$y$值为$$y = 4.88*4.88 - 4*4.88 - 5 = -0.7056$$<br>&emsp;&emsp;如此循环迭代，直到达到指定迭代次数或者$y$值最优。这里一直迭代到第38次时，求得极小值$ y =-9.0$。因此，梯度下降就是一个不断沿着梯度的负方向移动直到达到局部或全局最优点的一个过程。</p>
+<div align="center"><img src="http://i.imgur.com/WLUBgKm.png" alt=""></div>
+
+<h1 id="梯度下降的三种形式"><a href="#梯度下降的三种形式" class="headerlink" title="梯度下降的三种形式"></a>梯度下降的三种形式</h1><p>梯度下降算法可以分为以下三种：</p>
+<ul>
+<li>批量梯度下降法(Batch Gradient Descent)   </li>
+<li>随机梯度下降法(Stochastic Gradient Descent)   </li>
+<li>小批量梯度下降法(Mini-batch Gradient Descent)   </li>
+</ul>
+<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><p>&emsp;&emsp;为了更好地阐明这三种方式的本质与区别，这里以线性回归模型为例。对于任意一个线性方程，我们可以写成以下形式：$$h_\theta (x)= \theta_0 + \theta_1 x_1 + \theta_2 x_2 + …+\theta_n x_n$$ 这里的$(\theta_0,\theta_1,…,\theta_n)$为参数，也称为权重。假设现在有一堆数据$X=(x^0,x^1,x^2,…,x^m)$以及对应的$y$值$Y=(y^0,y^1,y^2,…,y^m)$。我们的目标是要找到参数$(\theta_0,\theta_1,…,\theta_n)$使得$y$值与theta（符号theta在这里硬是显示不出来，我也是醉了）值尽可能地接近。这里用h_theta(x)与y的平方误差作为损失函数来评估h_theta(x)与y值的接近程度。<div align="center"><img src="http://i.imgur.com/Gge2YPo.png" alt=""></div><br>有了损失函数之后，我们就可以来聊一聊这三种梯度下降的形式了。   </p>
+<h2 id="批量梯度下降法"><a href="#批量梯度下降法" class="headerlink" title="批量梯度下降法"></a>批量梯度下降法</h2><blockquote>
+<p>批量梯度下降法每次迭代都需要用到全量的训练数据，优化过程比较耗时。   </p>
+</blockquote>
+<p>&emsp;&emsp;前面我们已经知道了梯度下降其实就是对参数求偏导，然后沿着梯度的负方向去更新参数。对于上面的损失函数$J(\theta)$，我们随机初始化权重$\theta$，然后重复执行以下更新：$$\theta_j:=\theta_j + (-\alpha \frac{\partial}{\partial\theta_j}J(\theta))$$<br>&emsp;&emsp;这里的$\theta_j:$是指分别对$j=0,1,2,…,n$个参数求偏导。$\alpha$指学习速率，代表每次向着$J(\theta)$最陡峭的方向移动的步幅。从上面公式可以看到，为了更新参数$\theta_j:$，式子右边的$\frac{\partial}{\partial\theta_j}J(\theta))$我们还没有知道的。当我们只有一个数据点$(x,y)$的时候，$J$的偏导数：   </p>
+<p><div align="center"><img src="http://i.imgur.com/MCvj18T.png" alt=""></div><br>因此，对于单个训练样本，其更新规则为：<div align="center"><img src="http://i.imgur.com/rGou5cf.png" alt=""></div><br>对于所有的训练样本，累加上述损失函数的偏导为：<div align="center"><img src="http://i.imgur.com/eopLnnE.png" alt=""></div><br>于是，每个参数的更新规则就变成为：<div align="center"><img src="http://i.imgur.com/XlxR2g8.png" alt=""></div><br>&emsp;&emsp;从上面公式可以清楚看到，参数的每一次更新（迭代）都要用到全量训练数据（下图红色框位置）<div align="center"><img src="http://i.imgur.com/txXGQRl.png" alt=""></div><br>&emsp;&emsp;这种更新方式，在迭代过程中，参数的方差是最小的，收敛的过程也是最稳定的，但是如果训练数据量$m$很大，批量梯度下降将会是一个非常耗时的过程。</p>
+<h2 id="随机梯度下降法"><a href="#随机梯度下降法" class="headerlink" title="随机梯度下降法"></a>随机梯度下降法</h2><blockquote>
+<p>随机梯度下降法的每次更新，是随机对一个样本求梯度并更新相应的参数。  </p>
+</blockquote>
+<p>&emsp;&emsp;从上面批量梯度下降法的求解过程可以看到，对于一个样本的损失函数，其对应参数的更新方式为：<div align="center"><img src="http://i.imgur.com/rdbGBMV.png" alt=""></div><br>&emsp;&emsp;这种做法在面对大数据集时不会出现冗余，能够进行快速的迭代。因为每次仅迭代一个样本，随机梯度下降法求解极值的过程，并不是总是向着整体最优的方向迭代的，参数的方差变化很大，收敛很不稳定，相比批量梯度下降会更加曲折，因此准确率相对于批量梯度下降法会有所下降。   </p>
+<h2 id="小批量梯度下降法"><a href="#小批量梯度下降法" class="headerlink" title="小批量梯度下降法"></a>小批量梯度下降法</h2><blockquote>
+<p>小批量梯度下降法每次更新参数，仅使用一小部分的训练数据进行迭代   </p>
+</blockquote>
+<p>&emsp;&emsp;使用批量梯度下降法准确率很高，但是效率低，随机梯度下降法效率高，但是准确率低，而小批量梯度下降法算是批量下降法和随机梯度下降法的一种折衷，其集合了前面两种下降方法的优势，具体操作过程如下：</p>
+<p><div align="center"><img src="http://i.imgur.com/4PAFFYu.png" alt=""></div><br>&emsp;&emsp;这里的$n$一般会选一个很小的数，比如10或者100，这样的话，在迭代过程中，参数值的方差不至于太大，收敛的过程会更加稳定。</p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>&emsp;&emsp;在机器学习中，梯度下降法通常用于优化损失函数，优化的过程，是沿着梯度的负方向不断逼近极值。从第二点‘梯度下降算法’里的实例图可以看到，一开始算法的下降速度很快，但是在极值附近时，算法的收敛速度很慢，比如在第二点的例子，在第四次迭代时已经逼近极小值了，但是在第38次迭代才解出极小值。另外，步长$\alpha$的选取很关键，步长过程可能会达不到极值点，甚至有可能发散，步长过短会导致收敛速度很慢。<br>&emsp;&emsp;批量梯度下降法每次迭代都用到所有训练数据，准确度高同时复杂度也高；随机梯度下降法每次迭代随机选取一个数据样本进行更新，准确度不高，复杂度较低；小批量梯度下降法集合了前面两种下降方法的优势，训练复杂度较低，精确度也较高。<br>&emsp;&emsp;最后，不得不吐槽下，markdown编辑公式真的是非常非常非常蛋疼。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>你要请我大保健吗？<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="\img\Alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="\img\wechat.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">最优化</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/posts/2017/08/07/Gradient_descent.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/posts/2017/03/13/WeChat_Article1.html" class="archive-article-date">
-  	<time datetime="2017-03-13T09:59:18.349Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-13</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/posts/2017/03/13/WeChat_Article1.html">爬取微信文章（一）</a>
-    </h1>
+  
+    <a href="/posts/2017/08/01/perceptron_model.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">感知机模型</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -275,9 +382,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",

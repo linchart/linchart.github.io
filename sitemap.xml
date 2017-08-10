@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/posts/2017/08/07/Gradient_descent.html</loc>
+    
+    <lastmod>2017-08-10T09:39:11.797Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/posts/2017/08/01/perceptron_model.html</loc>
     
     <lastmod>2017-08-03T01:29:36.188Z</lastmod>
