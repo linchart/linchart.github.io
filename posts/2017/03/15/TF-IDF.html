@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://i.imgur.com/B1xMUhQ.png">
 <meta property="og:image" content="http://i.imgur.com/oTT2Zpz.png">
 <meta property="og:image" content="http://i.imgur.com/4jhJzZI.png">
-<meta property="og:updated_time" content="2017-08-14T07:04:39.286Z">
+<meta property="og:updated_time" content="2017-08-14T07:10:46.416Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TF-IDF原理及应用">
 <meta name="twitter:description" content="你说广州塔，我知道是在广州，你说黄果树瀑布，我知道是在贵州，你说布达拉宫，我知道是在拉萨，你说公交车，我都不知道你在说哪个城市的公交车。这就是TF-IDF。
@@ -187,7 +187,7 @@
         <p>你说广州塔，我知道是在广州，你说黄果树瀑布，我知道是在贵州，你说布达拉宫，我知道是在拉萨，你说公交车，我都不知道你在说哪个城市的公交车。这就是<a href="https://zh.wikipedia.org/wiki/Tf-idf" target="_blank" rel="external">TF-IDF</a>。</p>
 <h1 id="概念及原理"><a href="#概念及原理" class="headerlink" title="概念及原理"></a>概念及原理</h1><p><a href="https://zh.wikipedia.org/wiki/Tf-idf" target="_blank" rel="external">TF-IDF</a>全称Term Frequency and Inverse Document Frequency，直译过来就是’词频-逆向文件频率’，’TF’是指某一个给定的词语在该文件中出现的频率，’IDF’是指总文件数除以包含该词的文件数，再取对数。<a href="https://zh.wikipedia.org/wiki/Tf-idf" target="_blank" rel="external">TF-IDF</a>一般用来评估在一堆语料库或一堆文件集中，某个字词对于该语料库或该文件的重要程度。怎么理解呢，举个例子，假设现在手上有10篇文章，‘水果’这个词在某一篇文章出现的频率很高，但是在这10篇文章中的仅有2篇文章提到，那么‘水果’这个词的<a href="https://zh.wikipedia.org/wiki/Tf-idf" target="_blank" rel="external">TF-IDF</a>会很高，如果10篇文章中有8篇提到‘水果’这个词，那么这个词的‘<a href="https://zh.wikipedia.org/wiki/Tf-idf" target="_blank" rel="external">TF-IDF</a>’会相对偏低。主要思想就是，一个词越能将一篇文章与其他文章区分开来，那么这个词的权重越高。<br><a id="more"></a></p>
 <h1 id="计算公式"><a href="#计算公式" class="headerlink" title="计算公式"></a>计算公式</h1><h2 id="TF计算："><a href="#TF计算：" class="headerlink" title="TF计算："></a>TF计算：</h2><p><img src="http://i.imgur.com/B1xMUhQ.png" alt=""> </p>
-<p>（markdown编辑数学公式还不怎么熟，先用mathtype搞好再截图吧）比如上面的例子，’水果’，’硬盘’在文章1中出现的次数分别为2次，4次，那么:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">TF(水果) = 2/10 = 0.2   </div><div class="line">TF(硬盘) = 4/10 = 0.4</div></pre></td></tr></table></figure></p>
+<p>（markdown编辑数学公式还不怎么熟，先用mathtype搞好再截图吧）比如上面的例子，’水果’，’硬盘’在文章1（共有10个词）中出现的次数分别为2次，4次，那么:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">TF(水果) = 2/10 = 0.2   </div><div class="line">TF(硬盘) = 4/10 = 0.4</div></pre></td></tr></table></figure></p>
 <h2 id="IDF计算："><a href="#IDF计算：" class="headerlink" title="IDF计算："></a>IDF计算：</h2><p><img src="http://i.imgur.com/oTT2Zpz.png" alt=""></p>
 <p>如果这10篇文章中，有2篇文章包含有’水果’这个词，有5篇包含’硬盘’这个词，那么：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">IDF(水果) = <span class="built_in">log</span>(10/2) = 1.6094   </div><div class="line">IDF(硬盘) = <span class="built_in">log</span>(10/5) = 0.6931</div></pre></td></tr></table></figure></p>
 <h2 id="TF-IDF计算"><a href="#TF-IDF计算" class="headerlink" title="TF-IDF计算"></a>TF-IDF计算</h2><p>算好TF和IDF之后，就可以计算’水果’和’硬盘’的<a href="https://zh.wikipedia.org/wiki/Tf-idf" target="_blank" rel="external">TF-IDF</a>了，只需要将TF和IDF相乘就ok。<br><img src="http://i.imgur.com/4jhJzZI.png" alt=""><br>所以’水果’的TF-IDF为：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">0.2*1.6094</div></pre></td></tr></table></figure></p>
@@ -473,10 +473,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">最优化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
@@ -486,6 +482,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NLP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">最优化</a>
               </li>
             
             <div class="clearfix"></div>
