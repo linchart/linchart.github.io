@@ -6,14 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>linchart</title>
+  <title>支持向量机（二） | linchart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="linchart">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="&amp;emsp;&amp;emsp;上一篇对线性支持向量机的原理做了推导，这个推导的前提跟感知机模型一样，假设训练样本是线性可分的，也就是存在一个超平面能够将正负样本完全分隔开，但是这种假设在实际项目中存在的可能性跟国足挺进世界杯的可能性是一样一样的。   
+软间隔&amp;emsp;&amp;emsp;上一篇文章中提到的间隔，严格来说应该称之为“硬间隔”，因为该间隔存在的前提是所有训练样本都要满足约束条件$y_i(w^Tx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="支持向量机（二）">
+<meta property="og:url" content="http://yoursite.com/posts/2017/09/02/SVM2.html">
 <meta property="og:site_name" content="linchart">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;上一篇对线性支持向量机的原理做了推导，这个推导的前提跟感知机模型一样，假设训练样本是线性可分的，也就是存在一个超平面能够将正负样本完全分隔开，但是这种假设在实际项目中存在的可能性跟国足挺进世界杯的可能性是一样一样的。   
+软间隔&amp;emsp;&amp;emsp;上一篇文章中提到的间隔，严格来说应该称之为“硬间隔”，因为该间隔存在的前提是所有训练样本都要满足约束条件$y_i(w^Tx">
+<meta property="og:image" content="https://i.imgur.com/28gricA.png">
+<meta property="og:image" content="https://i.imgur.com/kCVPfCt.png">
+<meta property="og:image" content="https://i.imgur.com/YDxHHzl.png">
+<meta property="og:updated_time" content="2017-09-14T16:17:51.606Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linchart">
+<meta name="twitter:title" content="支持向量机（二）">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;上一篇对线性支持向量机的原理做了推导，这个推导的前提跟感知机模型一样，假设训练样本是线性可分的，也就是存在一个超平面能够将正负样本完全分隔开，但是这种假设在实际项目中存在的可能性跟国足挺进世界杯的可能性是一样一样的。   
+软间隔&amp;emsp;&amp;emsp;上一篇文章中提到的间隔，严格来说应该称之为“硬间隔”，因为该间隔存在的前提是所有训练样本都要满足约束条件$y_i(w^Tx">
+<meta name="twitter:image" content="https://i.imgur.com/28gricA.png">
   
     <link rel="alternative" href="/atom.xml" title="linchart" type="application/atom+xml">
   
@@ -153,245 +164,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-softmax" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-SVM2" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/2017/09/03/softmax.html">softmax</a>
-    </h1>
-  
-
-        
-        <a href="/posts/2017/09/03/softmax.html" class="archive-article-date">
-  	<time datetime="2017-09-03T07:35:43.317Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&emsp;&emsp;上一篇讲了逻辑回归的由来，在分类问题上，逻辑回归是一个二分类模型，而实际的项目中有可能需要处理一些多分类的问题（比如经典的MNIST），这时候如果使用二分类模型去处理多分类问题，会相对麻烦，这里介绍一种处理多分类问题的简单模型-<a href="https://zh.wikipedia.org/wiki/Softmax%E5%87%BD%E6%95%B0">softmax</a>。softmax相当于做了一个归一化的工作，让强者相对更强，弱者相对更弱。<br>
-        
-          <a class="article-more-a" href="/posts/2017/09/03/softmax.html#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">监督学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">对数线性模型</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">广义线性模型</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">多分类模型</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/posts/2017/09/03/softmax.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-logistic" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/2017/09/02/logistic.html">逻辑回归</a>
-    </h1>
-  
-
-        
-        <a href="/posts/2017/09/02/logistic.html" class="archive-article-date">
-  	<time datetime="2017-09-02T02:11:02.897Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&emsp;&emsp;逻辑回归（Logistic Regression）是一个非常经典的回归模型，在神经网络里作为激活函数时也称为sigmoid函数。逻辑回归模型既可以处理线性分类问题也可以处理非线性分类问题，但其本质上是一个线性模型。作为机器学习入门级模型，该模型既简单又强大，在现实中有着广泛应用，比如国外成熟的信用卡评分模型就是基于逻辑回归模型建立的。<br>
-        
-          <a class="article-more-a" href="/posts/2017/09/02/logistic.html#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">分类模型</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">监督学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">对数线性模型</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">广义线性模型</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/posts/2017/09/02/logistic.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-SVM3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/2017/09/02/SVM3.html">支持向量机（三）</a>
-    </h1>
-  
-
-        
-        <a href="/posts/2017/09/02/SVM3.html" class="archive-article-date">
-  	<time datetime="2017-09-02T01:47:45.236Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">分类模型</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">监督学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/posts/2017/09/02/SVM3.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-SVM2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/2017/09/02/SVM2.html">支持向量机（二）</a>
+    <h1 class="article-title" itemprop="name">
+      支持向量机（二）
     </h1>
   
 
@@ -415,77 +195,36 @@
       
 
       
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">分类模型</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">监督学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/posts/2017/09/02/SVM2.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-SVM" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/2017/08/10/SVM.html">支持向量机（一）</a>
-    </h1>
-  
-
-        
-        <a href="/posts/2017/08/10/SVM.html" class="archive-article-date">
-  	<time datetime="2017-08-10T14:15:11.873Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&emsp;&emsp;支持向量机(Support Vector Machines, SVM)在实际应用中，算是一大分类神器了。原始的支持向量机是一种线性二分类模型，当支持向量机使用一些核技巧之后，可以从本质上变成非线性分类器。区别于感知机模型，线性可分支持向量机利用间隔（两个不同类的支持向量到超平面的距离）最大化求最优分离超平面，求得的解是唯一的。<br>
-        
-          <a class="article-more-a" href="/posts/2017/08/10/SVM.html#more">more >></a>
-        
-      
-
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>你要请我大保健吗？<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="\img\Alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="\img\wechat.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -513,18 +252,83 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/posts/2017/08/10/SVM.html">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/posts/2017/09/02/SVM2.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
-
+  
+<nav id="article-nav">
+  
+    <a href="/posts/2017/09/02/SVM3.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          支持向量机（三）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/posts/2017/08/10/SVM.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">支持向量机（一）</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
 
@@ -532,348 +336,10 @@
 
 
   
-    <article id="post-Gradient_descent" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/2017/08/07/Gradient_descent.html">梯度下降</a>
-    </h1>
+    <div class="duoshuo"></div>
   
 
-        
-        <a href="/posts/2017/08/07/Gradient_descent.html" class="archive-article-date">
-  	<time datetime="2017-08-07T08:19:01.063Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&emsp;&emsp;李航在其《统计学习方法》中提到，机器学习的核心由三大块组成，分别为模型、策略、算法，其实说白了，机器学习就是一个模型 + 一个损失函数 + 一个最优化算法。损失函数是为了让模型能够更好地拟合或分类数据，最优化算法是用来优化损失函数的，而在机器学习中，最常用的最优化算法应该算梯度下降了，这篇文章就来讲讲梯度下降，探究下它是如何优化损失函数的。<br>
-        
-          <a class="article-more-a" href="/posts/2017/08/07/Gradient_descent.html#more">more >></a>
-        
-      
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">最优化</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/posts/2017/08/07/Gradient_descent.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-perceptron_model" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/2017/08/01/perceptron_model.html">感知机模型</a>
-    </h1>
-  
-
-        
-        <a href="/posts/2017/08/01/perceptron_model.html" class="archive-article-date">
-  	<time datetime="2017-08-01T03:16:20.734Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&emsp;&emsp;刚从广发项目撤出来，未来几周应该都不会很忙，趁着闲暇时间整理一下机器学习方面的知识。<br>&emsp;&emsp;先从最简单的感知机模型说起。感知机是一种二分类的线性模型，其假设训练数据集是线性可分的，目标是找到一个能够将训练数据集的正样本和负样本完全正确分割开的分离超平面。其实，模型只要找到该分离超平面，学习目的就达到了，并不要求样本能被最大限度地划分。<br>
-        
-          <a class="article-more-a" href="/posts/2017/08/01/perceptron_model.html#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">分类模型</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">监督学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/posts/2017/08/01/perceptron_model.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-TF-IDF" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/2017/03/15/TF-IDF.html">TF-IDF原理及应用</a>
-    </h1>
-  
-
-        
-        <a href="/posts/2017/03/15/TF-IDF.html" class="archive-article-date">
-  	<time datetime="2017-03-15T09:36:24.153Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>你说广州塔，我知道是在广州，你说黄果树瀑布，我知道是在贵州，你说布达拉宫，我知道是在拉萨，你说公交车，我都不知道你在说哪个城市的公交车。这就是<a href="https://zh.wikipedia.org/wiki/Tf-idf">TF-IDF</a>。</p>
-<h1 id="概念及原理"><a href="#概念及原理" class="headerlink" title="概念及原理"></a>概念及原理</h1><p><a href="https://zh.wikipedia.org/wiki/Tf-idf">TF-IDF</a>全称Term Frequency and Inverse Document Frequency，直译过来就是’词频-逆向文件频率’，’TF’是指某一个给定的词语在该文件中出现的频率，’IDF’是指总文件数除以包含该词的文件数，再取对数。<a href="https://zh.wikipedia.org/wiki/Tf-idf">TF-IDF</a>一般用来评估在一堆语料库或一堆文件集中，某个字词对于该语料库或该文件的重要程度。怎么理解呢，举个例子，假设现在手上有10篇文章，‘水果’这个词在某一篇文章出现的频率很高，但是在这10篇文章中的仅有2篇文章提到，那么‘水果’这个词的<a href="https://zh.wikipedia.org/wiki/Tf-idf">TF-IDF</a>会很高，如果10篇文章中有8篇提到‘水果’这个词，那么这个词的‘<a href="https://zh.wikipedia.org/wiki/Tf-idf">TF-IDF</a>’会相对偏低。主要思想就是，一个词越能将一篇文章与其他文章区分开来，那么这个词的权重越高。<br>
-        
-          <a class="article-more-a" href="/posts/2017/03/15/TF-IDF.html#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/posts/2017/03/15/TF-IDF.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-WeChat_Article1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/2017/03/13/WeChat_Article1.html">爬取微信文章</a>
-    </h1>
-  
-
-        
-        <a href="/posts/2017/03/13/WeChat_Article1.html" class="archive-article-date">
-  	<time datetime="2017-03-13T09:59:18.349Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&emsp;&emsp;有时在微信公众号上面看到一些写的比较好的文章，但又没有时间细看，闲下来想找这些文章的时候又忘了是在哪个公众号看的了、文章名字也想不起来，因此想搞个爬虫把想看的文章爬下来，一来可以在闲时咀嚼一下，二来也可以收藏一些好文章，做些知识积累。<br><em>只是想把自己平常做的一些东西记录下来，非教程</em><br>
-        
-          <a class="article-more-a" href="/posts/2017/03/13/WeChat_Article1.html#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/posts/2017/03/13/WeChat_Article1.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-blog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/2017/03/05/blog.html">博客的搭建</a>
-    </h1>
-  
-
-        
-        <a href="/posts/2017/03/05/blog.html" class="archive-article-date">
-  	<time datetime="2017-03-04T18:08:32.626Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p>这个博客的搭建，完全得益于<a href="https://zhangslob.github.io/2017/02/28/%E6%95%99%E4%BD%A0%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%EF%BC%8CHexo-Github/">教你免费搭建个人博客，Hexo&amp;Github</a>和<a href="http://www.jianshu.com/p/1cd86fac2585">使用GitHub和Hexo搭建免费静态Blog</a>这两篇文章，非常详细地描述了基于hexo+github搭建个人博客的准备工作及安装和配置流程。<br>
-        
-          <a class="article-more-a" href="/posts/2017/03/05/blog.html#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/其他/" class="article-tag-list-link color3">其他</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/posts/2017/03/05/blog.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-  
 
 
           </div>
@@ -895,8 +361,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

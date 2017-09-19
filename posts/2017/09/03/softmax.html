@@ -6,14 +6,39 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>linchart</title>
+  <title>softmax | linchart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="linchart">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="&amp;emsp;&amp;emsp;上一篇讲了逻辑回归的由来，在分类问题上，逻辑回归是一个二分类模型，而实际的项目中有可能需要处理一些多分类的问题（比如经典的MNIST），这时候如果使用二分类模型去处理多分类问题，会相对麻烦，这里介绍一种处理多分类问题的简单模型-softmax。softmax相当于做了一个归一化的工作，让强者相对更强，弱者相对更弱。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="softmax">
+<meta property="og:url" content="http://yoursite.com/posts/2017/09/03/softmax.html">
 <meta property="og:site_name" content="linchart">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;上一篇讲了逻辑回归的由来，在分类问题上，逻辑回归是一个二分类模型，而实际的项目中有可能需要处理一些多分类的问题（比如经典的MNIST），这时候如果使用二分类模型去处理多分类问题，会相对麻烦，这里介绍一种处理多分类问题的简单模型-softmax。softmax相当于做了一个归一化的工作，让强者相对更强，弱者相对更弱。">
+<meta property="og:image" content="https://i.imgur.com/yTTGVJg.png">
+<meta property="og:image" content="https://i.imgur.com/j17i1nv.png">
+<meta property="og:image" content="https://i.imgur.com/ir9jE10.png">
+<meta property="og:image" content="https://i.imgur.com/oMxFahJ.png">
+<meta property="og:image" content="https://i.imgur.com/VZjY1Dj.png">
+<meta property="og:image" content="https://i.imgur.com/gXyMkFx.png">
+<meta property="og:image" content="https://i.imgur.com/GO6DwZR.png">
+<meta property="og:image" content="https://i.imgur.com/lgeu369.png">
+<meta property="og:image" content="https://i.imgur.com/Wm0WbO3.png">
+<meta property="og:image" content="https://i.imgur.com/CP4NAIL.png">
+<meta property="og:image" content="https://i.imgur.com/WPVnzVN.png">
+<meta property="og:image" content="https://i.imgur.com/PVvowO3.png">
+<meta property="og:image" content="https://i.imgur.com/AKfeo3C.png">
+<meta property="og:image" content="https://i.imgur.com/hbh5E4H.png">
+<meta property="og:image" content="https://i.imgur.com/1U9QI1q.png">
+<meta property="og:image" content="https://i.imgur.com/VIef1f9.png">
+<meta property="og:image" content="https://i.imgur.com/u9zVvpo.png">
+<meta property="og:image" content="https://i.imgur.com/z4v1gM6.png">
+<meta property="og:image" content="https://i.imgur.com/5BIYhy0.png">
+<meta property="og:image" content="https://i.imgur.com/qzGUwzb.png">
+<meta property="og:updated_time" content="2017-09-09T06:58:59.115Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linchart">
+<meta name="twitter:title" content="softmax">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;上一篇讲了逻辑回归的由来，在分类问题上，逻辑回归是一个二分类模型，而实际的项目中有可能需要处理一些多分类的问题（比如经典的MNIST），这时候如果使用二分类模型去处理多分类问题，会相对麻烦，这里介绍一种处理多分类问题的简单模型-softmax。softmax相当于做了一个归一化的工作，让强者相对更强，弱者相对更弱。">
+<meta name="twitter:image" content="https://i.imgur.com/yTTGVJg.png">
   
     <link rel="alternative" href="/atom.xml" title="linchart" type="application/atom+xml">
   
@@ -153,16 +178,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-softmax" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-softmax" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/2017/09/03/softmax.html">softmax</a>
+    <h1 class="article-title" itemprop="name">
+      softmax
     </h1>
   
 
@@ -175,12 +198,65 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&emsp;&emsp;上一篇讲了逻辑回归的由来，在分类问题上，逻辑回归是一个二分类模型，而实际的项目中有可能需要处理一些多分类的问题（比如经典的MNIST），这时候如果使用二分类模型去处理多分类问题，会相对麻烦，这里介绍一种处理多分类问题的简单模型-<a href="https://zh.wikipedia.org/wiki/Softmax%E5%87%BD%E6%95%B0">softmax</a>。softmax相当于做了一个归一化的工作，让强者相对更强，弱者相对更弱。<br>
-        
-          <a class="article-more-a" href="/posts/2017/09/03/softmax.html#more">more >></a>
-        
+        <p>&emsp;&emsp;上一篇讲了逻辑回归的由来，在分类问题上，逻辑回归是一个二分类模型，而实际的项目中有可能需要处理一些多分类的问题（比如经典的MNIST），这时候如果使用二分类模型去处理多分类问题，会相对麻烦，这里介绍一种处理多分类问题的简单模型-<a href="https://zh.wikipedia.org/wiki/Softmax%E5%87%BD%E6%95%B0" target="_blank" rel="external">softmax</a>。softmax相当于做了一个归一化的工作，让强者相对更强，弱者相对更弱。<br><a id="more"></a>   </p>
+<h1 id="模型推导"><a href="#模型推导" class="headerlink" title="模型推导"></a>模型推导</h1><p>&emsp;&emsp;softmax模型是逻辑回归模型的推广，逻辑回归模型是softmax模型的一个特例，这两者都算是<a href="https://zh.wikipedia.org/wiki/%E5%BB%A3%E7%BE%A9%E7%B7%9A%E6%80%A7%E6%A8%A1%E5%9E%8B" target="_blank" rel="external">广义线性模型(Generalized Linear Model,GLM)</a>。广义线性模型假设在给定属性$x$和参数$\theta$之后，类别$y$的条件概率$p(y|x;\theta)$服从指数分布族，它是长这样子的：$$P(y;\eta)=b(y)exp(\eta^TT(y) - a(\eta))$$<br>下面就是根据类别的联合分布概率密度搞成上面公式的样子。假设现在有$k$种分类$y \in (1,2,…,k)$的数据，对于每一条观测（样本）都有一个对应的类别，假设每种分类对应的概率是$(p_1,p_2,…,p_k)$，那么所有类别的概率之和就是：</p>
+<p><div align="center"><img src="https://i.imgur.com/yTTGVJg.png" alt=""></div><br>则第$k$类的概率也可以写成：</p>
+<p><div align="center"><img src="https://i.imgur.com/j17i1nv.png" alt=""></div><br>对于多分类，可以把类别写成编码向量的形式，向量的第$i$个位置为1，表示第$i$个类别，向量的其他位置为0。比如有5个分类，类别1可以表示成$(1,0,0,0,0)$，类别2可以表示成$(0,1,0,0,0)$。因为第$k$类可以用前$k-1$类表示，所以可以用$k-1$维向量$T(y)$表示类别。</p>
+<p><div align="center"><img src="https://i.imgur.com/ir9jE10.png" alt=""></div><br>用函数$\mu(y=i)=1$表示第$y=i$为真，当$y=i$为假时，有$\mu(y=i)=0$。这样就可以将所有了类别的概率整合起来：<br>$$P(y;p)=p_1^{\mu(y=1)}p_2^{\mu(y=2)}…p_k^{\mu(y=k)}$$<br>因为第$k$类可以用前$k-1$类表示，所以上面的式子可以写成：</p>
+<p><div align="center"><img src="https://i.imgur.com/oMxFahJ.png" alt=""></div><br>当$y=1$时，$P(y;\eta)=p_1$，当$y=2$时，$P(y;\eta)=p_2$，以此类推。再用向量$T(y)$表示，就变成了：</p>
+<p><div align="center"><img src="https://i.imgur.com/VZjY1Dj.png" alt=""></div><br>将上面式子的右边，写成下面这种形式：</p>
+<p><div align="center"><img src="https://i.imgur.com/gXyMkFx.png" alt=""></div><br>也就是先取对数，再将结果作为$e$的指数（整个推导过程中，最关键的技巧就是在这里了），然后稍微做下推导，就变成这样子：</p>
+<p><div align="center"><img src="https://i.imgur.com/GO6DwZR.png" alt=""></div><br>然后，另：$b(y)=1$，以及$a(\eta)=-lnp_k$，还有$\eta$：</p>
+<p><div align="center"><img src="https://i.imgur.com/lgeu369.png" alt=""></div><br>上面的公式就可以写成（终于凑成了指数分布族的形式）：</p>
+<p><div align="center"><img src="https://i.imgur.com/Wm0WbO3.png" alt=""></div><br>由于</p>
+<p><div align="center"><img src="https://i.imgur.com/CP4NAIL.png" alt=""></div><br>因为</p>
+<p><div align="center"><img src="https://i.imgur.com/WPVnzVN.png" alt=""></div><br>所以</p>
+<p><div align="center"><img src="https://i.imgur.com/PVvowO3.png" alt=""></div><br>所以：</p>
+<p><div align="center"><img src="https://i.imgur.com/AKfeo3C.png" alt=""></div><br>再根据$p_i=p_ke^{\eta_i}$，可以得到:</p>
+<p><div align="center"><img src="https://i.imgur.com/hbh5E4H.png" alt=""></div><br>再令$\eta = w^Tx+b$，所以对于类别$i$，其概率可以表示成：</p>
+<p><div align="center"><img src="https://i.imgur.com/1U9QI1q.png" alt=""></div><br>&emsp;&emsp;softmax模型推导到这里已经算是结束了。<br>&emsp;&emsp;我们再来看看，为什么说softmax相当于做了一个归一化的工作，让强者相对更强，弱者相对更弱。先看归一化，很简单，分母其实就是将分子从$1$到$k$累加起来，所以对于任意的$p_i$都有$p_i \in [0,1]$。对于后者，softmax相当于做了一个拉大差距的工作，假设已经算好$w^Tx+b$就是以下几个值$[5,4,3,2,1]$，根据公式计算出来的对应的softmax值为$[0.636, 0.234, 0.086, 0.032, 0.012]$，可以看到，各个数之间的相对差距拉的更远了，所以softmax能够很好地凸显较大的数值。   </p>
+<h1 id="似然函数"><a href="#似然函数" class="headerlink" title="似然函数"></a>似然函数</h1><p>&emsp;&emsp;像上篇逻辑回归一样，继续使用对数似然函数去估计参数。对于单个样本，当然是命中样本实际类别的概率越大越好。   </p>
+<p><div align="center"><img src="https://i.imgur.com/VIef1f9.png" alt=""></div><br>这里$x^{(i)}$表示第$i$个样本，相对应的,$y^(i)$表示第$i$个样本对应的类别。<br>同理，对于所有的样本，也是希望命中样本实际类别的概率越大越好，然后再取个对数（这里为了方便书写公式，将$w^Tx+b$写成$\theta^T x$），这样就有：</p>
+<p><div align="center"><img src="https://i.imgur.com/u9zVvpo.png" alt=""></div>   </p>
+<h1 id="最优化"><a href="#最优化" class="headerlink" title="最优化"></a>最优化</h1><p>&emsp;&emsp;搞定了代价函数，剩下的工作就是求解参数了，一般可以使用梯度下降（上升）或者是牛顿迭代法来求解，这里以梯度下降（转化成求极小值）为例（梯度上升的话就是直接求解上面公式的极大值）。<br>&emsp;&emsp;因为公式会写的比较长，这里为了方便，将$w^Tx+b$写成$\theta ^Tx$的形式（都毕业了，还要把微积分捡回来，也是蛋疼）。<br>&emsp;&emsp;首先是求导，在求导之前，先放两个需要用到的公式，这样整个求导过程会更加清晰。对于对数和分数的求导有下面两个公式：</p>
+<p><div align="center"><img src="https://i.imgur.com/z4v1gM6.png" alt=""></div><br>对第$l$类的参数$\theta _l$进行求导，所以就会有：</p>
+<p><div align="center"><img src="https://i.imgur.com/5BIYhy0.png" alt=""></div><br>然后通过梯度上升更新参数：</p>
+<p><div align="center"><img src="https://i.imgur.com/qzGUwzb.png" alt=""></div><br>这里的$\alpha$为学习率。   </p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>哈哈</p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>你要请我大保健吗？<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="\img\Alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="\img\wechat.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -216,18 +292,74 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/posts/2017/09/03/softmax.html">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/posts/2017/09/03/softmax.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
-
+  
+<nav id="article-nav">
+  
+  
+    <a href="/posts/2017/09/02/logistic.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">逻辑回归</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
 
@@ -235,645 +367,10 @@
 
 
   
-    <article id="post-logistic" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/2017/09/02/logistic.html">逻辑回归</a>
-    </h1>
+    <div class="duoshuo"></div>
   
 
-        
-        <a href="/posts/2017/09/02/logistic.html" class="archive-article-date">
-  	<time datetime="2017-09-02T02:11:02.897Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&emsp;&emsp;逻辑回归（Logistic Regression）是一个非常经典的回归模型，在神经网络里作为激活函数时也称为sigmoid函数。逻辑回归模型既可以处理线性分类问题也可以处理非线性分类问题，但其本质上是一个线性模型。作为机器学习入门级模型，该模型既简单又强大，在现实中有着广泛应用，比如国外成熟的信用卡评分模型就是基于逻辑回归模型建立的。<br>
-        
-          <a class="article-more-a" href="/posts/2017/09/02/logistic.html#more">more >></a>
-        
-      
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">分类模型</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">监督学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">对数线性模型</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">广义线性模型</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/posts/2017/09/02/logistic.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-SVM3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/2017/09/02/SVM3.html">支持向量机（三）</a>
-    </h1>
-  
-
-        
-        <a href="/posts/2017/09/02/SVM3.html" class="archive-article-date">
-  	<time datetime="2017-09-02T01:47:45.236Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">分类模型</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">监督学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/posts/2017/09/02/SVM3.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-SVM2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/2017/09/02/SVM2.html">支持向量机（二）</a>
-    </h1>
-  
-
-        
-        <a href="/posts/2017/09/02/SVM2.html" class="archive-article-date">
-  	<time datetime="2017-09-02T01:46:27.994Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&emsp;&emsp;上一篇对线性支持向量机的原理做了推导，这个推导的前提跟感知机模型一样，假设训练样本是线性可分的，也就是存在一个超平面能够将正负样本完全分隔开，但是这种假设在实际项目中存在的可能性跟国足挺进世界杯的可能性是一样一样的。   </p>
-<h1 id="软间隔"><a href="#软间隔" class="headerlink" title="软间隔"></a>软间隔</h1><p>&emsp;&emsp;上一篇文章中提到的间隔，严格来说应该称之为“硬间隔”，因为该间隔存在的前提是所有训练样本都要满足约束条件$y_i(w^Tx_i+b) \geq 1$，但是对于下图中的两类样本点，线性支持向量机并不适用，因为没办法在不映射到高维的情况下找到一条直线能把两个类别分隔开。   </p>
-<p><div align="center"><img src="https://i.imgur.com/28gricA.png" alt=""></div><br>&emsp;&emsp;如果使用感知机的话，模型会无法收敛，并且找到的超平面有可能效果还可以也有可能很差。上图两个类别之间，混淆的样本点其实不多，总不能因为几颗芝麻就丢了西瓜吧。那么有没有办法使得支持向量机“容忍”这些不多的样本点出错，而保证绝大部分的样本点被正确分类呢，其中一个办法就是使用“软间隔”，允许某些样本<strong>不满足</strong>约束条件$y_i(w^Tx_i+b) \geq 1$，也就是让某些样本点满足条件$y_i(w^Tx_i+b) &lt; 1$   </p>
-<p><div align="center"><img src="https://i.imgur.com/kCVPfCt.png" alt=""></div></p>
-<h1 id="软间隔最大化"><a href="#软间隔最大化" class="headerlink" title="软间隔最大化"></a>软间隔最大化</h1><p>为了获得最佳的划分超平面，还需要找出对应的损失函数来衡量划分超平面的效果。一方面，对于支持向量及以外的点，可以继续使用上一篇介绍的间隔最大化$\frac{2}{||w||}$来评估，也就是$min \frac{1}{2}||w||^2$；另一方面，对于支持向量内的点，没办法满足间隔大于等于1的约束条件，这种情况下，可以考虑引入松弛变量$\xi _i$ （其中$ \xi _i \geq 0$），使得函数间隔在加上松弛变量之后大于等于1，也就是：$$y_i(w^Tx_i+b) + \xi _i \geq 1 $$<br>将$\xi _i$挪到右边：$$y_i(w^Tx_i+b) \geq 1 -\xi _i $$<br>同时对于误分类的点，给它一个惩罚因子(cost)，用字母$C$表示（$C \geq 0$），用来衡量误分类的代价，这样损失函数就变成了：</p>
-<p><div align="center"><img src="https://i.imgur.com/YDxHHzl.png" alt=""></div><br>显然，对于惩罚因子$C$，当$C$无穷大时，表明只要有一个样本点是特异点的话就需要付出无限的代价，上面式子趋向于无穷大，这时将会使得所有的样本点都满足式子$y_i(w^Tx_i+b) \geq 1 $，这样的话软间隔最大化问题就变成硬间隔最大化问题（或者说是线性支持向量问题），但是由于给定的数据不是线性可分的，这样就会导致问题没有解。</p>
-<p>我们需要最大化间隔区间。由于在支持向量之间存在一些特异点，没办法像线性支持向量机一样直接最大化间隔$\frac{2}{||w||}$。为了解决这个问题，可以对每个样本点都引入一个“松弛变量”$\xi _i$</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">分类模型</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">监督学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/posts/2017/09/02/SVM2.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-SVM" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/2017/08/10/SVM.html">支持向量机（一）</a>
-    </h1>
-  
-
-        
-        <a href="/posts/2017/08/10/SVM.html" class="archive-article-date">
-  	<time datetime="2017-08-10T14:15:11.873Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&emsp;&emsp;支持向量机(Support Vector Machines, SVM)在实际应用中，算是一大分类神器了。原始的支持向量机是一种线性二分类模型，当支持向量机使用一些核技巧之后，可以从本质上变成非线性分类器。区别于感知机模型，线性可分支持向量机利用间隔（两个不同类的支持向量到超平面的距离）最大化求最优分离超平面，求得的解是唯一的。<br>
-        
-          <a class="article-more-a" href="/posts/2017/08/10/SVM.html#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">分类模型</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">监督学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/posts/2017/08/10/SVM.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-Gradient_descent" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/2017/08/07/Gradient_descent.html">梯度下降</a>
-    </h1>
-  
-
-        
-        <a href="/posts/2017/08/07/Gradient_descent.html" class="archive-article-date">
-  	<time datetime="2017-08-07T08:19:01.063Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&emsp;&emsp;李航在其《统计学习方法》中提到，机器学习的核心由三大块组成，分别为模型、策略、算法，其实说白了，机器学习就是一个模型 + 一个损失函数 + 一个最优化算法。损失函数是为了让模型能够更好地拟合或分类数据，最优化算法是用来优化损失函数的，而在机器学习中，最常用的最优化算法应该算梯度下降了，这篇文章就来讲讲梯度下降，探究下它是如何优化损失函数的。<br>
-        
-          <a class="article-more-a" href="/posts/2017/08/07/Gradient_descent.html#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">最优化</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/posts/2017/08/07/Gradient_descent.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-perceptron_model" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/2017/08/01/perceptron_model.html">感知机模型</a>
-    </h1>
-  
-
-        
-        <a href="/posts/2017/08/01/perceptron_model.html" class="archive-article-date">
-  	<time datetime="2017-08-01T03:16:20.734Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&emsp;&emsp;刚从广发项目撤出来，未来几周应该都不会很忙，趁着闲暇时间整理一下机器学习方面的知识。<br>&emsp;&emsp;先从最简单的感知机模型说起。感知机是一种二分类的线性模型，其假设训练数据集是线性可分的，目标是找到一个能够将训练数据集的正样本和负样本完全正确分割开的分离超平面。其实，模型只要找到该分离超平面，学习目的就达到了，并不要求样本能被最大限度地划分。<br>
-        
-          <a class="article-more-a" href="/posts/2017/08/01/perceptron_model.html#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">分类模型</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">监督学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/posts/2017/08/01/perceptron_model.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-TF-IDF" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/2017/03/15/TF-IDF.html">TF-IDF原理及应用</a>
-    </h1>
-  
-
-        
-        <a href="/posts/2017/03/15/TF-IDF.html" class="archive-article-date">
-  	<time datetime="2017-03-15T09:36:24.153Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>你说广州塔，我知道是在广州，你说黄果树瀑布，我知道是在贵州，你说布达拉宫，我知道是在拉萨，你说公交车，我都不知道你在说哪个城市的公交车。这就是<a href="https://zh.wikipedia.org/wiki/Tf-idf">TF-IDF</a>。</p>
-<h1 id="概念及原理"><a href="#概念及原理" class="headerlink" title="概念及原理"></a>概念及原理</h1><p><a href="https://zh.wikipedia.org/wiki/Tf-idf">TF-IDF</a>全称Term Frequency and Inverse Document Frequency，直译过来就是’词频-逆向文件频率’，’TF’是指某一个给定的词语在该文件中出现的频率，’IDF’是指总文件数除以包含该词的文件数，再取对数。<a href="https://zh.wikipedia.org/wiki/Tf-idf">TF-IDF</a>一般用来评估在一堆语料库或一堆文件集中，某个字词对于该语料库或该文件的重要程度。怎么理解呢，举个例子，假设现在手上有10篇文章，‘水果’这个词在某一篇文章出现的频率很高，但是在这10篇文章中的仅有2篇文章提到，那么‘水果’这个词的<a href="https://zh.wikipedia.org/wiki/Tf-idf">TF-IDF</a>会很高，如果10篇文章中有8篇提到‘水果’这个词，那么这个词的‘<a href="https://zh.wikipedia.org/wiki/Tf-idf">TF-IDF</a>’会相对偏低。主要思想就是，一个词越能将一篇文章与其他文章区分开来，那么这个词的权重越高。<br>
-        
-          <a class="article-more-a" href="/posts/2017/03/15/TF-IDF.html#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NLP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/posts/2017/03/15/TF-IDF.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-WeChat_Article1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/2017/03/13/WeChat_Article1.html">爬取微信文章</a>
-    </h1>
-  
-
-        
-        <a href="/posts/2017/03/13/WeChat_Article1.html" class="archive-article-date">
-  	<time datetime="2017-03-13T09:59:18.349Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&emsp;&emsp;有时在微信公众号上面看到一些写的比较好的文章，但又没有时间细看，闲下来想找这些文章的时候又忘了是在哪个公众号看的了、文章名字也想不起来，因此想搞个爬虫把想看的文章爬下来，一来可以在闲时咀嚼一下，二来也可以收藏一些好文章，做些知识积累。<br><em>只是想把自己平常做的一些东西记录下来，非教程</em><br>
-        
-          <a class="article-more-a" href="/posts/2017/03/13/WeChat_Article1.html#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/posts/2017/03/13/WeChat_Article1.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-blog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/2017/03/05/blog.html">博客的搭建</a>
-    </h1>
-  
-
-        
-        <a href="/posts/2017/03/05/blog.html" class="archive-article-date">
-  	<time datetime="2017-03-04T18:08:32.626Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p>这个博客的搭建，完全得益于<a href="https://zhangslob.github.io/2017/02/28/%E6%95%99%E4%BD%A0%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%EF%BC%8CHexo-Github/">教你免费搭建个人博客，Hexo&amp;Github</a>和<a href="http://www.jianshu.com/p/1cd86fac2585">使用GitHub和Hexo搭建免费静态Blog</a>这两篇文章，非常详细地描述了基于hexo+github搭建个人博客的准备工作及安装和配置流程。<br>
-        
-          <a class="article-more-a" href="/posts/2017/03/05/blog.html#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/其他/" class="article-tag-list-link color3">其他</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/posts/2017/03/05/blog.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-  
 
 
           </div>
@@ -895,8 +392,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

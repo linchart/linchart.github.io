@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-09-01T16:34:15.910Z</updated>
+  <updated>2017-09-09T06:58:59.115Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,158 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>softmax</title>
+    <link href="http://yoursite.com/posts/2017/09/03/softmax.html"/>
+    <id>http://yoursite.com/posts/2017/09/03/softmax.html</id>
+    <published>2017-09-03T07:35:43.317Z</published>
+    <updated>2017-09-09T06:58:59.115Z</updated>
+    
+    <content type="html"><![CDATA[<p>&emsp;&emsp;上一篇讲了逻辑回归的由来，在分类问题上，逻辑回归是一个二分类模型，而实际的项目中有可能需要处理一些多分类的问题（比如经典的MNIST），这时候如果使用二分类模型去处理多分类问题，会相对麻烦，这里介绍一种处理多分类问题的简单模型-<a href="https://zh.wikipedia.org/wiki/Softmax%E5%87%BD%E6%95%B0" target="_blank" rel="external">softmax</a>。softmax相当于做了一个归一化的工作，让强者相对更强，弱者相对更弱。<br><a id="more"></a>   </p>
+<h1 id="模型推导"><a href="#模型推导" class="headerlink" title="模型推导"></a>模型推导</h1><p>&emsp;&emsp;softmax模型是逻辑回归模型的推广，逻辑回归模型是softmax模型的一个特例，这两者都算是<a href="https://zh.wikipedia.org/wiki/%E5%BB%A3%E7%BE%A9%E7%B7%9A%E6%80%A7%E6%A8%A1%E5%9E%8B" target="_blank" rel="external">广义线性模型(Generalized Linear Model,GLM)</a>。广义线性模型假设在给定属性$x$和参数$\theta$之后，类别$y$的条件概率$p(y|x;\theta)$服从指数分布族，它是长这样子的：$$P(y;\eta)=b(y)exp(\eta^TT(y) - a(\eta))$$<br>下面就是根据类别的联合分布概率密度搞成上面公式的样子。假设现在有$k$种分类$y \in (1,2,…,k)$的数据，对于每一条观测（样本）都有一个对应的类别，假设每种分类对应的概率是$(p_1,p_2,…,p_k)$，那么所有类别的概率之和就是：</p>
+<p><div align="center"><img src="https://i.imgur.com/yTTGVJg.png" alt=""></div><br>则第$k$类的概率也可以写成：</p>
+<p><div align="center"><img src="https://i.imgur.com/j17i1nv.png" alt=""></div><br>对于多分类，可以把类别写成编码向量的形式，向量的第$i$个位置为1，表示第$i$个类别，向量的其他位置为0。比如有5个分类，类别1可以表示成$(1,0,0,0,0)$，类别2可以表示成$(0,1,0,0,0)$。因为第$k$类可以用前$k-1$类表示，所以可以用$k-1$维向量$T(y)$表示类别。</p>
+<p><div align="center"><img src="https://i.imgur.com/ir9jE10.png" alt=""></div><br>用函数$\mu(y=i)=1$表示第$y=i$为真，当$y=i$为假时，有$\mu(y=i)=0$。这样就可以将所有了类别的概率整合起来：<br>$$P(y;p)=p_1^{\mu(y=1)}p_2^{\mu(y=2)}…p_k^{\mu(y=k)}$$<br>因为第$k$类可以用前$k-1$类表示，所以上面的式子可以写成：</p>
+<p><div align="center"><img src="https://i.imgur.com/oMxFahJ.png" alt=""></div><br>当$y=1$时，$P(y;\eta)=p_1$，当$y=2$时，$P(y;\eta)=p_2$，以此类推。再用向量$T(y)$表示，就变成了：</p>
+<p><div align="center"><img src="https://i.imgur.com/VZjY1Dj.png" alt=""></div><br>将上面式子的右边，写成下面这种形式：</p>
+<p><div align="center"><img src="https://i.imgur.com/gXyMkFx.png" alt=""></div><br>也就是先取对数，再将结果作为$e$的指数（整个推导过程中，最关键的技巧就是在这里了），然后稍微做下推导，就变成这样子：</p>
+<p><div align="center"><img src="https://i.imgur.com/GO6DwZR.png" alt=""></div><br>然后，另：$b(y)=1$，以及$a(\eta)=-lnp_k$，还有$\eta$：</p>
+<p><div align="center"><img src="https://i.imgur.com/lgeu369.png" alt=""></div><br>上面的公式就可以写成（终于凑成了指数分布族的形式）：</p>
+<p><div align="center"><img src="https://i.imgur.com/Wm0WbO3.png" alt=""></div><br>由于</p>
+<p><div align="center"><img src="https://i.imgur.com/CP4NAIL.png" alt=""></div><br>因为</p>
+<p><div align="center"><img src="https://i.imgur.com/WPVnzVN.png" alt=""></div><br>所以</p>
+<p><div align="center"><img src="https://i.imgur.com/PVvowO3.png" alt=""></div><br>所以：</p>
+<p><div align="center"><img src="https://i.imgur.com/AKfeo3C.png" alt=""></div><br>再根据$p_i=p_ke^{\eta_i}$，可以得到:</p>
+<p><div align="center"><img src="https://i.imgur.com/hbh5E4H.png" alt=""></div><br>再令$\eta = w^Tx+b$，所以对于类别$i$，其概率可以表示成：</p>
+<p><div align="center"><img src="https://i.imgur.com/1U9QI1q.png" alt=""></div><br>&emsp;&emsp;softmax模型推导到这里已经算是结束了。<br>&emsp;&emsp;我们再来看看，为什么说softmax相当于做了一个归一化的工作，让强者相对更强，弱者相对更弱。先看归一化，很简单，分母其实就是将分子从$1$到$k$累加起来，所以对于任意的$p_i$都有$p_i \in [0,1]$。对于后者，softmax相当于做了一个拉大差距的工作，假设已经算好$w^Tx+b$就是以下几个值$[5,4,3,2,1]$，根据公式计算出来的对应的softmax值为$[0.636, 0.234, 0.086, 0.032, 0.012]$，可以看到，各个数之间的相对差距拉的更远了，所以softmax能够很好地凸显较大的数值。   </p>
+<h1 id="似然函数"><a href="#似然函数" class="headerlink" title="似然函数"></a>似然函数</h1><p>&emsp;&emsp;像上篇逻辑回归一样，继续使用对数似然函数去估计参数。对于单个样本，当然是命中样本实际类别的概率越大越好。   </p>
+<p><div align="center"><img src="https://i.imgur.com/VIef1f9.png" alt=""></div><br>这里$x^{(i)}$表示第$i$个样本，相对应的,$y^(i)$表示第$i$个样本对应的类别。<br>同理，对于所有的样本，也是希望命中样本实际类别的概率越大越好，然后再取个对数（这里为了方便书写公式，将$w^Tx+b$写成$\theta^T x$），这样就有：</p>
+<p><div align="center"><img src="https://i.imgur.com/u9zVvpo.png" alt=""></div>   </p>
+<h1 id="最优化"><a href="#最优化" class="headerlink" title="最优化"></a>最优化</h1><p>&emsp;&emsp;搞定了代价函数，剩下的工作就是求解参数了，一般可以使用梯度下降（上升）或者是牛顿迭代法来求解，这里以梯度下降（转化成求极小值）为例（梯度上升的话就是直接求解上面公式的极大值）。<br>&emsp;&emsp;因为公式会写的比较长，这里为了方便，将$w^Tx+b$写成$\theta ^Tx$的形式（都毕业了，还要把微积分捡回来，也是蛋疼）。<br>&emsp;&emsp;首先是求导，在求导之前，先放两个需要用到的公式，这样整个求导过程会更加清晰。对于对数和分数的求导有下面两个公式：</p>
+<p><div align="center"><img src="https://i.imgur.com/z4v1gM6.png" alt=""></div><br>对第$l$类的参数$\theta _l$进行求导，所以就会有：</p>
+<p><div align="center"><img src="https://i.imgur.com/5BIYhy0.png" alt=""></div><br>然后通过梯度上升更新参数：</p>
+<p><div align="center"><img src="https://i.imgur.com/qzGUwzb.png" alt=""></div><br>这里的$\alpha$为学习率。   </p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>哈哈</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;emsp;&amp;emsp;上一篇讲了逻辑回归的由来，在分类问题上，逻辑回归是一个二分类模型，而实际的项目中有可能需要处理一些多分类的问题（比如经典的MNIST），这时候如果使用二分类模型去处理多分类问题，会相对麻烦，这里介绍一种处理多分类问题的简单模型-&lt;a href=&quot;https://zh.wikipedia.org/wiki/Softmax%E5%87%BD%E6%95%B0&quot;&gt;softmax&lt;/a&gt;。softmax相当于做了一个归一化的工作，让强者相对更强，弱者相对更弱。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="监督学习" scheme="http://yoursite.com/tags/%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="对数线性模型" scheme="http://yoursite.com/tags/%E5%AF%B9%E6%95%B0%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/"/>
+    
+      <category term="广义线性模型" scheme="http://yoursite.com/tags/%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/"/>
+    
+      <category term="多分类模型" scheme="http://yoursite.com/tags/%E5%A4%9A%E5%88%86%E7%B1%BB%E6%A8%A1%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>逻辑回归</title>
+    <link href="http://yoursite.com/posts/2017/09/02/logistic.html"/>
+    <id>http://yoursite.com/posts/2017/09/02/logistic.html</id>
+    <published>2017-09-02T02:11:02.897Z</published>
+    <updated>2017-09-02T21:40:01.552Z</updated>
+    
+    <content type="html"><![CDATA[<p>&emsp;&emsp;逻辑回归（Logistic Regression）是一个非常经典的回归模型，在神经网络里作为激活函数时也称为sigmoid函数。逻辑回归模型既可以处理线性分类问题也可以处理非线性分类问题，但其本质上是一个线性模型。作为机器学习入门级模型，该模型既简单又强大，在现实中有着广泛应用，比如国外成熟的信用卡评分模型就是基于逻辑回归模型建立的。<br><a id="more"></a>   </p>
+<h1 id="模型推导"><a href="#模型推导" class="headerlink" title="模型推导"></a>模型推导</h1><p>&emsp;&emsp;线性模型试图通过属性间的线性组合来预测目标值，它的模型形式是这样的：$$y=w_1x_1+w_2x_2+…+w_dx_d+b$$<br>其中$x_i,  i\in (1,2,…,d)$表示$x$在第$i$个属性上的取值。上式表示成向量的形式就是：$$y=w^Tx+b$$<br>其中$w=(w_1;w_2;…;w_3)$。<br>&emsp;&emsp;在二维平面上，线性回归模型，其实就是一条直线，再来看下另外一个函数$y=e^x$。<div align="center"><img src="https://i.imgur.com/FvaFjR8.png" alt=""></div><br>不难看出对数函数和线性函数都是单调的，那么肯定可以找到一个映射函数使得对于直线上的任意一个点$y=w^Tx+b$，都能在函数$y=e^x$上找到唯一的一个点与之相对应。对于函数$y=e^x$不妨令：$$x \leftarrow w^Tx+b$$则有$y=e^{w^Tx+b}$，两边取对数之后，就有$lny=w^Tx+b$。</p>
+<p><div align="center"><img src="https://i.imgur.com/zfjSPxA.png" alt=""></div><br>给定数据集$D= \{ (x_1,y_1),(x_2,y_2),…,(x_m,y_m) \} $，其中 $y_i \in \{0,1\}$。我们可以用概率$p,p \in [0,1]$来表示样本$x$被判为$y=1$时的可能性，$p$值越大，代表$x$被归为正样本$y=1$的可能性越大，也就是$p(y=1|x)$的概率为$p$，那么对应的$p(y=0|x)$的概率就是$1-p$，这两者的比值$$\frac{p}{1-p}$$称为“几率”也有些家伙会称它为“优势比”。<br>这个时候，我们再回到取对数之后的等式：$lny=w^Tx+b$，令$y=\frac{p}{1-p}$，可以将等式转化为：$$ln\frac{p}{1-p}=w^Tx+b$$ 同时将等式两边的值作为指数，以$e$为底，可以得到：$$\frac{p}{1-p} = e^{w^Tx+b}$$ 稍微处理一下就可以推导出经典的逻辑回归模型:<div align="center"><img src="https://i.imgur.com/LLuWYHk.png" alt=""></div><br>也就是说，对于$y=1$，我们有$$p(y=1|x)=\frac {e^{w^Tx+b}}{1+e^{w^Tx+b}}$$<br>对于$y=0$，我们有$$p(y=0|x)=\frac {1}{1+e^{w^Tx+b}}$$<br>为了看的更舒服一点，令$z=w^Tx+b$，分子分母再同时除以$e^z$，则模型写成以下形式：$$f(z)=\frac {1}{1+e^{-z}}$$<br>上面的等式其实是一个单调“S”形函数，$f(z)$的取值在$(0,1)$之间，当$z$取值越大时，$f(z)$越接近于1，反之，当$z$取值越小时，$f(z)$越接近于0，当$z=0$时，$f(z)=0.5$。<div align="center"><img src="https://i.imgur.com/zmzPE1t.png" alt=""></div><br>其工作方式是，当$z&gt;0$时，对应的样本被判为正类$y=1$，当$z&lt;0$时，对应的样本被判为负类$y=0$，当$z=0$时，可视情况将样本归为任意类别。   </p>
+<h1 id="线性and非线性"><a href="#线性and非线性" class="headerlink" title="线性and非线性"></a>线性and非线性</h1><p>为什么逻辑回归模型，既可以解决线性分类，也可以解决部分非线性分类问题呢？这里举两个例子。   </p>
+<h2 id="线性分类"><a href="#线性分类" class="headerlink" title="线性分类"></a>线性分类</h2><p>假设有$y \in \{0,1\}$两类样本，如下图，存在一条直线$f(x_1,x_2)=\frac{1}{2}x_1-x_2+1$（我随便写的）能把这两类样本完全分割开，也就是对于所有的$y=1$有$f(x_1,x_2)&gt;0$，对于所有的$y=0$有$f(x_1,x_2)&lt;0$。   </p>
+<p><div align="center"><img src="https://i.imgur.com/U543AYa.png" alt=""></div><br>我们将$f(x_1,x_2)$代入逻辑回归模型，就会有：$$f(f(x_1,x_2))=\frac {1}{1+e^{-f(x_1,x_2)}}$$<br>显然，根据刚才提到的逻辑回归的工作方式，当$f(x_1,x_2)&gt;0$时，逻辑回归函数的取值$f(f(x_1,x_2))&gt;0.5$，也就是说，样本$(x_1,x_2)$被判为正类的可能性更大，相对应地，当$f(x_1,x_2)&lt;0$时，逻辑回归函数的取值$f(f(x_1,x_2))&lt;0.5$，样本$(x_1,x_2)$被判为负类的可能性更大。   </p>
+<h2 id="非线性分类"><a href="#非线性分类" class="headerlink" title="非线性分类"></a>非线性分类</h2><p>&emsp;&emsp;同样，假设有$y \in \{0,1\}$两类样本，但是这两类样本在二维平面上不再线性可分，而是长成下面的样子。   </p>
+<p><div align="center"><img src="https://i.imgur.com/hz0Zzvq.png" alt=""></div><br>这个时候继续使用直线一刀切地划分显然是不行的（当然，你可以将样本映射到高维空间，然后寻找划分超平面这两类样本分隔开）。但是我们可以找到这样的一个圆（如下图），能把正负样本完全分隔开，假设关于这个圆的函数是$(x1-4)^2+(x2-3)^2=0$（还是随便写的）。   </p>
+<p><div align="center"><img src="https://i.imgur.com/wGa2z5I.png" alt=""></div><br>函数$(x1-4)^2+(x2-3)^2&gt;0$时，代表样本点位于圆的外面，此时有$y=1$，把函数代入逻辑回归模型，会有$f(x)&gt;0.5$，此时样本$(x_1,x_2)$被判为正类的可能性更大。同样地，函数$(x1-4)^2+(x2-3)^2&lt;0$时，代表样本点位于圆的里面，此时有$y=0$，把函数代入逻辑回归模型，会有$f(x)&lt;0.5$，此时样本$(x_1,x_2)$被判为负类的可能性更大。<br>&emsp;&emsp;因此，逻辑回归模型能够很好地处理线性分类以及部分非线性分类问题。   </p>
+<h1 id="极大似然估计"><a href="#极大似然估计" class="headerlink" title="极大似然估计"></a>极大似然估计</h1><p>&emsp;&emsp;模型找出来了，但是参数$w$和$b$还没有求解，所以又到了寻找损失函数的时候了。在线性回归中，一般会使用均方误差（也叫最小二乘法）来衡量预测的好坏，该损失函数试图找到这样的一条直线，能够使得所有样本到直线上的距离之和最小，说白了就是用欧氏距离来衡量预测效果。</p>
+<p><div align="center"><img src="https://i.imgur.com/wd7PCwB.png" alt=""></div><br>&emsp;&emsp;用均方误差求解线性回归参数，是因为该损失函数是一个凸函数，凸函数有一个比较好的性质就是，局部极小点就是全局最小点，在达到全局最优的过程中不会经历太多的波折，更不会走到半路就以为是终点。<div align="center"><img src="https://i.imgur.com/fL6A9Bv.png" alt=""></div><br>不妨也试一下，使用均方误差来衡量逻辑回归模型的拟合效果如何，把上面的$h_ \theta(x)$换成逻辑回归的方程式可以得到：<div align="center"><img src="https://i.imgur.com/GsLNrEl.png" alt=""></div><br>很遗憾的是，这个函数是非凸的，它可能是长成这个样子的：<div align="center"><img src="https://i.imgur.com/X9sec3T.png" alt=""></div><br>这样的函数，在进行最优化求解时，函数值很有可能一直逗留在某些奇怪的地方比如图中红色的点，而没办法达到全局最优。<br>&emsp;&emsp;我们可以从概率的角度去思考，根据逻辑回归模型预测出来的概率值，肯定是离样本的真实标记越接近越好。比如对于正样本$x_1$，肯定是值$f(x_1)$越大越好，对于负样本$x_2$，值$f(x_2)$越小越好，因为值$f(x_2)$越小，样本$x_2$被判为负样本的可能性越大。<br>对所有训练样本，我们希望最大化其似然函数：</p>
+<p><div align="center"><img src="https://i.imgur.com/tt9pKjt.png" alt=""></div><br>当$y_i=1$时，$p$越大，$L(p)$越大。当$y_i=0$时，$p$越小，$L(p)$越大。对上式取对数之后，就得到对数似然函数：<div align="center"><img src="https://i.imgur.com/j0iIYfg.png" alt=""></div><br>这里的$p(y_i=1|x_i)$对我们来说还是未知的，想要求解参数$w$，还需要稍微推导下。在模型推导中，我们知道：$$p(y=1|x)=\frac {e^{w^Tx+b}}{1+e^{w^Tx+b}}$$<br>把这个等式代入到损失函数（对数似然函数）中：</p>
+<p><div align="center"><img src="https://i.imgur.com/d01eJlT.png" alt=""></div><br>这样就可以使用最优化方法来求解参数$w$了。对$L(w)$求极大值，就可以得到$w$的估计值。当然，也可以将对数似然函数写成以下形式，就变成求极小值：<div align="center"><img src="https://i.imgur.com/cyfV69c.png" alt=""></div></p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>哈哈</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;emsp;&amp;emsp;逻辑回归（Logistic Regression）是一个非常经典的回归模型，在神经网络里作为激活函数时也称为sigmoid函数。逻辑回归模型既可以处理线性分类问题也可以处理非线性分类问题，但其本质上是一个线性模型。作为机器学习入门级模型，该模型既简单又强大，在现实中有着广泛应用，比如国外成熟的信用卡评分模型就是基于逻辑回归模型建立的。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="分类模型" scheme="http://yoursite.com/tags/%E5%88%86%E7%B1%BB%E6%A8%A1%E5%9E%8B/"/>
+    
+      <category term="监督学习" scheme="http://yoursite.com/tags/%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="对数线性模型" scheme="http://yoursite.com/tags/%E5%AF%B9%E6%95%B0%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/"/>
+    
+      <category term="广义线性模型" scheme="http://yoursite.com/tags/%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>支持向量机（三）</title>
+    <link href="http://yoursite.com/posts/2017/09/02/SVM3.html"/>
+    <id>http://yoursite.com/posts/2017/09/02/SVM3.html</id>
+    <published>2017-09-02T01:47:45.236Z</published>
+    <updated>2017-09-02T01:48:13.222Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="分类模型" scheme="http://yoursite.com/tags/%E5%88%86%E7%B1%BB%E6%A8%A1%E5%9E%8B/"/>
+    
+      <category term="监督学习" scheme="http://yoursite.com/tags/%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>支持向量机（二）</title>
+    <link href="http://yoursite.com/posts/2017/09/02/SVM2.html"/>
+    <id>http://yoursite.com/posts/2017/09/02/SVM2.html</id>
+    <published>2017-09-02T01:46:27.994Z</published>
+    <updated>2017-09-14T16:17:51.606Z</updated>
+    
+    <content type="html"><![CDATA[<p>&emsp;&emsp;上一篇对线性支持向量机的原理做了推导，这个推导的前提跟感知机模型一样，假设训练样本是线性可分的，也就是存在一个超平面能够将正负样本完全分隔开，但是这种假设在实际项目中存在的可能性跟国足挺进世界杯的可能性是一样一样的。   </p>
+<h1 id="软间隔"><a href="#软间隔" class="headerlink" title="软间隔"></a>软间隔</h1><p>&emsp;&emsp;上一篇文章中提到的间隔，严格来说应该称之为“硬间隔”，因为该间隔存在的前提是所有训练样本都要满足约束条件$y_i(w^Tx_i+b) \geq 1$，但是对于下图中的两类样本点，线性支持向量机并不适用，因为没办法在不映射到高维的情况下找到一条直线能把两个类别分隔开。   </p>
+<p><div align="center"><img src="https://i.imgur.com/28gricA.png" alt=""></div><br>&emsp;&emsp;如果使用感知机的话，模型会无法收敛，并且找到的超平面有可能效果还可以也有可能很差。上图两个类别之间，混淆的样本点其实不多，总不能因为几颗芝麻就丢了西瓜吧。那么有没有办法使得支持向量机“容忍”这些不多的样本点出错，而保证绝大部分的样本点被正确分类呢，其中一个办法就是使用“软间隔”，允许某些样本<strong>不满足</strong>约束条件$y_i(w^Tx_i+b) \geq 1$，也就是让某些样本点满足条件$y_i(w^Tx_i+b) &lt; 1$   </p>
+<p><div align="center"><img src="https://i.imgur.com/kCVPfCt.png" alt=""></div></p>
+<h1 id="软间隔最大化"><a href="#软间隔最大化" class="headerlink" title="软间隔最大化"></a>软间隔最大化</h1><p>为了获得最佳的划分超平面，还需要找出对应的损失函数来衡量划分超平面的效果。一方面，对于支持向量及以外的点，可以继续使用上一篇介绍的间隔最大化$\frac{2}{||w||}$来评估，也就是$min \frac{1}{2}||w||^2$；另一方面，对于支持向量内的点，没办法满足间隔大于等于1的约束条件，这种情况下，可以考虑引入松弛变量$\xi _i$ （其中$ \xi _i \geq 0$），使得函数间隔在加上松弛变量之后大于等于1，也就是：$$y_i(w^Tx_i+b) + \xi _i \geq 1 $$<br>将$\xi _i$挪到右边：$$y_i(w^Tx_i+b) \geq 1 -\xi _i $$<br>同时对于误分类的点，给它一个惩罚因子(cost)，用字母$C$表示（$C \geq 0$），用来衡量误分类的代价，这样损失函数就变成了：</p>
+<p><div align="center"><img src="https://i.imgur.com/YDxHHzl.png" alt=""></div><br>显然，对于惩罚因子$C$，当$C$无穷大时，表明只要有一个样本点是特异点的话就需要付出无限的代价，上面式子趋向于无穷大，这时将会使得所有的样本点都满足式子$y_i(w^Tx_i+b) \geq 1 $，这样的话软间隔最大化问题就变成硬间隔最大化问题（或者说是线性支持向量问题），但是由于给定的数据不是线性可分的，这样就会导致问题没有解。</p>
+<p>我们需要最大化间隔区间。由于在支持向量之间存在一些特异点，没办法像线性支持向量机一样直接最大化间隔$\frac{2}{||w||}$。为了解决这个问题，可以对每个样本点都引入一个“松弛变量”$\xi _i$</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;emsp;&amp;emsp;上一篇对线性支持向量机的原理做了推导，这个推导的前提跟感知机模型一样，假设训练样本是线性可分的，也就是存在一个超平面能够将正负样本完全分隔开，但是这种假设在实际项目中存在的可能性跟国足挺进世界杯的可能性是一样一样的。   &lt;/p&gt;
+&lt;h1 id=&quot;软
+    
+    </summary>
+    
+    
+      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="分类模型" scheme="http://yoursite.com/tags/%E5%88%86%E7%B1%BB%E6%A8%A1%E5%9E%8B/"/>
+    
+      <category term="监督学习" scheme="http://yoursite.com/tags/%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
     <title>支持向量机（一）</title>
     <link href="http://yoursite.com/posts/2017/08/10/SVM.html"/>
     <id>http://yoursite.com/posts/2017/08/10/SVM.html</id>
     <published>2017-08-10T14:15:11.873Z</published>
-    <updated>2017-09-01T16:34:15.910Z</updated>
+    <updated>2017-09-03T15:50:17.914Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;支持向量机(Support Vector Machines, SVM)在实际应用中，算是一大分类神器了。原始的支持向量机是一种线性二分类模型，当支持向量机使用一些核技巧之后，可以从本质上变成非线性分类器。区别于感知机模型，线性可分支持向量机利用间隔（两个不同类的支持向量到超平面的距离）最大化求最优分离超平面，求得的解是唯一的。<br><a id="more"></a>   </p>
 <h1 id="感知机回顾"><a href="#感知机回顾" class="headerlink" title="感知机回顾"></a>感知机回顾</h1><p>&emsp;&emsp;从<a href="https://linchart.github.io/posts/2017/08/01/perceptron_model.html" target="_blank" rel="external">感知机模型</a>我们知道，感知机的目标是只要能找到一个将训练数据集的正样本和负样本完全正确分割开的分离超平面就可以了，并不要求样本能被最大限度地划分，但是这样的话会导致模型的泛化能力不强，比如下左图，直线Y能把A,B两类样本完全分割开，是感知机模型的一个解，如果我们用Y去预测未知的数据，如下右图，$a1,a2$两个数据点实际为类别A，但却被直线Y误判为B类，说明该直线对未知数据的泛化能力并不强。  </p>
@@ -36,7 +183,7 @@
 <p><div align="center"><img src="http://i.imgur.com/HNiyP6u.png" alt=""></div><br>我们的目标是让间隔尽量地大，这样划分超平面对未见数据的预测能力会更强，也就是希望：</p>
 <p><div align="center"><img src="http://i.imgur.com/3CtCrXa.png" alt=""></div><br>因为函数$\frac{2}{||w||}$的单调性与$\frac{1}{2} {||w||}^2$是相反的，所以，最大化$\frac{2}{||w||}$时，相当于最小化$\frac{1}{2} {||w||}^2$，这样，最优化问题可以转化为凸二次规划问题：</p>
 <p><div align="center"><img src="http://i.imgur.com/fveIwjw.png" alt=""></div><br>so，损失函数就这样被找出来了。</p>
-<h1 id="最优化"><a href="#最优化" class="headerlink" title="最优化"></a>最优化</h1><p>&emsp;&emsp;在求取有约束条件的最优化问题时，为了更容易求解，我们可以使用<a href="https://zh.wikipedia.org/wiki/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0" target="_blank" rel="external">拉格朗日乘子法</a>将其转化为原问题的对偶问题进行求解。也就是，对于上面式子的每条约束添加拉格朗日乘子$\alpha_i \geq 0$，对应的拉格朗日函数可以写为:<div align="center"><img src="http://i.imgur.com/TmaWsKK.png" alt=""></div><br>这里的$\alpha=(\alpha 1;\alpha 2;…;\alpha m)$，$\alpha 1$代表第一个不等式的拉格朗日乘子。成功避开约束条件之后，我们就可以更加便利地去求解极值了。对于函数$L(w,b,\alpha)$分别求参数$w$和$b$的偏导数，并令偏导数为0，可以得到：<div align="center"><img src="http://i.imgur.com/lgpPRj3.png" alt=""></div><br>把等式$w$代入到函数$L(w,b,\alpha)$:<div align="center"><img src="http://i.imgur.com/XbFF2vd.png" alt=""></div><br>因为<div align="center"><img src="http://i.imgur.com/HCvsZ1H.png" alt=""></div><br>所以可以把等式中的<div align="center"><img src="http://i.imgur.com/TuwthYm.png" alt=""></div>划掉。最后得到：<div align="center"><img src="http://i.imgur.com/E2xXoW4.png" alt=""></div><br>根据对偶问题的性质，也就是任何一个求极小值的线性规划问题都可以转化为求极大值的线性规划问题。所以，将上式转化成对偶问题：<div align="center"><img src="http://i.imgur.com/tu14PxE.png" alt=""></div><br>可以计算出：<div align="center"><img src="http://i.imgur.com/hWrZsqw.png" alt=""></div></p>
+<h1 id="最优化"><a href="#最优化" class="headerlink" title="最优化"></a>最优化</h1><p>&emsp;&emsp;在求取有约束条件的最优化问题时，为了更容易求解，我们可以使用<a href="https://zh.wikipedia.org/wiki/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0" target="_blank" rel="external">拉格朗日乘子法</a>将其转化为原问题的对偶问题进行求解。也就是，对于上面式子的每条约束添加拉格朗日乘子$\alpha_i \geq 0$，对应的拉格朗日函数可以写为:<div align="center"><img src="http://i.imgur.com/TmaWsKK.png" alt=""></div><br>这里的$\alpha=(\alpha 1;\alpha 2;…;\alpha m)$，$\alpha 1$代表第一个不等式的拉格朗日乘子。成功避开约束条件之后，我们就可以更加便利地去求解极值了。对于函数$L(w,b,\alpha)$分别求参数$w$和$b$的偏导数，并令偏导数为0，可以得到：<div align="center"><img src="http://i.imgur.com/lgpPRj3.png" alt=""></div><br>把等式$w$代入到函数$L(w,b,\alpha)$:<div align="center"><img src="http://i.imgur.com/XbFF2vd.png" alt=""></div><br>因为<div align="center"><img src="http://i.imgur.com/HCvsZ1H.png" alt=""></div><br>所以可以把等式中的<div align="center"><img src="http://i.imgur.com/TuwthYm.png" alt=""></div>划掉。最后得到：<div align="center"><img src="https://i.imgur.com/9kod4YT.png" alt=""></div><br>根据对偶问题的性质，也就是任何一个求极小值的线性规划问题都可以转化为求极大值的线性规划问题。所以：<div align="center"><img src="http://i.imgur.com/tu14PxE.png" alt=""></div><br>可以计算出：<div align="center"><img src="http://i.imgur.com/hWrZsqw.png" alt=""></div></p>
 <h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>公式编辑已弃疗。</p>
 ]]></content>
     
