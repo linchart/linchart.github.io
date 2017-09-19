@@ -8,22 +8,22 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>支持向量机（二） | linchart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;emsp;&amp;emsp;上一篇对线性支持向量机的原理做了推导，这个推导的前提跟感知机模型一样，假设训练样本是线性可分的，也就是存在一个超平面能够将正负样本完全分隔开，但是这种假设在实际项目中存在的可能性跟国足挺进世界杯的可能性是一样一样的。   
-软间隔&amp;emsp;&amp;emsp;上一篇文章中提到的间隔，严格来说应该称之为“硬间隔”，因为该间隔存在的前提是所有训练样本都要满足约束条件$y_i(w^Tx">
+  <meta name="description" content="&amp;emsp;&amp;emsp;上一篇对线性支持向量机的原理做了推导，这个推导的前提跟感知机模型一样，假设训练样本是线性可分的，也就是存在一个超平面能够将正负样本完全分隔开，但是这种假设在实际项目中存在的可能性跟国足挺进世界杯的可能性是一样一样的。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="支持向量机（二）">
 <meta property="og:url" content="http://yoursite.com/posts/2017/09/02/SVM2.html">
 <meta property="og:site_name" content="linchart">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;上一篇对线性支持向量机的原理做了推导，这个推导的前提跟感知机模型一样，假设训练样本是线性可分的，也就是存在一个超平面能够将正负样本完全分隔开，但是这种假设在实际项目中存在的可能性跟国足挺进世界杯的可能性是一样一样的。   
-软间隔&amp;emsp;&amp;emsp;上一篇文章中提到的间隔，严格来说应该称之为“硬间隔”，因为该间隔存在的前提是所有训练样本都要满足约束条件$y_i(w^Tx">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;上一篇对线性支持向量机的原理做了推导，这个推导的前提跟感知机模型一样，假设训练样本是线性可分的，也就是存在一个超平面能够将正负样本完全分隔开，但是这种假设在实际项目中存在的可能性跟国足挺进世界杯的可能性是一样一样的。">
 <meta property="og:image" content="https://i.imgur.com/28gricA.png">
 <meta property="og:image" content="https://i.imgur.com/kCVPfCt.png">
 <meta property="og:image" content="https://i.imgur.com/YDxHHzl.png">
-<meta property="og:updated_time" content="2017-09-14T16:17:51.606Z">
+<meta property="og:image" content="https://i.imgur.com/DI8wNXM.png">
+<meta property="og:image" content="https://i.imgur.com/6iBf3zp.png">
+<meta property="og:image" content="https://i.imgur.com/rqR8rWG.png">
+<meta property="og:updated_time" content="2017-09-19T16:11:40.418Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="支持向量机（二）">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;上一篇对线性支持向量机的原理做了推导，这个推导的前提跟感知机模型一样，假设训练样本是线性可分的，也就是存在一个超平面能够将正负样本完全分隔开，但是这种假设在实际项目中存在的可能性跟国足挺进世界杯的可能性是一样一样的。   
-软间隔&amp;emsp;&amp;emsp;上一篇文章中提到的间隔，严格来说应该称之为“硬间隔”，因为该间隔存在的前提是所有训练样本都要满足约束条件$y_i(w^Tx">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;上一篇对线性支持向量机的原理做了推导，这个推导的前提跟感知机模型一样，假设训练样本是线性可分的，也就是存在一个超平面能够将正负样本完全分隔开，但是这种假设在实际项目中存在的可能性跟国足挺进世界杯的可能性是一样一样的。">
 <meta name="twitter:image" content="https://i.imgur.com/28gricA.png">
   
     <link rel="alternative" href="/atom.xml" title="linchart" type="application/atom+xml">
@@ -184,13 +184,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&emsp;&emsp;上一篇对线性支持向量机的原理做了推导，这个推导的前提跟感知机模型一样，假设训练样本是线性可分的，也就是存在一个超平面能够将正负样本完全分隔开，但是这种假设在实际项目中存在的可能性跟国足挺进世界杯的可能性是一样一样的。   </p>
+        <p>&emsp;&emsp;上一篇对线性支持向量机的原理做了推导，这个推导的前提跟感知机模型一样，假设训练样本是线性可分的，也就是存在一个超平面能够将正负样本完全分隔开，但是这种假设在实际项目中存在的可能性跟国足挺进世界杯的可能性是一样一样的。<br><a id="more"></a>   </p>
 <h1 id="软间隔"><a href="#软间隔" class="headerlink" title="软间隔"></a>软间隔</h1><p>&emsp;&emsp;上一篇文章中提到的间隔，严格来说应该称之为“硬间隔”，因为该间隔存在的前提是所有训练样本都要满足约束条件$y_i(w^Tx_i+b) \geq 1$，但是对于下图中的两类样本点，线性支持向量机并不适用，因为没办法在不映射到高维的情况下找到一条直线能把两个类别分隔开。   </p>
 <p><div align="center"><img src="https://i.imgur.com/28gricA.png" alt=""></div><br>&emsp;&emsp;如果使用感知机的话，模型会无法收敛，并且找到的超平面有可能效果还可以也有可能很差。上图两个类别之间，混淆的样本点其实不多，总不能因为几颗芝麻就丢了西瓜吧。那么有没有办法使得支持向量机“容忍”这些不多的样本点出错，而保证绝大部分的样本点被正确分类呢，其中一个办法就是使用“软间隔”，允许某些样本<strong>不满足</strong>约束条件$y_i(w^Tx_i+b) \geq 1$，也就是让某些样本点满足条件$y_i(w^Tx_i+b) &lt; 1$   </p>
 <p><div align="center"><img src="https://i.imgur.com/kCVPfCt.png" alt=""></div></p>
 <h1 id="软间隔最大化"><a href="#软间隔最大化" class="headerlink" title="软间隔最大化"></a>软间隔最大化</h1><p>为了获得最佳的划分超平面，还需要找出对应的损失函数来衡量划分超平面的效果。一方面，对于支持向量及以外的点，可以继续使用上一篇介绍的间隔最大化$\frac{2}{||w||}$来评估，也就是$min \frac{1}{2}||w||^2$；另一方面，对于支持向量内的点，没办法满足间隔大于等于1的约束条件，这种情况下，可以考虑引入松弛变量$\xi _i$ （其中$ \xi _i \geq 0$），使得函数间隔在加上松弛变量之后大于等于1，也就是：$$y_i(w^Tx_i+b) + \xi _i \geq 1 $$<br>将$\xi _i$挪到右边：$$y_i(w^Tx_i+b) \geq 1 -\xi _i $$<br>同时对于误分类的点，给它一个惩罚因子(cost)，用字母$C$表示（$C \geq 0$），用来衡量误分类的代价，这样损失函数就变成了：</p>
-<p><div align="center"><img src="https://i.imgur.com/YDxHHzl.png" alt=""></div><br>显然，对于惩罚因子$C$，当$C$无穷大时，表明只要有一个样本点是特异点的话就需要付出无限的代价，上面式子趋向于无穷大，这时将会使得所有的样本点都满足式子$y_i(w^Tx_i+b) \geq 1 $，这样的话软间隔最大化问题就变成硬间隔最大化问题（或者说是线性支持向量问题），但是由于给定的数据不是线性可分的，这样就会导致问题没有解。</p>
-<p>我们需要最大化间隔区间。由于在支持向量之间存在一些特异点，没办法像线性支持向量机一样直接最大化间隔$\frac{2}{||w||}$。为了解决这个问题，可以对每个样本点都引入一个“松弛变量”$\xi _i$</p>
+<p><div align="center"><img src="https://i.imgur.com/YDxHHzl.png" alt=""></div><br>&emsp;&emsp;显然，对于惩罚因子$C$，当$C$无穷大时，表明只要有一个样本点是特异点的话就需要付出无限的代价，上面式子趋向于无穷大，这时将会使得所有的样本点都满足式子$y_i(w^Tx_i+b) \geq 1 $，这样的话软间隔最大化问题就变成硬间隔最大化问题（或者说是线性支持向量问题），但是由于给定的数据不是线性可分的，这样就会导致问题没有解；当$C$取有限值时，上式允许存在一些的样本不满足约束。<br>&emsp;&emsp;加上约束条件，目标函数变成如下凸二次规划问题：</p>
+<p><div align="center"><img src="https://i.imgur.com/DI8wNXM.png" alt=""></div><br>跟<a href="https://linchart.github.io/posts/2017/08/10/SVM.html" target="_blank" rel="external">支持向量机（一）</a>中，目标函数的求解方式一样，可以通过拉格朗日乘子法得到对应的拉格朗日函数：</p>
+<p><div align="center"><img src="https://i.imgur.com/6iBf3zp.png" alt=""></div><br>其中$\alpha _i \geq 0 , \mu _i \geq 0$是拉格朗日乘子。<br>一样的套路，求偏导，令$L(w,b,\alpha _i,\xi _i,\mu _i)$对$w,b,\xi _i$的偏导为0，可得：</p>
+<p><div align="center"><img src="https://i.imgur.com/rqR8rWG.png" alt=""></div><br>我们需要最大化间隔区间。由于在支持向量之间存在一些特异点，没办法像线性支持向量机一样直接最大化间隔$\frac{2}{||w||}$。为了解决这个问题，可以对每个样本点都引入一个“松弛变量”$\xi _i$</p>
 
       
 
@@ -453,15 +455,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">最优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">分类模型</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">监督学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">最优化</a>
               </li>
              
               <li class="article-tag-list-item">
