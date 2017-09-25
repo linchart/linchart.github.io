@@ -20,7 +20,9 @@
 <meta property="og:image" content="https://i.imgur.com/DI8wNXM.png">
 <meta property="og:image" content="https://i.imgur.com/6iBf3zp.png">
 <meta property="og:image" content="https://i.imgur.com/rqR8rWG.png">
-<meta property="og:updated_time" content="2017-09-19T16:11:40.418Z">
+<meta property="og:image" content="http://yoursite.com/img/SVM2/dual_problem.png">
+<meta property="og:image" content="http://yoursite.com/img/SVM2/KKT.png">
+<meta property="og:updated_time" content="2017-09-24T13:07:05.944Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="支持向量机（二）">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;上一篇对线性支持向量机的原理做了推导，这个推导的前提跟感知机模型一样，假设训练样本是线性可分的，也就是存在一个超平面能够将正负样本完全分隔开，但是这种假设在实际项目中存在的可能性跟国足挺进世界杯的可能性是一样一样的。">
@@ -192,8 +194,10 @@
 <p><div align="center"><img src="https://i.imgur.com/YDxHHzl.png" alt=""></div><br>&emsp;&emsp;显然，对于惩罚因子$C$，当$C$无穷大时，表明只要有一个样本点是特异点的话就需要付出无限的代价，上面式子趋向于无穷大，这时将会使得所有的样本点都满足式子$y_i(w^Tx_i+b) \geq 1 $，这样的话软间隔最大化问题就变成硬间隔最大化问题（或者说是线性支持向量问题），但是由于给定的数据不是线性可分的，这样就会导致问题没有解；当$C$取有限值时，上式允许存在一些的样本不满足约束。<br>&emsp;&emsp;加上约束条件，目标函数变成如下凸二次规划问题：</p>
 <p><div align="center"><img src="https://i.imgur.com/DI8wNXM.png" alt=""></div><br>跟<a href="https://linchart.github.io/posts/2017/08/10/SVM.html" target="_blank" rel="external">支持向量机（一）</a>中，目标函数的求解方式一样，可以通过拉格朗日乘子法得到对应的拉格朗日函数：</p>
 <p><div align="center"><img src="https://i.imgur.com/6iBf3zp.png" alt=""></div><br>其中$\alpha _i \geq 0 , \mu _i \geq 0$是拉格朗日乘子。<br>一样的套路，求偏导，令$L(w,b,\alpha _i,\xi _i,\mu _i)$对$w,b,\xi _i$的偏导为0，可得：</p>
-<p><div align="center"><img src="https://i.imgur.com/rqR8rWG.png" alt=""></div><br>我们需要最大化间隔区间。由于在支持向量之间存在一些特异点，没办法像线性支持向量机一样直接最大化间隔$\frac{2}{||w||}$。为了解决这个问题，可以对每个样本点都引入一个“松弛变量”$\xi _i$</p>
-
+<p><div align="center"><img src="https://i.imgur.com/rqR8rWG.png" alt=""></div><br>将上面三个等式代入拉格朗日函数可以得到（公式推理写的有点宽，就不在这里展示了）：</p>
+<p><div align="center"><img src="/img/SVM2/dual_problem.png" alt=""></div><br>与上一篇相似，上式同样需要满足KKT条件，也就是要求：</p>
+<p><div align="center"><img src="/img/SVM2/KKT.png" alt=""></div><br>这里的$f(x_i)$其实就是$w^Tx_i+b$<br>这里解读一下KKT。<br>后面的就是参数求解的过程了。</p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1>
       
 
       
@@ -455,15 +459,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">最优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">分类模型</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">监督学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">最优化</a>
               </li>
              
               <li class="article-tag-list-item">
