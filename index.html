@@ -199,15 +199,15 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">多分类模型</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">对数线性模型</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">广义线性模型</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">多分类模型</a>
         		</li>
       		
 		</ul>
@@ -335,7 +335,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>测试是否显示图片：<br><img src="/img/article_picture/kkfens37.jpg" alt=""></p>
+        <p>&emsp;&emsp;硬间隔支持向量机要求训练数据是完全线性可分的，否则会宕机（无法工作）；软间隔支持向量机则允许很少量的样本线性不可分，模型的容错能力相对前者好一点；当训练数据出现不少（或者较多？）样本线性不可分的时候，软间隔支持向量不能很好地承担样本划分的工作，这时候可以引入Kernel（核函数）通过恰当的运算技巧（先计算映射到高维之后的内积）来达到非线性分类的目的。<br>1、核函数的原理<br>2、核函数的证明<br>半正定矩阵的证明其实早在大学就学过了，很遗憾的是，作为学渣中的小弱弱，我不会。</p>
+<p>知乎–<a href="https://www.zhihu.com/question/24627666" target="_blank" rel="external">https://www.zhihu.com/question/24627666</a><br>在实用中，很多使用者都是盲目地试验各种核函数，并扫描其中的参数，选择效果最好的。至于什么样的核函数适用于什么样的问题，大多数人都不懂。很不幸，我也属于这大多数人，所以如果有人对这个问题有理论性的理解，还请指教。<br>3、核函数的类型</p>
 
       
 
@@ -689,8 +690,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>你说广州塔，我知道是在广州，你说黄果树瀑布，我知道是在贵州，你说布达拉宫，我知道是在拉萨，你说公交车，我都不知道你在说哪个城市的公交车。这就是<a href="https://zh.wikipedia.org/wiki/Tf-idf">TF-IDF</a>。</p>
-<h1 id="概念及原理"><a href="#概念及原理" class="headerlink" title="概念及原理"></a>概念及原理</h1><p><a href="https://zh.wikipedia.org/wiki/Tf-idf">TF-IDF</a>全称Term Frequency and Inverse Document Frequency，直译过来就是’词频-逆向文件频率’，’TF’是指某一个给定的词语在该文件中出现的频率，’IDF’是指总文件数除以包含该词的文件数，再取对数。<a href="https://zh.wikipedia.org/wiki/Tf-idf">TF-IDF</a>一般用来评估在一堆语料库或一堆文件集中，某个字词对于该语料库或该文件的重要程度。怎么理解呢，举个例子，假设现在手上有10篇文章，‘水果’这个词在某一篇文章出现的频率很高，但是在这10篇文章中的仅有2篇文章提到，那么‘水果’这个词的<a href="https://zh.wikipedia.org/wiki/Tf-idf">TF-IDF</a>会很高，如果10篇文章中有8篇提到‘水果’这个词，那么这个词的‘<a href="https://zh.wikipedia.org/wiki/Tf-idf">TF-IDF</a>’会相对偏低。主要思想就是，一个词越能将一篇文章与其他文章区分开来，那么这个词的权重越高。<br>
+        <p>你说广州塔，我知道是在广州，你说黄果树瀑布，我知道是在贵州，你说布达拉宫，我知道是在拉萨，你说公交车，我都不知道你在说哪个城市的公交车。这就是<a href="https://zh.wikipedia.org/wiki/Tf-idf">TF-IDF</a>。<br>
         
           <a class="article-more-a" href="/posts/2017/03/15/TF-IDF.html#more">more >></a>
         
@@ -984,10 +984,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">最优化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">分类模型</a>
               </li>
              
@@ -996,7 +992,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">最优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1004,7 +1008,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+                <a href="javascript:void(0)" class="js-tag color1">多分类模型</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1013,10 +1017,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">广义线性模型</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多分类模型</a>
               </li>
             
             <div class="clearfix"></div>

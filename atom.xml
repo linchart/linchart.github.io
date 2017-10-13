@@ -60,11 +60,11 @@
     
       <category term="监督学习" scheme="http://yoursite.com/tags/%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/"/>
     
+      <category term="多分类模型" scheme="http://yoursite.com/tags/%E5%A4%9A%E5%88%86%E7%B1%BB%E6%A8%A1%E5%9E%8B/"/>
+    
       <category term="对数线性模型" scheme="http://yoursite.com/tags/%E5%AF%B9%E6%95%B0%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/"/>
     
       <category term="广义线性模型" scheme="http://yoursite.com/tags/%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/"/>
-    
-      <category term="多分类模型" scheme="http://yoursite.com/tags/%E5%A4%9A%E5%88%86%E7%B1%BB%E6%A8%A1%E5%9E%8B/"/>
     
   </entry>
   
@@ -115,15 +115,15 @@
     <link href="http://yoursite.com/posts/2017/09/02/SVM3.html"/>
     <id>http://yoursite.com/posts/2017/09/02/SVM3.html</id>
     <published>2017-09-02T01:47:45.236Z</published>
-    <updated>2017-09-24T12:08:40.869Z</updated>
+    <updated>2017-09-28T15:16:37.700Z</updated>
     
-    <content type="html"><![CDATA[<p>测试是否显示图片：<br><img src="/img/article_picture/kkfens37.jpg" alt=""></p>
+    <content type="html"><![CDATA[<p>&emsp;&emsp;硬间隔支持向量机要求训练数据是完全线性可分的，否则会宕机（无法工作）；软间隔支持向量机则允许很少量的样本线性不可分，模型的容错能力相对前者好一点；当训练数据出现不少（或者较多？）样本线性不可分的时候，软间隔支持向量不能很好地承担样本划分的工作，这时候可以引入Kernel（核函数）通过恰当的运算技巧（先计算映射到高维之后的内积）来达到非线性分类的目的。<br>1、核函数的原理<br>2、核函数的证明<br>半正定矩阵的证明其实早在大学就学过了，很遗憾的是，作为学渣中的小弱弱，我不会。</p>
+<p>知乎–<a href="https://www.zhihu.com/question/24627666" target="_blank" rel="external">https://www.zhihu.com/question/24627666</a><br>在实用中，很多使用者都是盲目地试验各种核函数，并扫描其中的参数，选择效果最好的。至于什么样的核函数适用于什么样的问题，大多数人都不懂。很不幸，我也属于这大多数人，所以如果有人对这个问题有理论性的理解，还请指教。<br>3、核函数的类型</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;测试是否显示图片：&lt;br&gt;&lt;img src=&quot;/img/article_picture/kkfens37.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
+      &lt;p&gt;&amp;emsp;&amp;emsp;硬间隔支持向量机要求训练数据是完全线性可分的，否则会宕机（无法工作）；软间隔支持向量机则允许很少量的样本线性不可分，模型的容错能力相对前者好一点；当训练数据出现不少（或者较多？）样本线性不可分的时候，软间隔支持向量不能很好地承担样本划分的工作，这时候
     
     </summary>
     
@@ -141,20 +141,29 @@
     <link href="http://yoursite.com/posts/2017/09/02/SVM2.html"/>
     <id>http://yoursite.com/posts/2017/09/02/SVM2.html</id>
     <published>2017-09-02T01:46:27.994Z</published>
-    <updated>2017-09-24T13:07:05.944Z</updated>
+    <updated>2017-10-13T05:50:04.775Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;上一篇对线性支持向量机的原理做了推导，这个推导的前提跟感知机模型一样，假设训练样本是线性可分的，也就是存在一个超平面能够将正负样本完全分隔开，但是这种假设在实际项目中存在的可能性跟国足挺进世界杯的可能性是一样一样的。<br><a id="more"></a>   </p>
 <h1 id="软间隔"><a href="#软间隔" class="headerlink" title="软间隔"></a>软间隔</h1><p>&emsp;&emsp;上一篇文章中提到的间隔，严格来说应该称之为“硬间隔”，因为该间隔存在的前提是所有训练样本都要满足约束条件$y_i(w^Tx_i+b) \geq 1$，但是对于下图中的两类样本点，线性支持向量机并不适用，因为没办法在不映射到高维的情况下找到一条直线能把两个类别分隔开。   </p>
 <p><div align="center"><img src="https://i.imgur.com/28gricA.png" alt=""></div><br>&emsp;&emsp;如果使用感知机的话，模型会无法收敛，并且找到的超平面有可能效果还可以也有可能很差。上图两个类别之间，混淆的样本点其实不多，总不能因为几颗芝麻就丢了西瓜吧。那么有没有办法使得支持向量机“容忍”这些不多的样本点出错，而保证绝大部分的样本点被正确分类呢，其中一个办法就是使用“软间隔”，允许某些样本<strong>不满足</strong>约束条件$y_i(w^Tx_i+b) \geq 1$，也就是让某些样本点满足条件$y_i(w^Tx_i+b) &lt; 1$   </p>
 <p><div align="center"><img src="https://i.imgur.com/kCVPfCt.png" alt=""></div></p>
-<h1 id="软间隔最大化"><a href="#软间隔最大化" class="headerlink" title="软间隔最大化"></a>软间隔最大化</h1><p>为了获得最佳的划分超平面，还需要找出对应的损失函数来衡量划分超平面的效果。一方面，对于支持向量及以外的点，可以继续使用上一篇介绍的间隔最大化$\frac{2}{||w||}$来评估，也就是$min \frac{1}{2}||w||^2$；另一方面，对于支持向量内的点，没办法满足间隔大于等于1的约束条件，这种情况下，可以考虑引入松弛变量$\xi _i$ （其中$ \xi _i \geq 0$），使得函数间隔在加上松弛变量之后大于等于1，也就是：$$y_i(w^Tx_i+b) + \xi _i \geq 1 $$<br>将$\xi _i$挪到右边：$$y_i(w^Tx_i+b) \geq 1 -\xi _i $$<br>同时对于误分类的点，给它一个惩罚因子(cost)，用字母$C$表示（$C \geq 0$），用来衡量误分类的代价，这样损失函数就变成了：</p>
-<p><div align="center"><img src="https://i.imgur.com/YDxHHzl.png" alt=""></div><br>&emsp;&emsp;显然，对于惩罚因子$C$，当$C$无穷大时，表明只要有一个样本点是特异点的话就需要付出无限的代价，上面式子趋向于无穷大，这时将会使得所有的样本点都满足式子$y_i(w^Tx_i+b) \geq 1 $，这样的话软间隔最大化问题就变成硬间隔最大化问题（或者说是线性支持向量问题），但是由于给定的数据不是线性可分的，这样就会导致问题没有解；当$C$取有限值时，上式允许存在一些的样本不满足约束。<br>&emsp;&emsp;加上约束条件，目标函数变成如下凸二次规划问题：</p>
+<h1 id="软间隔最大化"><a href="#软间隔最大化" class="headerlink" title="软间隔最大化"></a>软间隔最大化</h1><p>&emsp;&emsp;为了获得最佳的划分超平面，还需要找出对应的损失函数来衡量划分超平面的效果。一方面，对于支持向量及以外的点，可以继续使用上一篇介绍的间隔最大化$\frac{2}{||w||}$来评估，也就是$min \frac{1}{2}||w||^2$；另一方面，对于支持向量内的点，没办法满足间隔大于等于1的约束条件，这种情况下，可以考虑引入松弛变量$\xi _i$ （其中$ \xi _i \geq 0$），使得函数间隔在加上松弛变量之后大于等于1，也就是：$$y_i(w^Tx_i+b) + \xi _i \geq 1 $$<br>将$\xi _i$挪到右边：$$y_i(w^Tx_i+b) \geq 1 -\xi _i $$<br>&emsp;&emsp;松弛变量可以理解为一种作用力，将误分类的点往正确分类的方向拉，拉回到对应的支持向量上。误分类的点与正确分类的边界越远，需要拉扯的力量越大，也就是$\xi_i$越大，对于支持向量后方的点，$\xi_i$值可以为0。<br>&emsp;&emsp;然后，同时对于误分类的点，给它一个惩罚因子(cost)，用字母$C$表示（$C \geq 0$），用来衡量误分类的代价，或者说，对离群点的重视程度（其尝试找出，在出现误分类的情况下，边界间隔最大的超平面以及保证数据点偏差量最小），这样损失函数就变成了：</p>
+<p><div align="center"><img src="https://i.imgur.com/YDxHHzl.png" alt=""></div><br>&emsp;&emsp;这里的损失函数相对上篇只是多了后半部分。显然，对于惩罚因子$C$，当$C$无穷大时，表明只要有一个样本点是特异点的话就需要付出无限的代价，上面式子趋向于无穷大，这时将会使得所有的样本点都满足式子$y_i(w^Tx_i+b) \geq 1 $，这样的话软间隔最大化问题就变成硬间隔最大化问题（或者说是线性支持向量问题），但是由于给定的数据不是线性可分的，这样就会导致问题没有解；当$C$取有限值时，上式允许存在一些的样本不满足约束。<br>&emsp;&emsp;加上约束条件，目标函数变成如下凸二次规划问题：</p>
 <p><div align="center"><img src="https://i.imgur.com/DI8wNXM.png" alt=""></div><br>跟<a href="https://linchart.github.io/posts/2017/08/10/SVM.html" target="_blank" rel="external">支持向量机（一）</a>中，目标函数的求解方式一样，可以通过拉格朗日乘子法得到对应的拉格朗日函数：</p>
 <p><div align="center"><img src="https://i.imgur.com/6iBf3zp.png" alt=""></div><br>其中$\alpha _i \geq 0 , \mu _i \geq 0$是拉格朗日乘子。<br>一样的套路，求偏导，令$L(w,b,\alpha _i,\xi _i,\mu _i)$对$w,b,\xi _i$的偏导为0，可得：</p>
 <p><div align="center"><img src="https://i.imgur.com/rqR8rWG.png" alt=""></div><br>将上面三个等式代入拉格朗日函数可以得到（公式推理写的有点宽，就不在这里展示了）：</p>
 <p><div align="center"><img src="/img/SVM2/dual_problem.png" alt=""></div><br>与上一篇相似，上式同样需要满足KKT条件，也就是要求：</p>
-<p><div align="center"><img src="/img/SVM2/KKT.png" alt=""></div><br>这里的$f(x_i)$其实就是$w^Tx_i+b$<br>这里解读一下KKT。<br>后面的就是参数求解的过程了。</p>
-<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1>]]></content>
+<p><div align="center"><img src="/img/SVM2/KKT.png" alt=""></div><br>&emsp;&emsp;这里的$f(x_i)$其实就是$w^Tx_i+b$，通过KKT条件，我们能更加深入地了解SVM的本质–<strong>不管是硬间隔支持向量机还是软间隔支持向量机，最终根据模型求得的分隔超平面仅与支持向量有关。</strong><br>&emsp;&emsp;对于上面KKT条件中的等式$\alpha_i(y_i f(x_i)-1+\xi _i)=0$，对于任意的训练样本，总会有$\alpha_i = 0$或者$y_i f(x_i)-1+\xi _i=0$，不妨把训练样本分为两种：支持向量以及支持向量以外的点，现在来分情况讨论下：</p>
+<ul>
+<li>$\alpha_i=0$，这个时候$y_i f(x_i)-1+\xi _i$等于任意值都是ok的，也就是$\alpha_i=0$的时候，不会对样本有任何的影响。如上一篇提到的那样，在衡量目标损失的时候，对于非支持向量（也就是支持向量以外的点），为了满足损失函数最大化，$\alpha_i$必定等于0。</li>
+<li>$\alpha_i&gt; 0$，为了满足KKT条件，必然有$y_i f(x_i)-1+\xi _i=0$，也就意味着，样本$(x_i,y_i)$是支持向量</li>
+</ul>
+<p>再结合偏导的等式$C=\alpha_i + \mu_i$ 和KKT条件$\mu_i \xi_i=0$、$\mu_i \geq 0$。由于$\mu_i$是大于等于0的，所以$\alpha_i$只能小于或等于$C$：</p>
+<ul>
+<li>$\alpha_i&lt;C$，此时有$\mu_i$大于0，因此$\xi_i=0$，这个时候，则对应的样本$(x_i,y_i)$刚好落在最大间隔边界上面。</li>
+<li>$\alpha_i = C$，此时有$\mu_i =0$，此时若$\xi_i \leq 1$，则对应的样本$(x_i,y_i)$落在最大间隔内部；若$\xi_i &gt; 1$，则样本$(x_i,y_i)$分类错误。<br>引出核函数<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1>&emsp;&emsp;软间隔支持向量机虽然比硬间隔支持向量机好那么一丢丢，对噪声的容忍程度比硬间隔支持向量机稍微强一点，但是用来处理现实复杂的数据，还是远远不够的。</li>
+</ul>
+]]></content>
     
     <summary type="html">
     
@@ -176,7 +185,7 @@
     <link href="http://yoursite.com/posts/2017/08/10/SVM.html"/>
     <id>http://yoursite.com/posts/2017/08/10/SVM.html</id>
     <published>2017-08-10T14:15:11.873Z</published>
-    <updated>2017-09-23T15:05:35.493Z</updated>
+    <updated>2017-10-13T05:49:45.602Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;支持向量机(Support Vector Machines, SVM)在实际应用中，算是一大分类神器了。原始的支持向量机是一种线性二分类模型，当支持向量机使用一些核技巧之后，可以从本质上变成非线性分类器。区别于感知机模型，线性可分支持向量机利用间隔（两个不同类的支持向量到超平面的距离）最大化求最优分离超平面，求得的解是唯一的。<br><a id="more"></a>   </p>
 <h1 id="感知机回顾"><a href="#感知机回顾" class="headerlink" title="感知机回顾"></a>感知机回顾</h1><p>&emsp;&emsp;从<a href="https://linchart.github.io/posts/2017/08/01/perceptron_model.html" target="_blank" rel="external">感知机模型</a>我们知道，感知机的目标是只要能找到一个将训练数据集的正样本和负样本完全正确分割开的分离超平面就可以了，并不要求样本能被最大限度地划分，但是这样的话会导致模型的泛化能力不强，比如下左图，直线Y能把A,B两类样本完全分割开，是感知机模型的一个解，如果我们用Y去预测未知的数据，如下右图，$a1,a2$两个数据点实际为类别A，但却被直线Y误判为B类，说明该直线对未知数据的泛化能力并不强。  </p>
@@ -192,8 +201,11 @@
 <p><div align="center"><img src="http://i.imgur.com/HNiyP6u.png" alt=""></div><br>我们的目标是让间隔尽量地大，这样划分超平面对未见数据的预测能力会更强，也就是希望：</p>
 <p><div align="center"><img src="http://i.imgur.com/3CtCrXa.png" alt=""></div><br>因为函数$\frac{2}{||w||}$的单调性与$\frac{1}{2} {||w||}^2$是相反的，所以，最大化$\frac{2}{||w||}$时，相当于最小化$\frac{1}{2} {||w||}^2$，这样，最优化问题可以转化为凸二次规划问题（目标函数是二次的，约束条件是线性的）：</p>
 <p><div align="center"><img src="http://i.imgur.com/fveIwjw.png" alt=""></div><br>so，损失函数就这样被找出来了。</p>
-<h1 id="最优化"><a href="#最优化" class="headerlink" title="最优化"></a>最优化</h1><p>&emsp;&emsp;在求取有约束条件的最优化问题时，为了更容易求解，我们可以使用<a href="https://zh.wikipedia.org/wiki/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0" target="_blank" rel="external">拉格朗日乘子法</a>将其转化为原问题的对偶问题进行求解。也就是，对于上面式子的每条约束添加拉格朗日乘子$\alpha_i \geq 0$，对应的拉格朗日函数可以写为:<div align="center"><img src="http://i.imgur.com/TmaWsKK.png" alt=""></div><br>这里的$\alpha=(\alpha 1;\alpha 2;…;\alpha m)$，$\alpha 1$代表第一个不等式的拉格朗日乘子。成功避开约束条件之后，我们就可以更加便利地去求解极值了。对于函数$L(w,b,\alpha)$分别求参数$w$和$b$的偏导数，并令偏导数为0，可以得到：<div align="center"><img src="http://i.imgur.com/lgpPRj3.png" alt=""></div><br>把等式$w$代入到函数$L(w,b,\alpha)$:<div align="center"><img src="http://i.imgur.com/XbFF2vd.png" alt=""></div><br>因为<div align="center"><img src="http://i.imgur.com/HCvsZ1H.png" alt=""></div><br>所以可以把等式中的<div align="center"><img src="http://i.imgur.com/TuwthYm.png" alt=""></div>划掉。最后得到：<div align="center"><img src="https://i.imgur.com/9kod4YT.png" alt=""></div><br>根据对偶问题的性质，也就是任何一个求极小值的线性规划问题都可以转化为求极大值的线性规划问题。所以：<div align="center"><img src="http://i.imgur.com/tu14PxE.png" alt=""></div><br>可以计算出：<div align="center"><img src="http://i.imgur.com/hWrZsqw.png" alt=""></div></p>
-<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>公式编辑已弃疗。</p>
+<h1 id="最优化"><a href="#最优化" class="headerlink" title="最优化"></a>最优化</h1><p>&emsp;&emsp;在求取有约束条件的最优化问题时，为了更容易求解，我们可以使用<a href="https://zh.wikipedia.org/wiki/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0" target="_blank" rel="external">拉格朗日乘子法</a>将其转化为原问题的对偶问题进行求解。也就是，对于上面式子的每条约束添加拉格朗日乘子$\alpha_i \geq 0$，对应的拉格朗日函数可以写为:<div align="center"><img src="http://i.imgur.com/TmaWsKK.png" alt=""></div><br>这里的$\alpha=(\alpha 1;\alpha 2;…;\alpha m)$，$\alpha 1$代表第一个不等式的拉格朗日乘子。成功避开约束条件之后，我们就可以更加便利地去求解极值了。对于函数$L(w,b,\alpha)$分别求参数$w$和$b$的偏导数，并令偏导数为0，可以得到：<div align="center"><img src="http://i.imgur.com/lgpPRj3.png" alt=""></div><br>把等式$w$代入到函数$L(w,b,\alpha)$:<div align="center"><img src="http://i.imgur.com/XbFF2vd.png" alt=""></div><br>因为<div align="center"><img src="http://i.imgur.com/HCvsZ1H.png" alt=""></div><br>所以可以把等式中的<div align="center"><img src="http://i.imgur.com/TuwthYm.png" alt=""></div>划掉。最后得到：<div align="center"><img src="https://i.imgur.com/9kod4YT.png" alt=""></div><br>根据对偶问题的性质，也就是任何一个求极小值的线性规划问题都可以转化为求极大值的线性规划问题。所以：<div align="center"><img src="http://i.imgur.com/tu14PxE.png" alt=""></div><br>可以计算出：<div align="center"><img src="http://i.imgur.com/hWrZsqw.png" alt=""></div><br>这样，最终的模型可以写成：</p>
+<p><div align="center"><img src="/img/SVM1/model.png" alt=""></div><br>这里还需要注意一下的就是，$x_i^Tx$其实就是向量内积，可以用$&lt;·,·&gt;$表示，也就是：</p>
+<p><div align="center"><img src="/img/SVM1/model1.png" alt=""></div><br>之所以写成这样，是方便后面理解支持向量机是如何使用Kernel进行非线性分类的。上面这个式子可以说是支持向量机核函数的基本形式了。<br>对于含有不等式约束的最优化，还必须满足KKT条件，也就是：</p>
+<p><div align="center"><img src="/img/SVM1/kkt.png" alt=""></div><br>根据条件中的等式$\alpha_i(y_if(x_i)-1)=0$，对于任意的训练样本，总会有$\alpha_i = 0$或者$y_i f(x_i)-1=0$，若$\alpha_i=0$，样本$(x_i,y_i)$不会对损失函数有任何的影响；若$\alpha &gt;0$，则有$y_i f(x_i)-1 =0$，此时，样本$(x_i,y_i)$其实就是支持向量。</p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>&emsp;&emsp;基于数据线性可分假设的SVM显然会对噪声很敏感。相对于硬间隔支持向量机，后续会介绍对噪声容忍度稍微强一点的软间隔支持向量机，以及装备核函数之后的强大SVM；总的来说，SVM的基本原理以及使用都是比较简单的，如果只是为了调包，了解基础原理已经可以了。如果是想深入了解，仅仅知道这些还是远远不够的。<br>&emsp;&emsp;公式编辑已弃疗，复杂一点的公式还是截图显示吧，哎。</p>
 ]]></content>
     
     <summary type="html">
@@ -358,10 +370,10 @@ plt.show()
     <link href="http://yoursite.com/posts/2017/03/15/TF-IDF.html"/>
     <id>http://yoursite.com/posts/2017/03/15/TF-IDF.html</id>
     <published>2017-03-15T09:36:24.153Z</published>
-    <updated>2017-08-14T07:10:46.416Z</updated>
+    <updated>2017-10-13T03:35:06.514Z</updated>
     
-    <content type="html"><![CDATA[<p>你说广州塔，我知道是在广州，你说黄果树瀑布，我知道是在贵州，你说布达拉宫，我知道是在拉萨，你说公交车，我都不知道你在说哪个城市的公交车。这就是<a href="https://zh.wikipedia.org/wiki/Tf-idf" target="_blank" rel="external">TF-IDF</a>。</p>
-<h1 id="概念及原理"><a href="#概念及原理" class="headerlink" title="概念及原理"></a>概念及原理</h1><p><a href="https://zh.wikipedia.org/wiki/Tf-idf" target="_blank" rel="external">TF-IDF</a>全称Term Frequency and Inverse Document Frequency，直译过来就是’词频-逆向文件频率’，’TF’是指某一个给定的词语在该文件中出现的频率，’IDF’是指总文件数除以包含该词的文件数，再取对数。<a href="https://zh.wikipedia.org/wiki/Tf-idf" target="_blank" rel="external">TF-IDF</a>一般用来评估在一堆语料库或一堆文件集中，某个字词对于该语料库或该文件的重要程度。怎么理解呢，举个例子，假设现在手上有10篇文章，‘水果’这个词在某一篇文章出现的频率很高，但是在这10篇文章中的仅有2篇文章提到，那么‘水果’这个词的<a href="https://zh.wikipedia.org/wiki/Tf-idf" target="_blank" rel="external">TF-IDF</a>会很高，如果10篇文章中有8篇提到‘水果’这个词，那么这个词的‘<a href="https://zh.wikipedia.org/wiki/Tf-idf" target="_blank" rel="external">TF-IDF</a>’会相对偏低。主要思想就是，一个词越能将一篇文章与其他文章区分开来，那么这个词的权重越高。<br><a id="more"></a></p>
+    <content type="html"><![CDATA[<p>你说广州塔，我知道是在广州，你说黄果树瀑布，我知道是在贵州，你说布达拉宫，我知道是在拉萨，你说公交车，我都不知道你在说哪个城市的公交车。这就是<a href="https://zh.wikipedia.org/wiki/Tf-idf" target="_blank" rel="external">TF-IDF</a>。<br><a id="more"></a></p>
+<h1 id="概念及原理"><a href="#概念及原理" class="headerlink" title="概念及原理"></a>概念及原理</h1><p><a href="https://zh.wikipedia.org/wiki/Tf-idf" target="_blank" rel="external">TF-IDF</a>全称Term Frequency and Inverse Document Frequency，直译过来就是’词频-逆向文件频率’，’TF’是指某一个给定的词语在该文件中出现的频率，’IDF’是指总文件数除以包含该词的文件数，再取对数。<a href="https://zh.wikipedia.org/wiki/Tf-idf" target="_blank" rel="external">TF-IDF</a>一般用来评估在一堆语料库或一堆文件集中，某个字词对于该语料库或该文件的重要程度。怎么理解呢，举个例子，假设现在手上有10篇文章，‘水果’这个词在某一篇文章出现的频率很高，但是在这10篇文章中的仅有2篇文章提到，那么‘水果’这个词的<a href="https://zh.wikipedia.org/wiki/Tf-idf" target="_blank" rel="external">TF-IDF</a>会很高，如果10篇文章中有8篇提到‘水果’这个词，那么这个词的‘<a href="https://zh.wikipedia.org/wiki/Tf-idf" target="_blank" rel="external">TF-IDF</a>’会相对偏低。主要思想就是，一个词越能将一篇文章与其他文章区分开来，那么这个词的权重越高。</p>
 <h1 id="计算公式"><a href="#计算公式" class="headerlink" title="计算公式"></a>计算公式</h1><h2 id="TF计算："><a href="#TF计算：" class="headerlink" title="TF计算："></a>TF计算：</h2><p><img src="http://i.imgur.com/B1xMUhQ.png" alt=""> </p>
 <p>（markdown编辑数学公式还不怎么熟，先用mathtype搞好再截图吧）比如上面的例子，’水果’，’硬盘’在文章1（共有10个词）中出现的次数分别为2次，4次，那么:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">TF(水果) = 2/10 = 0.2   </div><div class="line">TF(硬盘) = 4/10 = 0.4</div></pre></td></tr></table></figure></p>
 <h2 id="IDF计算："><a href="#IDF计算：" class="headerlink" title="IDF计算："></a>IDF计算：</h2><p><img src="http://i.imgur.com/oTT2Zpz.png" alt=""></p>
@@ -387,8 +399,7 @@ plt.show()
     
     <summary type="html">
     
-      &lt;p&gt;你说广州塔，我知道是在广州，你说黄果树瀑布，我知道是在贵州，你说布达拉宫，我知道是在拉萨，你说公交车，我都不知道你在说哪个城市的公交车。这就是&lt;a href=&quot;https://zh.wikipedia.org/wiki/Tf-idf&quot;&gt;TF-IDF&lt;/a&gt;。&lt;/p&gt;
-&lt;h1 id=&quot;概念及原理&quot;&gt;&lt;a href=&quot;#概念及原理&quot; class=&quot;headerlink&quot; title=&quot;概念及原理&quot;&gt;&lt;/a&gt;概念及原理&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://zh.wikipedia.org/wiki/Tf-idf&quot;&gt;TF-IDF&lt;/a&gt;全称Term Frequency and Inverse Document Frequency，直译过来就是’词频-逆向文件频率’，’TF’是指某一个给定的词语在该文件中出现的频率，’IDF’是指总文件数除以包含该词的文件数，再取对数。&lt;a href=&quot;https://zh.wikipedia.org/wiki/Tf-idf&quot;&gt;TF-IDF&lt;/a&gt;一般用来评估在一堆语料库或一堆文件集中，某个字词对于该语料库或该文件的重要程度。怎么理解呢，举个例子，假设现在手上有10篇文章，‘水果’这个词在某一篇文章出现的频率很高，但是在这10篇文章中的仅有2篇文章提到，那么‘水果’这个词的&lt;a href=&quot;https://zh.wikipedia.org/wiki/Tf-idf&quot;&gt;TF-IDF&lt;/a&gt;会很高，如果10篇文章中有8篇提到‘水果’这个词，那么这个词的‘&lt;a href=&quot;https://zh.wikipedia.org/wiki/Tf-idf&quot;&gt;TF-IDF&lt;/a&gt;’会相对偏低。主要思想就是，一个词越能将一篇文章与其他文章区分开来，那么这个词的权重越高。&lt;br&gt;
+      &lt;p&gt;你说广州塔，我知道是在广州，你说黄果树瀑布，我知道是在贵州，你说布达拉宫，我知道是在拉萨，你说公交车，我都不知道你在说哪个城市的公交车。这就是&lt;a href=&quot;https://zh.wikipedia.org/wiki/Tf-idf&quot;&gt;TF-IDF&lt;/a&gt;。&lt;br&gt;
     
     </summary>
     

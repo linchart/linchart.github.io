@@ -8,18 +8,16 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>支持向量机（三） | linchart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="测试是否显示图片：">
+  <meta name="description" content="&amp;emsp;&amp;emsp;硬间隔支持向量机要求训练数据是完全线性可分的，否则会宕机（无法工作）；软间隔支持向量机则允许很少量的样本线性不可分，模型的容错能力相对前者好一点；当训练数据出现不少（或者较多？）样本线性不可分的时候，软间隔支持向量不能很好地承担样本划分的工作，这时候可以引入Kernel（核函数）通过恰当的运算技巧（先计算映射到高维之后的内积）来达到非线性分类的目的。1、核函数的原理2、核函">
 <meta property="og:type" content="article">
 <meta property="og:title" content="支持向量机（三）">
 <meta property="og:url" content="http://yoursite.com/posts/2017/09/02/SVM3.html">
 <meta property="og:site_name" content="linchart">
-<meta property="og:description" content="测试是否显示图片：">
-<meta property="og:image" content="http://yoursite.com/img/article_picture/kkfens37.jpg">
-<meta property="og:updated_time" content="2017-09-24T12:08:40.869Z">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;硬间隔支持向量机要求训练数据是完全线性可分的，否则会宕机（无法工作）；软间隔支持向量机则允许很少量的样本线性不可分，模型的容错能力相对前者好一点；当训练数据出现不少（或者较多？）样本线性不可分的时候，软间隔支持向量不能很好地承担样本划分的工作，这时候可以引入Kernel（核函数）通过恰当的运算技巧（先计算映射到高维之后的内积）来达到非线性分类的目的。1、核函数的原理2、核函">
+<meta property="og:updated_time" content="2017-09-28T15:16:37.700Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="支持向量机（三）">
-<meta name="twitter:description" content="测试是否显示图片：">
-<meta name="twitter:image" content="http://yoursite.com/img/article_picture/kkfens37.jpg">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;硬间隔支持向量机要求训练数据是完全线性可分的，否则会宕机（无法工作）；软间隔支持向量机则允许很少量的样本线性不可分，模型的容错能力相对前者好一点；当训练数据出现不少（或者较多？）样本线性不可分的时候，软间隔支持向量不能很好地承担样本划分的工作，这时候可以引入Kernel（核函数）通过恰当的运算技巧（先计算映射到高维之后的内积）来达到非线性分类的目的。1、核函数的原理2、核函">
   
     <link rel="alternative" href="/atom.xml" title="linchart" type="application/atom+xml">
   
@@ -179,7 +177,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>测试是否显示图片：<br><img src="/img/article_picture/kkfens37.jpg" alt=""></p>
+        <p>&emsp;&emsp;硬间隔支持向量机要求训练数据是完全线性可分的，否则会宕机（无法工作）；软间隔支持向量机则允许很少量的样本线性不可分，模型的容错能力相对前者好一点；当训练数据出现不少（或者较多？）样本线性不可分的时候，软间隔支持向量不能很好地承担样本划分的工作，这时候可以引入Kernel（核函数）通过恰当的运算技巧（先计算映射到高维之后的内积）来达到非线性分类的目的。<br>1、核函数的原理<br>2、核函数的证明<br>半正定矩阵的证明其实早在大学就学过了，很遗憾的是，作为学渣中的小弱弱，我不会。</p>
+<p>知乎–<a href="https://www.zhihu.com/question/24627666" target="_blank" rel="external">https://www.zhihu.com/question/24627666</a><br>在实用中，很多使用者都是盲目地试验各种核函数，并扫描其中的参数，选择效果最好的。至于什么样的核函数适用于什么样的问题，大多数人都不懂。很不幸，我也属于这大多数人，所以如果有人对这个问题有理论性的理解，还请指教。<br>3、核函数的类型</p>
 
       
 
@@ -442,10 +441,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">最优化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">分类模型</a>
               </li>
              
@@ -454,7 +449,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">最优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -462,7 +465,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+                <a href="javascript:void(0)" class="js-tag color1">多分类模型</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -471,10 +474,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">广义线性模型</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多分类模型</a>
               </li>
             
             <div class="clearfix"></div>
