@@ -2,9 +2,65 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/posts/2018/09/01/unsupervised.html</loc>
+    
+    <lastmod>2018-09-23T13:46:52.678Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/posts/2017/09/02/SVM3.html</loc>
+    
+    <lastmod>2018-09-06T05:40:04.647Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/posts/2018/09/01/Newton's_method_1.html</loc>
+    
+    <lastmod>2018-09-02T15:52:12.469Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/posts/2017/09/02/logistic.html</loc>
+    
+    <lastmod>2018-09-02T15:09:54.700Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/posts/2018/09/01/Newton's_method_2.html</loc>
+    
+    <lastmod>2018-09-01T17:08:37.523Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/posts/2018/09/01/R-Square.html</loc>
+    
+    <lastmod>2018-09-01T17:03:06.663Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/posts/2018/09/01/k-means.html</loc>
+    
+    <lastmod>2018-08-14T12:17:14.912Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/posts/2018/09/01/Unsupervised_feature_selection.html</loc>
+    
+    <lastmod>2018-08-13T15:53:02.195Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/posts/2017/09/02/SVM2.html</loc>
     
-    <lastmod>2017-10-13T05:50:04.775Z</lastmod>
+    <lastmod>2017-10-13T05:50:04.776Z</lastmod>
     
   </url>
   
@@ -23,13 +79,6 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/posts/2017/09/02/SVM3.html</loc>
-    
-    <lastmod>2017-09-28T15:16:37.700Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/posts/2017/09/03/softmax.html</loc>
     
     <lastmod>2017-09-12T08:41:45.087Z</lastmod>
@@ -37,16 +86,9 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/posts/2017/09/02/logistic.html</loc>
-    
-    <lastmod>2017-09-02T21:40:01.552Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/posts/2017/03/13/WeChat_Article1.html</loc>
     
-    <lastmod>2017-08-10T14:23:05.155Z</lastmod>
+    <lastmod>2017-08-10T14:23:05.156Z</lastmod>
     
   </url>
   
@@ -60,14 +102,14 @@
   <url>
     <loc>http://yoursite.com/posts/2017/08/01/perceptron_model.html</loc>
     
-    <lastmod>2017-08-03T01:29:36.188Z</lastmod>
+    <lastmod>2017-08-03T01:29:36.189Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/posts/2017/03/05/blog.html</loc>
     
-    <lastmod>2017-03-14T07:58:02.018Z</lastmod>
+    <lastmod>2017-03-14T07:58:02.019Z</lastmod>
     
   </url>
   

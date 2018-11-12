@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://i.imgur.com/j0iIYfg.png">
 <meta property="og:image" content="https://i.imgur.com/d01eJlT.png">
 <meta property="og:image" content="https://i.imgur.com/cyfV69c.png">
-<meta property="og:updated_time" content="2017-09-02T21:40:01.552Z">
+<meta property="og:updated_time" content="2018-09-02T15:09:54.700Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逻辑回归">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;逻辑回归（Logistic Regression）是一个非常经典的回归模型，在神经网络里作为激活函数时也称为sigmoid函数。逻辑回归模型既可以处理线性分类问题也可以处理非线性分类问题，但其本质上是一个线性模型。作为机器学习入门级模型，该模型既简单又强大，在现实中有着广泛应用，比如国外成熟的信用卡评分模型就是基于逻辑回归模型建立的。">
@@ -205,7 +205,7 @@
 <h1 id="极大似然估计"><a href="#极大似然估计" class="headerlink" title="极大似然估计"></a>极大似然估计</h1><p>&emsp;&emsp;模型找出来了，但是参数$w$和$b$还没有求解，所以又到了寻找损失函数的时候了。在线性回归中，一般会使用均方误差（也叫最小二乘法）来衡量预测的好坏，该损失函数试图找到这样的一条直线，能够使得所有样本到直线上的距离之和最小，说白了就是用欧氏距离来衡量预测效果。</p>
 <p><div align="center"><img src="https://i.imgur.com/wd7PCwB.png" alt=""></div><br>&emsp;&emsp;用均方误差求解线性回归参数，是因为该损失函数是一个凸函数，凸函数有一个比较好的性质就是，局部极小点就是全局最小点，在达到全局最优的过程中不会经历太多的波折，更不会走到半路就以为是终点。<div align="center"><img src="https://i.imgur.com/fL6A9Bv.png" alt=""></div><br>不妨也试一下，使用均方误差来衡量逻辑回归模型的拟合效果如何，把上面的$h_ \theta(x)$换成逻辑回归的方程式可以得到：<div align="center"><img src="https://i.imgur.com/GsLNrEl.png" alt=""></div><br>很遗憾的是，这个函数是非凸的，它可能是长成这个样子的：<div align="center"><img src="https://i.imgur.com/X9sec3T.png" alt=""></div><br>这样的函数，在进行最优化求解时，函数值很有可能一直逗留在某些奇怪的地方比如图中红色的点，而没办法达到全局最优。<br>&emsp;&emsp;我们可以从概率的角度去思考，根据逻辑回归模型预测出来的概率值，肯定是离样本的真实标记越接近越好。比如对于正样本$x_1$，肯定是值$f(x_1)$越大越好，对于负样本$x_2$，值$f(x_2)$越小越好，因为值$f(x_2)$越小，样本$x_2$被判为负样本的可能性越大。<br>对所有训练样本，我们希望最大化其似然函数：</p>
 <p><div align="center"><img src="https://i.imgur.com/tt9pKjt.png" alt=""></div><br>当$y_i=1$时，$p$越大，$L(p)$越大。当$y_i=0$时，$p$越小，$L(p)$越大。对上式取对数之后，就得到对数似然函数：<div align="center"><img src="https://i.imgur.com/j0iIYfg.png" alt=""></div><br>这里的$p(y_i=1|x_i)$对我们来说还是未知的，想要求解参数$w$，还需要稍微推导下。在模型推导中，我们知道：$$p(y=1|x)=\frac {e^{w^Tx+b}}{1+e^{w^Tx+b}}$$<br>把这个等式代入到损失函数（对数似然函数）中：</p>
-<p><div align="center"><img src="https://i.imgur.com/d01eJlT.png" alt=""></div><br>这样就可以使用最优化方法来求解参数$w$了。对$L(w)$求极大值，就可以得到$w$的估计值。当然，也可以将对数似然函数写成以下形式，就变成求极小值：<div align="center"><img src="https://i.imgur.com/cyfV69c.png" alt=""></div></p>
+<p><div align="center"><img src="https://i.imgur.com/d01eJlT.png" alt=""></div><br>这样就可以使用最优化方法来求解参数$w$了。对$L(w)$求极大值，就可以得到$w$的估计值。当然，也可以将对数似然函数写成以下形式，就变成求极小值：<div align="center"><img src="https://i.imgur.com/cyfV69c.png" alt=""></div>   </p>
 <h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>哈哈</p>
 
       
@@ -224,7 +224,7 @@
                   <div class="reward-box">
                     
                     <div class="reward-box-item">
-                      <img class="reward-img" src="\img\Alipay.png">
+                      <img class="reward-img" src="\img\allinpay.png">
                       <span class="reward-type">支付宝</span>
                     </div>
                     
@@ -373,7 +373,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 山久丰
+    		&copy; 2018 山久丰
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -497,10 +497,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NLP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">多分类模型</a>
               </li>
              
@@ -510,6 +506,30 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">广义线性模型</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NLP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">聚类</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">无监督监督学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">特征选择</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">无监督学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">效果评估</a>
               </li>
             
             <div class="clearfix"></div>

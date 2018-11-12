@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-09-12T08:41:45.087Z</updated>
+  <updated>2018-09-01T17:08:37.523Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,224 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>基于牛顿法优化逻辑回归损失函数（二）</title>
+    <link href="http://yoursite.com/posts/2018/09/01/Newton&#39;s_method_2.html"/>
+    <id>http://yoursite.com/posts/2018/09/01/Newton&#39;s_method_2.html</id>
+    <published>2018-09-01T06:48:40.829Z</published>
+    <updated>2018-09-01T17:08:37.523Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="最优化" scheme="http://yoursite.com/tags/%E6%9C%80%E4%BC%98%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>基于牛顿法优化逻辑回归损失函数（一）</title>
+    <link href="http://yoursite.com/posts/2018/09/01/Newton&#39;s_method_1.html"/>
+    <id>http://yoursite.com/posts/2018/09/01/Newton&#39;s_method_1.html</id>
+    <published>2018-09-01T06:47:52.521Z</published>
+    <updated>2018-09-02T15:52:12.469Z</updated>
+    
+    <content type="html"><![CDATA[<p>&emsp;&emsp;牛顿法，又称为牛顿-拉佛森方法，最开始是用来求解高次方程的根，其核心思想就是利用迭代点在曲线上的切线不断逼近曲线的根，直至收敛。我们知道，连续可微曲线的最值可以通过对曲线进行求导，并令导数为0来求解，所以牛顿法也可以作为一种最优化方法求最值。如果是把最优化（最小值）比作从山顶移动到山脚的过程，之前在文章<a href="https://linchart.github.io/posts/2017/08/07/Gradient_descent.html" target="_blank" rel="external">梯度下降法</a>有提到，梯度下降法是选择往相对当前位置来说最陡峭的地方向下移动，而牛顿法的目光会相对长远一点，牛顿法在选择方向的时候，不仅会考虑当前这一步是否是最陡峭的，还会结合下一步一起考虑，就像下象棋能够看到走完这一步之后下一步还应该怎么走才是最有利的，这是因为牛顿法是二阶收敛，梯度下降法是一阶收敛的。关于牛顿法二阶收敛的证明<a href="https://wenku.baidu.com/view/c5a755d850e2524de5187eb9.html" target="_blank" rel="external">请看这里</a>，根据收敛的方式，牛顿法的收敛速度显然要快于梯度下降算法。</p>
+<a id="more"></a>  
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>&emsp;&emsp;其实在上大学的时候有学过牛顿法，但是作为数学系一名不折不扣的学渣，当然是考完就忘啦。关于牛顿法的原理，强烈推荐马同学在知乎上的这个回答<a href="https://www.zhihu.com/question/20690553" target="_blank" rel="external">如何通俗易懂地讲解牛顿迭代法求开方？</a> 行文流畅，脉络清晰明了，一看就懂，总结起来就是：   </p>
+<ul>
+<li>（1）牛顿法首先随机找一个初始点$x_0$，作为迭代点；</li>
+<li>（2）计算函数$f(x)$ 在改点的切线，将该切线与$x$轴的交点作为新的迭代点，其更新方式为$$x_{n+1} = x_n - \frac{f(x_n)}{f’(x_n)}$$ </li>
+<li>（3）重复步骤（2），直至找到函数的根或者满足指定的迭代条件。   </li>
+</ul>
+<h1 id="牛顿法应用"><a href="#牛顿法应用" class="headerlink" title="牛顿法应用"></a>牛顿法应用</h1><p>下面来看下，牛顿法是如何对逻辑回归的损失函数进行优化的。<br>上面提及的迭代更新方式$$x_{n+1} = x_n - \frac{f(x_n)}{f’(x_n)} \qquad （1）$$ 是求函数的根的，也就是求解$f(x)=0$。而求曲线的最值，是令曲线导数等于0来求解，所以，逻辑回归损失函数的优化目标应该是$f’(x) = 0$。<br>举个例子，对于函数$f(x) = (x+2)(x-2)(x-4)$，基于（1）进行迭代，其实就是求解$f(x)$的根，也就是下图的$x_0,x_1,x_2 $三个点。<div align="center"><img src="https://i.imgur.com/rU6o2rI.png" alt=""></div>    </p>
+<p>但这不是我们的目的，我们的目的是要求该图中的点 $ x_3, x_4 $，这个好办，只要对$f(x)$求导，并求$f’(x) =0$ 的解就可以了，也就是下图的点   </p>
+<div align="center"><img src="https://i.imgur.com/4KqP7nu.png" alt=""></div>   
+
+<p>我们在函数$f’(x)$随机找一个点，作该点在$f’(x)$的上切线，将该切线与$x$轴的交点作为新的迭代点，那么更新方式就变为(也可以通过二阶泰勒展开式直接得出)：$$x_{n+1} = x_n - \frac{f’(x_n)}{f’’(x_n)} $$    </p>
+<p><div align="center"><img src="https://i.imgur.com/xF3U0x9.png" alt=""></div><br>逻辑回归的方程为：<div align="center"><img src="https://i.imgur.com/G4IOlSh.png" alt=""></div><br>则其对应的似然损失函数为：</p>
+<p><div align="center"><img src="https://i.imgur.com/KlUa8r7.png" alt=""></div><br>求损失函数的一阶导，有<div align="center"><img src="https://i.imgur.com/JWnzUHe.png" alt=""></div><br>由一阶导组成的矩阵，就是雅可比矩阵，记为$\nabla$<br>对应的二阶导为：</p>
+<p><div align="center"><img src="https://i.imgur.com/S6p00wn.png" alt=""></div><br>由二阶导组成的矩阵，就是Hessian矩阵，记为$H$，所以，损失函数优化迭代的方式为：<br>$$\theta \leftarrow \theta -H^{-1}\nabla $$ </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;emsp;&amp;emsp;牛顿法，又称为牛顿-拉佛森方法，最开始是用来求解高次方程的根，其核心思想就是利用迭代点在曲线上的切线不断逼近曲线的根，直至收敛。我们知道，连续可微曲线的最值可以通过对曲线进行求导，并令导数为0来求解，所以牛顿法也可以作为一种最优化方法求最值。如果是把最优化（最小值）比作从山顶移动到山脚的过程，之前在文章&lt;a href=&quot;https://linchart.github.io/posts/2017/08/07/Gradient_descent.html&quot;&gt;梯度下降法&lt;/a&gt;有提到，梯度下降法是选择往相对当前位置来说最陡峭的地方向下移动，而牛顿法的目光会相对长远一点，牛顿法在选择方向的时候，不仅会考虑当前这一步是否是最陡峭的，还会结合下一步一起考虑，就像下象棋能够看到走完这一步之后下一步还应该怎么走才是最有利的，这是因为牛顿法是二阶收敛，梯度下降法是一阶收敛的。关于牛顿法二阶收敛的证明&lt;a href=&quot;https://wenku.baidu.com/view/c5a755d850e2524de5187eb9.html&quot;&gt;请看这里&lt;/a&gt;，根据收敛的方式，牛顿法的收敛速度显然要快于梯度下降算法。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="最优化" scheme="http://yoursite.com/tags/%E6%9C%80%E4%BC%98%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>为什么R方是解析变量的非减函数</title>
+    <link href="http://yoursite.com/posts/2018/09/01/R-Square.html"/>
+    <id>http://yoursite.com/posts/2018/09/01/R-Square.html</id>
+    <published>2018-09-01T06:45:09.118Z</published>
+    <updated>2018-09-01T17:03:06.663Z</updated>
+    
+    <content type="html"><![CDATA[<p>&emsp;&emsp;在回归模型中，决定系数$R^2$表示反应变量$y$的总变异中可由回归模型中自变量解释的部分所占的比例，它是衡量所建立模型效果好坏的评价指标之一。根据$R^2$的计算方法，显然$R^2$越大越好，但是有一点需要注意的是，向模型中增加变量会导致$R^2$增大，或者至少保持不变，这就会造成一种假象，只要我不断地向模型中增加变量，$R^2$会越来越大，模型效果貌似越来越好，即使所增加的变量对于目标变量来说没有任何意义。为什么会这样子呢，下面从理论证明之。<br><a id="more"></a>  </p>
+<h1 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h1><p>先把$R^2$的公式丢上来：$$R^2 =\frac{ESS}{TSS} =1 - \frac{\sum{(y-\hat{y})^2}}{\sum{(y-\bar{y})^2}}$$<br>&emsp;&emsp;其中，$y$是样本真实值，$\bar{y}$ 是样本均值$\frac{\sum_{i=1}^m{y_i}}{n}$，$\hat{y}$是预测值。<br>乍一看好像$R^2$的大小跟自变量$X$没有半毛钱关系，只跟实际$y$与预测$\hat{y}$值有关，其实事情并没有那么简单。<br>对于线性回归模型$$y = X\beta + \mu$$<br>其中$ X = (x_0,x_1,x_2,…,x_n) $ ，n为变量个数。 $\mu$ 为回归模型随机误差。   </p>
+<p>我们一般会通过最小二乘法(OLS)来估计未知参数$\beta$，也就是将线性回归模型的残差平方和(sum of squared residuals,SSR)作为损失函数来优化，如下：   </p>
+<div align="center"><img src="https://i.imgur.com/8quMaBj.png" alt="ssr"></div>
+
+<p>显然，残差平方和越小越好，我们的目标就是找到一组参数$\beta$，使得残差平方和最小，这时拟合的曲线是最好的。求一个函数的最值，顺手一个求导并令导数等于0，就可搞定。   $$\min SSR(\beta) = min \sum_{i=1}^m{(y_i - X_i \hat{\beta})^2} $$<br>求关于$\beta$的导数，并令导数等于0</p>
+<p><div align="center"><img src="https://i.imgur.com/VcXhMkp.png" alt=""></div><br>根据上面公式，可以得到OLS估计量满足一阶条件$-2X(y-X \hat{\beta})^T = 0$，从而有$X\mu^T = 0$<br>&emsp;&emsp;<br>   </p>
+<h1 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h1><p>有了上面的知识点，证明起来就非常简单了。<br>设线性回归模型$y = X \beta + \mu $&emsp;&emsp;(1)的决定系数为:$$R_1^2 =1 - \frac{\sum{(y-\hat{y_1})^2}}{\sum{(y-\bar{y})^2}}$$<br>在原有模型基础上，增加一个变量，线性回归模型变为$y = X_0 \hat{\beta}_0+X \hat{\beta} + \nu $&emsp;&emsp;(2)，对应的决定系数为$$R_2^2 =1 - \frac{\sum{(y-\hat{y_2})^2}}{\sum{(y-\bar{y})^2}}$$<br>现在需要证明$R_2^2 \geqslant R_1^2$<br>&emsp;&emsp;<br> 证明：<br>根据$R^2$的计算公式，可以推导出</p>
+<p><div align="center"><img src="https://i.imgur.com/zQxnfrV.png" alt=""></div><br>因此，只要证明$\mu^T \mu \geqslant \nu^T \nu $ 即可。</p>
+<p>由变量之间相互独立，以及OLS的一阶条件推导出的$X\mu^T = 0$，所以有$\mu^T = X_0 \nu^t = X \nu^T = 0$<br>将(1)和(2)式合并起来:$$ X \beta + \mu = X_0 \hat{\beta}_0+X \hat{\beta} + \nu $$<br>上式两边乘以$\mu^T$ ，有</p>
+<p><div align="center"><img src="https://i.imgur.com/gNUM6AD.png" alt=""></div><br>相似地，两边乘$\nu^T$，有</p>
+<p><div align="center"><img src="https://i.imgur.com/zfS3MpP.png" alt=""></div><br>结合上面两个式子，有</p>
+<p><div align="center"><img src="https://i.imgur.com/B7XYG0S.png" alt=""></div><br>为了方便后面公式展示，我这里先令</p>
+<p><div align="center"><img src="https://i.imgur.com/YIGOBoI.png" alt=""></div><br>对$\nu^T \nu$进行推导，如下：</p>
+<p><div align="center"><img src="https://i.imgur.com/IwRzSF4.png" alt=""></div><br>因此有</p>
+<p><div align="center"><img src="https://i.imgur.com/Ep1mlcM.png" alt=""></div><br>证明完毕。   </p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>由证明可知，用$R^2$评价回归模型拟合效果具有一定的局限性，$R^2$越大并不能代表模型效果越好，针对此问题，出现了校正的决定系数(公式如下)，相对于$R^2$，当向模型中增加相对于目标变量无意义的自变量时，校正的决定系数值会减小。当然，稍微看下校正的决定系数计算公式就知道，问题还是存在的，就是当建模的样本量远远大于自变量个数的时候，$\bar{R^2}$趋近于$R^2$，此时校正的效果几乎消失。$$\bar{R^2} = 1 - (1-R^2)\frac{n-1}{n-p-1}$$</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;emsp;&amp;emsp;在回归模型中，决定系数$R^2$表示反应变量$y$的总变异中可由回归模型中自变量解释的部分所占的比例，它是衡量所建立模型效果好坏的评价指标之一。根据$R^2$的计算方法，显然$R^2$越大越好，但是有一点需要注意的是，向模型中增加变量会导致$R^2$增大，或者至少保持不变，这就会造成一种假象，只要我不断地向模型中增加变量，$R^2$会越来越大，模型效果貌似越来越好，即使所增加的变量对于目标变量来说没有任何意义。为什么会这样子呢，下面从理论证明之。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="效果评估" scheme="http://yoursite.com/tags/%E6%95%88%E6%9E%9C%E8%AF%84%E4%BC%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/posts/2018/09/01/k-means.html"/>
+    <id>http://yoursite.com/posts/2018/09/01/k-means.html</id>
+    <published>2018-09-01T06:42:01.011Z</published>
+    <updated>2018-08-14T12:17:14.912Z</updated>
+    
+    <content type="html"><![CDATA[<p>k-means 、minibatch、k-pro</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;k-means 、minibatch、k-pro&lt;/p&gt;
+
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>基于wrapper的无监督学习特征选择方法</title>
+    <link href="http://yoursite.com/posts/2018/09/01/Unsupervised_feature_selection.html"/>
+    <id>http://yoursite.com/posts/2018/09/01/Unsupervised_feature_selection.html</id>
+    <published>2018-09-01T06:41:27.318Z</published>
+    <updated>2018-08-13T15:53:02.195Z</updated>
+    
+    <content type="html"><![CDATA[<p>balabala</p>
+<h1 id="无监督特征选择方法"><a href="#无监督特征选择方法" class="headerlink" title="无监督特征选择方法"></a>无监督特征选择方法</h1><p>遗传算法、基于模式相似性判断、信息增益、复相关系数、wrapper方法   </p>
+<h1 id="如何有效选择特征子集"><a href="#如何有效选择特征子集" class="headerlink" title="如何有效选择特征子集"></a>如何有效选择特征子集</h1><h1 id="使用哪种聚类算法"><a href="#使用哪种聚类算法" class="headerlink" title="使用哪种聚类算法"></a>使用哪种聚类算法</h1><h1 id="如何筛选恰当的K"><a href="#如何筛选恰当的K" class="headerlink" title="如何筛选恰当的K"></a>如何筛选恰当的K</h1><h1 id="如何评估聚类效果"><a href="#如何评估聚类效果" class="headerlink" title="如何评估聚类效果"></a>如何评估聚类效果</h1><p>统一特征、不同K；不同特征，不同K。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;balabala&lt;/p&gt;
+&lt;h1 id=&quot;无监督特征选择方法&quot;&gt;&lt;a href=&quot;#无监督特征选择方法&quot; class=&quot;headerlink&quot; title=&quot;无监督特征选择方法&quot;&gt;&lt;/a&gt;无监督特征选择方法&lt;/h1&gt;&lt;p&gt;遗传算法、基于模式相似性判断、信息增益、复相关系数、
+    
+    </summary>
+    
+    
+      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="聚类" scheme="http://yoursite.com/tags/%E8%81%9A%E7%B1%BB/"/>
+    
+      <category term="特征选择" scheme="http://yoursite.com/tags/%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9/"/>
+    
+      <category term="无监督学习" scheme="http://yoursite.com/tags/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>聚类算法使用小结</title>
+    <link href="http://yoursite.com/posts/2018/09/01/unsupervised.html"/>
+    <id>http://yoursite.com/posts/2018/09/01/unsupervised.html</id>
+    <published>2018-09-01T06:39:59.980Z</published>
+    <updated>2018-09-23T13:46:52.678Z</updated>
+    
+    <content type="html"><![CDATA[<p>&emsp;&emsp;在实际的工程应用中，无监督聚类算法的使用频率相对于有监督分类预测算法的使用频率并不高，我们在开展业务过程中，很多时候，会很明确需要挖掘哪种类型的目标客户，比如是否会购买产品、是否潜在流失、是否投诉用户、是否欺诈用户等等。有时候也会有客户直接丢一堆无标签的数据过来，让你分析下这坨数据有什么特征，或者客户对他们产品的使用用户都是由哪些群体构成的并不清晰，无法针对性的做营销，这时候就可能需要用到聚类模型去对数据、用户群进行划分了。<br><a id="more"></a>         </p>
+<p>&emsp;&emsp;聚类算法和分类预测算法的建模流程大同小异，都包括前期数据清洗、特征工程、模型构建、效果评估，由于聚类算法没有label作为参照物，在特征工程、效果评估上面会相对分类预测模型就显得更加麻烦、更有意思了。现在，对项目中经常用到的一些聚类算法做个简单的总结。</p>
+<h1 id="k-means"><a href="#k-means" class="headerlink" title="k-means"></a>k-means</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>&emsp;&emsp; k-means 可以说是最简单的聚类算法了（但是看sklearn里面k-means的源码实现发现事情并不简单orz）。算法首先随机选取k个质心，对每一个样本，分别计算该样本到这K个质心的距离，然后将该样本归到距离最短的簇中。将簇中所有样本的均值作为新的质心，再将每个样本分配到最近的簇中，一直迭代直至达到指定的迭代次数或者质心不在发生变化时，算法结束。   </p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>简单直接高效   </li>
+<li>收敛贼快（业界用的多不是没有原因的）   </li>
+<li>结果解析性较强（效果好的情况下）   <h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3></li>
+<li>基于样本中心作为质心注定了k-means会对异常值、噪声敏感</li>
+<li>追求类内平方和最小也决定了其只能处理凸型数据，对复杂形状的数据无能为力，大多数时候聚类结果还是比较粗糙的。   </li>
+<li>无法处理离散型数据     </li>
+<li>需要指定聚类的个数（很多时候并不知道数据应该分成几类才是最好的）</li>
+<li>需要指定初始点（初始点的选定对聚类结果影响较大）  </li>
+</ul>
+<h3 id="sklearn-调参"><a href="#sklearn-调参" class="headerlink" title="sklearn 调参"></a>sklearn 调参</h3><p>sklearn 里的kmeans 比较重要的参数有两个，n_clusters(聚类个数) 和 init(质心初始化方法)。n_clusters的选定，业务跟数据结合着来会比较好，或者你觉得这个数据大概可以分成10个类，可以从5-15类都试下，挑个效果最好的。但有时效果最好的其业务解析性并不一定好，还有的时候将数据分成6类效果是最好的，但业务部门说了我就要5类…<br>init 的值其实对聚类结果影响蛮大的，初始值选的不好可能无法得到有效的聚类结果。kmeans 对init的初始化有三种方法:random,k-means++,或者传入一个ndarray向量，默认是使用k-means++方法来初始化质心，其核心思想是：初始化的聚类中心之间的相互距离要尽可能的远。一般默认就行。</p>
+<h2 id="凝聚聚类"><a href="#凝聚聚类" class="headerlink" title="凝聚聚类"></a>凝聚聚类</h2><h3 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h3><p>&emsp;&emsp;凝聚聚类是一种自低向上的聚类方法。首先将每个样本当做一个聚类，然后合并距离最近或者最相似的两个类，直到满足某种停止准则未知。最核心的点是在如何衡量两个类的距离或者相似度。找了些相关资料，发现定义相似度的方法还是蛮多的，这里列举几个。   </p>
+<ul>
+<li>单链，两个不同的簇中，离得最近的两个点之间的距离，取距离值最小的两个簇进行合并，即MIN()     </li>
+<li>全链，两个不同的簇中，离得最远的两个点之间的距离，取距离值最小的两个簇进行合并，即MAX()   </li>
+<li>平均连,每个簇中所有点之间的平均距离，取点平均距离值最小的的两个簇进行合并，即AVERAGE   </li>
+<li>方差，将簇中方差增加最小的两个簇进行合并(sklearn 中的ward)   </li>
+</ul>
+<h3 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>能够处理具有复杂形状(非凸型)的数据   </li>
+<li>无需指定聚类的个数（sklearn 中的 AgglomerativeClustering 将聚类的数量作为算法的停止准则）   </li>
+</ul>
+<h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>每次只合并两个簇，计算复杂度高，不适用于大数据量的聚类</li>
+<li>只能基于已有的数据聚类，无法对新的数据进行预测</li>
+</ul>
+<h3 id="sklearn-调参-1"><a href="#sklearn-调参-1" class="headerlink" title="sklearn 调参"></a>sklearn 调参</h3><h2 id="DBSCAN"><a href="#DBSCAN" class="headerlink" title="DBSCAN"></a>DBSCAN</h2><h3 id="原理-2"><a href="#原理-2" class="headerlink" title="原理"></a>原理</h3><p>DBSCAN(density-based spatial clustering of applications with noise)，翻译过来就是：具有噪声的基于密度的空间聚类应用。DBSCAN能够根据数据中的密度识别密集区域，并将密度高的区域划分为簇，这些簇由数据中相对密度相对较低的区域分隔开。</p>
+<h3 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>无需指定聚类的个数</li>
+<li>可以处理复杂形状的数据</li>
+<li>抗噪声，能够识别噪声点<h3 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a>缺点</h3></li>
+<li>簇之间的密度不均匀时，聚类效果可能不好。（比如某个簇，密度较大，另一个簇密度较稀疏，当调大邻域内最小样本点时，密度较稀疏的簇会变化较快。）</li>
+<li>跟凝聚聚类一样，无法对新的数据进行预测<h3 id="sklearn-调参-2"><a href="#sklearn-调参-2" class="headerlink" title="sklearn 调参"></a>sklearn 调参</h3>该算法在大多数数据集上面都能够获得不错的效果，但是调参过程有时非常坎坷。关键是目前对复杂形状的聚类评估效果并不理想。 eps min_samples</li>
+</ul>
+<h2 id="高斯混合聚类"><a href="#高斯混合聚类" class="headerlink" title="高斯混合聚类"></a>高斯混合聚类</h2><h3 id="原理-3"><a href="#原理-3" class="headerlink" title="原理"></a>原理</h3><p>算法假定每个聚类的簇都符合高斯分布（正太分布），样本数据呈现的分布就是各个聚类的分布的叠加，所以称为高斯混合。该算法首先指定高斯混合成分个数K（这里K就是要聚类的个数），随机给每一个分布的均值和方差（协方差）赋初始值。对每一个样本，计算其在各个高斯分布下的后验概率（EM中的E步），在根据最大似然估计，将每个样本对该高斯分布的概率作为权重来计算加权均值和方差（协方差）（EM中的M步），用更新之后的值替换原来的初始值，直至模型满足停止条件（比如迭代次数），算法结束。</p>
+<h3 id="优点-3"><a href="#优点-3" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>只要给定的成分个数足够多，理论上可以任意逼近任何连续的概率分布   </li>
+<li><h3 id="缺点-3"><a href="#缺点-3" class="headerlink" title="缺点"></a>缺点</h3><h3 id="sklearn-调参-3"><a href="#sklearn-调参-3" class="headerlink" title="sklearn 调参"></a>sklearn 调参</h3>调参经验</li>
+</ul>
+<h2 id="MeanShift"><a href="#MeanShift" class="headerlink" title="MeanShift"></a>MeanShift</h2><h3 id="原理-4"><a href="#原理-4" class="headerlink" title="原理"></a>原理</h3><p>MeanShift是一种非参数聚类算法，无需指定聚类的数目。主要涉及两个概念Mean(均值)、Shift(偏移)。其算法思想很简单，算法首先随机选取初始迭代点$x$，将该点到附近区域内所有点分别组成向量求和取平均偏移量，移动该点$x$至平均偏移向量末端，作为新的迭代点，不断移动，直至满足指定条件，算法结束。   </p>
+<h3 id="优点-4"><a href="#优点-4" class="headerlink" title="优点"></a>优点</h3><h3 id="缺点-4"><a href="#缺点-4" class="headerlink" title="缺点"></a>缺点</h3><h1 id="sklearn-调参-4"><a href="#sklearn-调参-4" class="headerlink" title="sklearn 调参"></a>sklearn 调参</h1><h1 id="高维可视化PCA、TSNE"><a href="#高维可视化PCA、TSNE" class="headerlink" title="高维可视化PCA、TSNE"></a>高维可视化PCA、TSNE</h1><p>&emsp;&emsp;很多时候，即使做了前期的业务了解和数据探索，你也很难判断应该选择哪种聚类模型。如果每个模型都试一遍的话，时间成本未免太高，而将高维数据可视化，能够为我们选择聚类模型提供一些指导性意见。数据可视化首先是将高维数据降到低维（一般二维），然后基于低维数据进行可视化，常用的方法有两种：PCA 和TSNE。<br>&emsp;&emsp;PCA是一种被广泛应用的数据压缩、数据降维方法，该方法以方差最大的方向作为坐标轴方向对数据旋转以保留主要信，旋转后的特征在统计上不相关。这里以sklearn里的iris数据集为例，数据属性为：花萼长度、花萼宽度、花瓣长度、花瓣宽度 四个特征，将这四个特征标准化处理后用PCA降维得到下图。</p>
+<p><div align="center"><img src="https://i.imgur.com/ABEu70N.png" alt=""></div><br>PCA在旋转时没有用到任何类别信息，降维后的数据相对于原数据其实相当于新的数据变换，一般很难对图中的两个轴做出解析。有一类用于可视化的算法称为流行学习算法，TSNE是其中的一种，降维效果奇好，其思想是找到数据的一个二维表示，尽可能地保持数据点之间的距离。让在原始特征空间中距离较近的点更加靠近，原始特征空间中相距较远的点更加远离。t-SNE 重点关注距离较近的点，而不是保持距离较远的点之间的距离。换句话说，它试图保存那些表示哪些点比较靠近的信息，这里同样使用iris数据进行tsne可视化。</p>
+<p><div align="center"><img src="https://i.imgur.com/jKTWaMn.png" alt=""></div><br>tsne只能应用于训练的数据，不能应用于测试集，并且在处理稍大数据量的时候效率很低，如果要聚类的数据比较大，可以考虑抽样可视化。如果数据形状复杂，这时候基于指标的效果评估并不好，可以考虑基于抽样数据聚类，然后基于聚类结果建立分类模型。<br>这里pca和tsne可视化iris数据的效果区分度不是很明显，其实从使用经验来看，在数据量在千以上的情况下，同一份数据使用tsne进行可视化，数据的区分度比pca要好很多，这是因为pca需要对数据进行标准化处理，使得大部分数据都集中在一个很小的范围内。但是数据量越大tsne的处理速度越慢，很无奈。   </p>
+<h1 id="无监督特征选择"><a href="#无监督特征选择" class="headerlink" title="无监督特征选择"></a>无监督特征选择</h1><p>&emsp;&emsp;无监督机器学习模型的特征选择，sklearn上还没有相关的API，其实挺麻烦的，应该使用何种评判标准来认为这个特征是对聚类算法有效的？网上有一些方法，比如基于遗传算法、模式相似性判断、复相关系数之类的，也找了几篇论文，看到一篇讲到可以参考有监督学习的wrapper方法进行特征选择，感觉还蛮有意思的，参考着实现了下，用起来效果也还OK。</p>
+<h1 id="效果评估"><a href="#效果评估" class="headerlink" title="效果评估"></a>效果评估</h1><p>&emsp;&emsp;聚类结果的效果评估，方法还是挺多的，有分有标签的评价指标和无标签的评价指标两类。有标签的评价。比如，这些方法的核心都基本一样，就是将类，尤其是针对任意形状的簇，很多时候，你用某个指标评估聚类效果，如果指标值非常好，那说明模型用对了，如果指标值表现很差，那很有可能是评估方法选错了。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>“所有模型都是错的，但有些模型是有用的”</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;emsp;&amp;emsp;在实际的工程应用中，无监督聚类算法的使用频率相对于有监督分类预测算法的使用频率并不高，我们在开展业务过程中，很多时候，会很明确需要挖掘哪种类型的目标客户，比如是否会购买产品、是否潜在流失、是否投诉用户、是否欺诈用户等等。有时候也会有客户直接丢一堆无标签的数据过来，让你分析下这坨数据有什么特征，或者客户对他们产品的使用用户都是由哪些群体构成的并不清晰，无法针对性的做营销，这时候就可能需要用到聚类模型去对数据、用户群进行划分了。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="聚类" scheme="http://yoursite.com/tags/%E8%81%9A%E7%B1%BB/"/>
+    
+      <category term="无监督监督学习" scheme="http://yoursite.com/tags/%E6%97%A0%E7%9B%91%E7%9D%A3%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
   
   <entry>
     <title>softmax</title>
@@ -73,7 +291,7 @@
     <link href="http://yoursite.com/posts/2017/09/02/logistic.html"/>
     <id>http://yoursite.com/posts/2017/09/02/logistic.html</id>
     <published>2017-09-02T02:11:02.897Z</published>
-    <updated>2017-09-02T21:40:01.552Z</updated>
+    <updated>2018-09-02T15:09:54.700Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;逻辑回归（Logistic Regression）是一个非常经典的回归模型，在神经网络里作为激活函数时也称为sigmoid函数。逻辑回归模型既可以处理线性分类问题也可以处理非线性分类问题，但其本质上是一个线性模型。作为机器学习入门级模型，该模型既简单又强大，在现实中有着广泛应用，比如国外成熟的信用卡评分模型就是基于逻辑回归模型建立的。<br><a id="more"></a>   </p>
 <h1 id="模型推导"><a href="#模型推导" class="headerlink" title="模型推导"></a>模型推导</h1><p>&emsp;&emsp;线性模型试图通过属性间的线性组合来预测目标值，它的模型形式是这样的：$$y=w_1x_1+w_2x_2+…+w_dx_d+b$$<br>其中$x_i,  i\in (1,2,…,d)$表示$x$在第$i$个属性上的取值。上式表示成向量的形式就是：$$y=w^Tx+b$$<br>其中$w=(w_1;w_2;…;w_3)$。<br>&emsp;&emsp;在二维平面上，线性回归模型，其实就是一条直线，再来看下另外一个函数$y=e^x$。<div align="center"><img src="https://i.imgur.com/FvaFjR8.png" alt=""></div><br>不难看出对数函数和线性函数都是单调的，那么肯定可以找到一个映射函数使得对于直线上的任意一个点$y=w^Tx+b$，都能在函数$y=e^x$上找到唯一的一个点与之相对应。对于函数$y=e^x$不妨令：$$x \leftarrow w^Tx+b$$则有$y=e^{w^Tx+b}$，两边取对数之后，就有$lny=w^Tx+b$。</p>
@@ -87,7 +305,7 @@
 <h1 id="极大似然估计"><a href="#极大似然估计" class="headerlink" title="极大似然估计"></a>极大似然估计</h1><p>&emsp;&emsp;模型找出来了，但是参数$w$和$b$还没有求解，所以又到了寻找损失函数的时候了。在线性回归中，一般会使用均方误差（也叫最小二乘法）来衡量预测的好坏，该损失函数试图找到这样的一条直线，能够使得所有样本到直线上的距离之和最小，说白了就是用欧氏距离来衡量预测效果。</p>
 <p><div align="center"><img src="https://i.imgur.com/wd7PCwB.png" alt=""></div><br>&emsp;&emsp;用均方误差求解线性回归参数，是因为该损失函数是一个凸函数，凸函数有一个比较好的性质就是，局部极小点就是全局最小点，在达到全局最优的过程中不会经历太多的波折，更不会走到半路就以为是终点。<div align="center"><img src="https://i.imgur.com/fL6A9Bv.png" alt=""></div><br>不妨也试一下，使用均方误差来衡量逻辑回归模型的拟合效果如何，把上面的$h_ \theta(x)$换成逻辑回归的方程式可以得到：<div align="center"><img src="https://i.imgur.com/GsLNrEl.png" alt=""></div><br>很遗憾的是，这个函数是非凸的，它可能是长成这个样子的：<div align="center"><img src="https://i.imgur.com/X9sec3T.png" alt=""></div><br>这样的函数，在进行最优化求解时，函数值很有可能一直逗留在某些奇怪的地方比如图中红色的点，而没办法达到全局最优。<br>&emsp;&emsp;我们可以从概率的角度去思考，根据逻辑回归模型预测出来的概率值，肯定是离样本的真实标记越接近越好。比如对于正样本$x_1$，肯定是值$f(x_1)$越大越好，对于负样本$x_2$，值$f(x_2)$越小越好，因为值$f(x_2)$越小，样本$x_2$被判为负样本的可能性越大。<br>对所有训练样本，我们希望最大化其似然函数：</p>
 <p><div align="center"><img src="https://i.imgur.com/tt9pKjt.png" alt=""></div><br>当$y_i=1$时，$p$越大，$L(p)$越大。当$y_i=0$时，$p$越小，$L(p)$越大。对上式取对数之后，就得到对数似然函数：<div align="center"><img src="https://i.imgur.com/j0iIYfg.png" alt=""></div><br>这里的$p(y_i=1|x_i)$对我们来说还是未知的，想要求解参数$w$，还需要稍微推导下。在模型推导中，我们知道：$$p(y=1|x)=\frac {e^{w^Tx+b}}{1+e^{w^Tx+b}}$$<br>把这个等式代入到损失函数（对数似然函数）中：</p>
-<p><div align="center"><img src="https://i.imgur.com/d01eJlT.png" alt=""></div><br>这样就可以使用最优化方法来求解参数$w$了。对$L(w)$求极大值，就可以得到$w$的估计值。当然，也可以将对数似然函数写成以下形式，就变成求极小值：<div align="center"><img src="https://i.imgur.com/cyfV69c.png" alt=""></div></p>
+<p><div align="center"><img src="https://i.imgur.com/d01eJlT.png" alt=""></div><br>这样就可以使用最优化方法来求解参数$w$了。对$L(w)$求极大值，就可以得到$w$的估计值。当然，也可以将对数似然函数写成以下形式，就变成求极小值：<div align="center"><img src="https://i.imgur.com/cyfV69c.png" alt=""></div>   </p>
 <h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>哈哈</p>
 ]]></content>
     
@@ -115,15 +333,38 @@
     <link href="http://yoursite.com/posts/2017/09/02/SVM3.html"/>
     <id>http://yoursite.com/posts/2017/09/02/SVM3.html</id>
     <published>2017-09-02T01:47:45.236Z</published>
-    <updated>2017-09-28T15:16:37.700Z</updated>
+    <updated>2018-09-06T05:40:04.647Z</updated>
     
-    <content type="html"><![CDATA[<p>&emsp;&emsp;硬间隔支持向量机要求训练数据是完全线性可分的，否则会宕机（无法工作）；软间隔支持向量机则允许很少量的样本线性不可分，模型的容错能力相对前者好一点；当训练数据出现不少（或者较多？）样本线性不可分的时候，软间隔支持向量不能很好地承担样本划分的工作，这时候可以引入Kernel（核函数）通过恰当的运算技巧（先计算映射到高维之后的内积）来达到非线性分类的目的。<br>1、核函数的原理<br>2、核函数的证明<br>半正定矩阵的证明其实早在大学就学过了，很遗憾的是，作为学渣中的小弱弱，我不会。</p>
-<p>知乎–<a href="https://www.zhihu.com/question/24627666" target="_blank" rel="external">https://www.zhihu.com/question/24627666</a><br>在实用中，很多使用者都是盲目地试验各种核函数，并扫描其中的参数，选择效果最好的。至于什么样的核函数适用于什么样的问题，大多数人都不懂。很不幸，我也属于这大多数人，所以如果有人对这个问题有理论性的理解，还请指教。<br>3、核函数的类型</p>
+    <content type="html"><![CDATA[<p>&emsp;&emsp;硬间隔支持向量机要求训练数据是完全线性可分的，否则会宕机（无法工作）；软间隔支持向量机则允许很少量的样本线性不可分，模型的容错能力相对前者好一点；但是，对于非线性问题应该如何处理呢，怎么用一个平面将二维平面中的两个不同半径的同心圆分隔开，怎么将高维线性不可分的图形分隔开，在实际应用中，遇到非线性问题（大部分都是），如何用SVM解决？这就需要引入核函数的概念了。<br><a id="more"></a>   </p>
+<h1 id="核函数定义"><a href="#核函数定义" class="headerlink" title="核函数定义"></a>核函数定义</h1><p>李航在《统计学习方法》中对核函数的定义如下：</p>
+<div align="center"><img src="https://i.imgur.com/LwzIAFA.png" alt=""></div>   
+
+
+<h1 id="核函数原理"><a href="#核函数原理" class="headerlink" title="核函数原理"></a>核函数原理</h1><p>先上总结：简单来说，核函数就是内积，或者说是用来计算映射到高维空间之后的内积的一种简便方法。<br>我们现在来细看下，核函数到底是个什么东西。在<a href="https://linchart.github.io/posts/2017/08/10/SVM.html" target="_blank" rel="external">支持向量机（一）</a> 中，我们已经推导出来，分类函数为：</p>
+<div align="center"><img src="/img/SVM1/model1.png" alt=""> (1)</div><br>其中，$x_i^Tx$其实就是向量内积，可以用$&lt;·,·&gt;$表示。<br>继续开篇提的问题，如下图，怎么用一条直线将二维平面中的两个不同半径的同心圆分隔开？<br><div align="center"><img src="https://i.imgur.com/kpVjmAA.png" alt=""></div><br>设上面的点用$x=(x_1,x_2)$ 表示，如果直接基于分类函数(1)找一个平面将两个圆分割开，这样肯定不行，因为在二维平面上无论怎么调整，你都无法找到一条直线完好地区分上图中的两个圆。<br>但是换个角度看可能就不一样了，我们把它映射到三维空间看一下。<br><div align="center"><img src="https://i.imgur.com/RHtru1Y.png" alt=""></div>
+
+<p>通过将数据从二维平面映射到三维空间，两个无法线性分隔的图形变成线性可分的了。这里使用的映射函数是$\phi(x)=(x_1^2,\sqrt{2}x_1x_2,x_2^2)$。</p>
+<div align="center"><img src="https://i.imgur.com/EKs0aqj.png" alt=""></div><br>再看下面这个例子，如何用一条直线将两类不同颜色的点分开，显然在二维平面上无论怎么划分都无济于事。<br><div align="center"><img src="https://i.imgur.com/XzqVagK.png" alt=""></div><br>类似的方法，可以将这些点映射到三维空间，然后用一个平面将这两类数据轻易地区分出来。这里使用的映射函数是$x=(x1,x2,x1*x2)$<br><div align="center"><img src="https://i.imgur.com/5dy5iXk.png" alt=""></div><br>上面两个例子，套路都是：本来非线性的数据，找到一个映射函数，将其从低维映射到高维，然后在高维空间用线性分类方法将数据分割开来。<br>到目前为止，推理起来都比较顺畅，现在针对上面的例子做一些延伸，针对一个二次曲线，可以表示成：$$a1X_1 + a2X_1^2 + a3X_2 + a4X_2^2 + a5X_1X_2 + a6 = 0$$<br>构造一个五维空间，其中五个坐标的值为$$Z1 = X_1;Z2 = X_1^2 ;Z3 = X_2;Z4 = X_2^2 ;Z5 = X_1X_2$$<br><br>如果是一个三维曲线，那么需要构造一个19维的空间，可以看到，这个映射空间的维度会随着原空间维度的增加而成指数增长，这给会给$\phi(\cdot)$的计算带来了非常大的困难，而且如果遇到无穷维的情况，就根本无从计算了。更何况，映射到高维空间数据是否就线性可分还不一定呢。<br><br>如果我先在低维空间计算好两点之间的内积呢，这样就无需先映射到高维空间找映射函数，然后在根据映射函数计算内积了。针对第一个例子，设曲线上的任意两点为$x=(x_1,x_2),y=(y_1,y_2)$，其映射函数为$\phi(x)=(x_1^2,\sqrt{2}x_1x_2,x_2^2)$，那么映射函数计算内积后其实是跟$ x\cdot y $ 的平方的结果一样的，对应的核函数为。<br><div align="center"><img src="https://i.imgur.com/9x3ePe5.png" alt=""></div>
+
+<div align="center"><img src="https://i.imgur.com/KtNPe1Y.png" alt=""></div>
+
+<p>这样的话，针对三次曲线方程或者更高维曲线方程，无需先映射到高维空间，可以直接将两点之间的内积代入分类函数求解未知参数。这种直接在低维空间中计算内积的方法就称为核函数或者核技巧。    </p>
+<p>&emsp;&emsp;核函数真正强大之处在于，只需要定义核函数<img class="kenel" src="https://i.imgur.com/NnE350g.png">在低维空间进行内积计算，而不需要显式地定义映射函数，这对本来就是高维或者无限维的特征空间来说尤为有效。另外，映射函数并不是唯一的，比如还是回到第一个同心圆的例子，映射函数可以是$\phi(x)=(x_1^2,\sqrt{2}x_1x_2,x_2^2)$，也可以是$\phi(x)=(x_1,x_2,x_1^2+x_2^2)$<br>&emsp;&emsp;网上其实有很多关于SVM、核函数的讲解和讨论，关于讲解可以参考<a href="https://blog.csdn.net/v_JULY_v/article/details/7624837" target="_blank" rel="external">支持向量机通俗导论（理解SVM的三层境界）</a>讲得是真心好。关于讨论可以参考知乎上的一个问题：<a href="https://www.zhihu.com/question/24627666" target="_blank" rel="external">机器学习有很多关于核函数的说法，核函数的定义和作用是什么？</a>    </p>
+<h1 id="核函数类型"><a href="#核函数类型" class="headerlink" title="核函数类型"></a>核函数类型</h1><p>sklearn 中，可选的核函数有以下四种：</p>
+<ul>
+<li>线性 : <img class="math" src="https://i.imgur.com/zQGvu45.png">   </li>
+<li>多项式：<img class="math" src="https://i.imgur.com/V6ApGyd.png">    </li>
+<li>RBF ：<img class="math" src="https://i.imgur.com/ox1vqKT.png"></li>
+<li>sigmoid: <img class="math" src="https://i.imgur.com/BhryA5V.png"></li>
+</ul>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>&emsp;&emsp;核函数的作用其实很简单，一言蔽之，就是计算映射到高维空间之后的内积的一种简便方法或者技巧，它能够将原本需要在高维空间计算的内积直接在原特征空间进行，无需变换空间。   </p>
+<p>&emsp;&emsp;说实话，写的这几篇文章中，核函数这篇是最耗时的，写到这里，感觉我对kenel trick 的理解还是很懵懂，不深刻，比如kenel 可以往那些方面进行推广、在实际应用中应该怎么选择kenel。写本文的时候，希望能够尽量通俗易懂地把它写明白，但是通俗易懂的前提是自己对这些概念的理解要很深入，所以在写的过程中出现过几次定好思路，写了大部分的时候发现不理想，重新整理的情况。不过从应用层面来说，了解SVM 和核函数的基本概念原理，知道模型是怎么运作的，在遇到问题的时候能够定位问题，并根据模型、方法的特性进行恰当的调整已经基本够用了。其他的再漫漫求索吧。   </p>
+<p>ps: 再次吐槽， mardown 编辑公式有时出个bug真能逼死强迫症。</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;&amp;emsp;&amp;emsp;硬间隔支持向量机要求训练数据是完全线性可分的，否则会宕机（无法工作）；软间隔支持向量机则允许很少量的样本线性不可分，模型的容错能力相对前者好一点；当训练数据出现不少（或者较多？）样本线性不可分的时候，软间隔支持向量不能很好地承担样本划分的工作，这时候
+      &lt;p&gt;&amp;emsp;&amp;emsp;硬间隔支持向量机要求训练数据是完全线性可分的，否则会宕机（无法工作）；软间隔支持向量机则允许很少量的样本线性不可分，模型的容错能力相对前者好一点；但是，对于非线性问题应该如何处理呢，怎么用一个平面将二维平面中的两个不同半径的同心圆分隔开，怎么将高维线性不可分的图形分隔开，在实际应用中，遇到非线性问题（大部分都是），如何用SVM解决？这就需要引入核函数的概念了。&lt;br&gt;
     
     </summary>
     
@@ -141,7 +382,7 @@
     <link href="http://yoursite.com/posts/2017/09/02/SVM2.html"/>
     <id>http://yoursite.com/posts/2017/09/02/SVM2.html</id>
     <published>2017-09-02T01:46:27.994Z</published>
-    <updated>2017-10-13T05:50:04.775Z</updated>
+    <updated>2017-10-13T05:50:04.776Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;上一篇对线性支持向量机的原理做了推导，这个推导的前提跟感知机模型一样，假设训练样本是线性可分的，也就是存在一个超平面能够将正负样本完全分隔开，但是这种假设在实际项目中存在的可能性跟国足挺进世界杯的可能性是一样一样的。<br><a id="more"></a>   </p>
 <h1 id="软间隔"><a href="#软间隔" class="headerlink" title="软间隔"></a>软间隔</h1><p>&emsp;&emsp;上一篇文章中提到的间隔，严格来说应该称之为“硬间隔”，因为该间隔存在的前提是所有训练样本都要满足约束条件$y_i(w^Tx_i+b) \geq 1$，但是对于下图中的两类样本点，线性支持向量机并不适用，因为没办法在不映射到高维的情况下找到一条直线能把两个类别分隔开。   </p>
@@ -285,7 +526,7 @@
     <link href="http://yoursite.com/posts/2017/08/01/perceptron_model.html"/>
     <id>http://yoursite.com/posts/2017/08/01/perceptron_model.html</id>
     <published>2017-08-01T03:16:20.734Z</published>
-    <updated>2017-08-03T01:29:36.188Z</updated>
+    <updated>2017-08-03T01:29:36.189Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;刚从广发项目撤出来，未来几周应该都不会很忙，趁着闲暇时间整理一下机器学习方面的知识。<br>&emsp;&emsp;先从最简单的感知机模型说起。感知机是一种二分类的线性模型，其假设训练数据集是线性可分的，目标是找到一个能够将训练数据集的正样本和负样本完全正确分割开的分离超平面。其实，模型只要找到该分离超平面，学习目的就达到了，并不要求样本能被最大限度地划分。<br><a id="more"></a>   </p>
 <h1 id="分类器"><a href="#分类器" class="headerlink" title="分类器"></a>分类器</h1><p>&emsp;&emsp;分类器能够通过输入的特征向量映射到给定类别中的一个，也就是所谓的物以聚类人以群分。如下图一，蓝色直线将A和B完全分割开，那么该直线$y=ax+b$就是一个分类器。根据分类器是否线性可分的性质，分类器有线性分类器(图一)和非线性分类器（图二图三），从类别上，有二元分类器（图一）和多元分类器（两个类别以上，图二图三），而本章要讨论的感知机模型，就是一个二分类线性模型。<div align="center"><img src="http://i.imgur.com/jH3FvKL.png" alt=""></div>   </p>
@@ -415,7 +656,7 @@ plt.show()
     <link href="http://yoursite.com/posts/2017/03/13/WeChat_Article1.html"/>
     <id>http://yoursite.com/posts/2017/03/13/WeChat_Article1.html</id>
     <published>2017-03-13T09:59:18.349Z</published>
-    <updated>2017-08-10T14:23:05.155Z</updated>
+    <updated>2017-08-10T14:23:05.156Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;有时在微信公众号上面看到一些写的比较好的文章，但又没有时间细看，闲下来想找这些文章的时候又忘了是在哪个公众号看的了、文章名字也想不起来，因此想搞个爬虫把想看的文章爬下来，一来可以在闲时咀嚼一下，二来也可以收藏一些好文章，做些知识积累。<br><em>只是想把自己平常做的一些东西记录下来，非教程</em><br><a id="more"></a>   </p>
 <h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><ul>
@@ -459,8 +700,8 @@ plt.show()
     <title>博客的搭建</title>
     <link href="http://yoursite.com/posts/2017/03/05/blog.html"/>
     <id>http://yoursite.com/posts/2017/03/05/blog.html</id>
-    <published>2017-03-04T18:08:32.626Z</published>
-    <updated>2017-03-14T07:58:02.018Z</updated>
+    <published>2017-03-04T18:08:32.627Z</published>
+    <updated>2017-03-14T07:58:02.019Z</updated>
     
     <content type="html"><![CDATA[<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p>这个博客的搭建，完全得益于<a href="https://zhangslob.github.io/2017/02/28/%E6%95%99%E4%BD%A0%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%EF%BC%8CHexo-Github/" target="_blank" rel="external">教你免费搭建个人博客，Hexo&amp;Github</a>和<a href="http://www.jianshu.com/p/1cd86fac2585" target="_blank" rel="external">使用GitHub和Hexo搭建免费静态Blog</a>这两篇文章，非常详细地描述了基于hexo+github搭建个人博客的准备工作及安装和配置流程。<br><a id="more"></a></p>
 <h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><p>虽然上面这两篇文章写得很详细，但是我在按着教程搭建的过程中还是遇到一些小问题，这里记录一下：   </p>
