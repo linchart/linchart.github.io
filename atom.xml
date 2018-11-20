@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-09-01T17:08:37.523Z</updated>
+  <updated>2018-09-02T15:52:12.469Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,24 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>基于牛顿法优化逻辑回归损失函数（二）</title>
-    <link href="http://yoursite.com/posts/2018/09/01/Newton&#39;s_method_2.html"/>
-    <id>http://yoursite.com/posts/2018/09/01/Newton&#39;s_method_2.html</id>
-    <published>2018-09-01T06:48:40.829Z</published>
-    <updated>2018-09-01T17:08:37.523Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="最优化" scheme="http://yoursite.com/tags/%E6%9C%80%E4%BC%98%E5%8C%96/"/>
-    
-  </entry>
   
   <entry>
     <title>基于牛顿法优化逻辑回归损失函数（一）</title>
@@ -107,56 +89,6 @@
       <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
       <category term="效果评估" scheme="http://yoursite.com/tags/%E6%95%88%E6%9E%9C%E8%AF%84%E4%BC%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://yoursite.com/posts/2018/09/01/k-means.html"/>
-    <id>http://yoursite.com/posts/2018/09/01/k-means.html</id>
-    <published>2018-09-01T06:42:01.011Z</published>
-    <updated>2018-08-14T12:17:14.912Z</updated>
-    
-    <content type="html"><![CDATA[<p>k-means 、minibatch、k-pro</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;k-means 、minibatch、k-pro&lt;/p&gt;
-
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>基于wrapper的无监督学习特征选择方法</title>
-    <link href="http://yoursite.com/posts/2018/09/01/Unsupervised_feature_selection.html"/>
-    <id>http://yoursite.com/posts/2018/09/01/Unsupervised_feature_selection.html</id>
-    <published>2018-09-01T06:41:27.318Z</published>
-    <updated>2018-08-13T15:53:02.195Z</updated>
-    
-    <content type="html"><![CDATA[<p>balabala</p>
-<h1 id="无监督特征选择方法"><a href="#无监督特征选择方法" class="headerlink" title="无监督特征选择方法"></a>无监督特征选择方法</h1><p>遗传算法、基于模式相似性判断、信息增益、复相关系数、wrapper方法   </p>
-<h1 id="如何有效选择特征子集"><a href="#如何有效选择特征子集" class="headerlink" title="如何有效选择特征子集"></a>如何有效选择特征子集</h1><h1 id="使用哪种聚类算法"><a href="#使用哪种聚类算法" class="headerlink" title="使用哪种聚类算法"></a>使用哪种聚类算法</h1><h1 id="如何筛选恰当的K"><a href="#如何筛选恰当的K" class="headerlink" title="如何筛选恰当的K"></a>如何筛选恰当的K</h1><h1 id="如何评估聚类效果"><a href="#如何评估聚类效果" class="headerlink" title="如何评估聚类效果"></a>如何评估聚类效果</h1><p>统一特征、不同K；不同特征，不同K。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;balabala&lt;/p&gt;
-&lt;h1 id=&quot;无监督特征选择方法&quot;&gt;&lt;a href=&quot;#无监督特征选择方法&quot; class=&quot;headerlink&quot; title=&quot;无监督特征选择方法&quot;&gt;&lt;/a&gt;无监督特征选择方法&lt;/h1&gt;&lt;p&gt;遗传算法、基于模式相似性判断、信息增益、复相关系数、
-    
-    </summary>
-    
-    
-      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="聚类" scheme="http://yoursite.com/tags/%E8%81%9A%E7%B1%BB/"/>
-    
-      <category term="特征选择" scheme="http://yoursite.com/tags/%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9/"/>
-    
-      <category term="无监督学习" scheme="http://yoursite.com/tags/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
