@@ -8,22 +8,22 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>感知机模型 | linchart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;emsp;&amp;emsp;刚从广发项目撤出来，未来几周应该都不会很忙，趁着闲暇时间整理一下机器学习方面的知识。&amp;emsp;&amp;emsp;先从最简单的感知机模型说起。感知机是一种二分类的线性模型，其假设训练数据集是线性可分的，目标是找到一个能够将训练数据集的正样本和负样本完全正确分割开的分离超平面。其实，模型只要找到该分离超平面，学习目的就达到了，并不要求样本能被最大限度地划分。">
+  <meta name="description" content="&amp;emsp;&amp;emsp;未来几周应该都不会很忙，趁着闲暇时间整理一下机器学习方面的知识。&amp;emsp;&amp;emsp;先从最简单的感知机模型说起。感知机是一种二分类的线性模型，其假设训练数据集是线性可分的，目标是找到一个能够将训练数据集的正样本和负样本完全正确分割开的分离超平面。其实，模型只要找到该分离超平面，学习目的就达到了，并不要求样本能被最大限度地划分。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="感知机模型">
 <meta property="og:url" content="http://yoursite.com/posts/2017/08/01/perceptron_model.html">
 <meta property="og:site_name" content="linchart">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;刚从广发项目撤出来，未来几周应该都不会很忙，趁着闲暇时间整理一下机器学习方面的知识。&amp;emsp;&amp;emsp;先从最简单的感知机模型说起。感知机是一种二分类的线性模型，其假设训练数据集是线性可分的，目标是找到一个能够将训练数据集的正样本和负样本完全正确分割开的分离超平面。其实，模型只要找到该分离超平面，学习目的就达到了，并不要求样本能被最大限度地划分。">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;未来几周应该都不会很忙，趁着闲暇时间整理一下机器学习方面的知识。&amp;emsp;&amp;emsp;先从最简单的感知机模型说起。感知机是一种二分类的线性模型，其假设训练数据集是线性可分的，目标是找到一个能够将训练数据集的正样本和负样本完全正确分割开的分离超平面。其实，模型只要找到该分离超平面，学习目的就达到了，并不要求样本能被最大限度地划分。">
 <meta property="og:image" content="http://i.imgur.com/jH3FvKL.png">
 <meta property="og:image" content="http://i.imgur.com/RtXJNgB.png">
 <meta property="og:image" content="http://i.imgur.com/cZbjVQP.png">
 <meta property="og:image" content="http://i.imgur.com/0vGucMO.png">
 <meta property="og:image" content="http://i.imgur.com/WftOMnU.png">
 <meta property="og:image" content="http://i.imgur.com/ibURFh2.png">
-<meta property="og:updated_time" content="2017-08-03T01:29:36.189Z">
+<meta property="og:updated_time" content="2019-02-27T02:41:23.930Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="感知机模型">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;刚从广发项目撤出来，未来几周应该都不会很忙，趁着闲暇时间整理一下机器学习方面的知识。&amp;emsp;&amp;emsp;先从最简单的感知机模型说起。感知机是一种二分类的线性模型，其假设训练数据集是线性可分的，目标是找到一个能够将训练数据集的正样本和负样本完全正确分割开的分离超平面。其实，模型只要找到该分离超平面，学习目的就达到了，并不要求样本能被最大限度地划分。">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;未来几周应该都不会很忙，趁着闲暇时间整理一下机器学习方面的知识。&amp;emsp;&amp;emsp;先从最简单的感知机模型说起。感知机是一种二分类的线性模型，其假设训练数据集是线性可分的，目标是找到一个能够将训练数据集的正样本和负样本完全正确分割开的分离超平面。其实，模型只要找到该分离超平面，学习目的就达到了，并不要求样本能被最大限度地划分。">
 <meta name="twitter:image" content="http://i.imgur.com/jH3FvKL.png">
   
     <link rel="alternative" href="/atom.xml" title="linchart" type="application/atom+xml">
@@ -184,7 +184,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&emsp;&emsp;刚从广发项目撤出来，未来几周应该都不会很忙，趁着闲暇时间整理一下机器学习方面的知识。<br>&emsp;&emsp;先从最简单的感知机模型说起。感知机是一种二分类的线性模型，其假设训练数据集是线性可分的，目标是找到一个能够将训练数据集的正样本和负样本完全正确分割开的分离超平面。其实，模型只要找到该分离超平面，学习目的就达到了，并不要求样本能被最大限度地划分。<br><a id="more"></a>   </p>
+        <p>&emsp;&emsp;未来几周应该都不会很忙，趁着闲暇时间整理一下机器学习方面的知识。<br>&emsp;&emsp;先从最简单的感知机模型说起。感知机是一种二分类的线性模型，其假设训练数据集是线性可分的，目标是找到一个能够将训练数据集的正样本和负样本完全正确分割开的分离超平面。其实，模型只要找到该分离超平面，学习目的就达到了，并不要求样本能被最大限度地划分。<br><a id="more"></a>   </p>
 <h1 id="分类器"><a href="#分类器" class="headerlink" title="分类器"></a>分类器</h1><p>&emsp;&emsp;分类器能够通过输入的特征向量映射到给定类别中的一个，也就是所谓的物以聚类人以群分。如下图一，蓝色直线将A和B完全分割开，那么该直线$y=ax+b$就是一个分类器。根据分类器是否线性可分的性质，分类器有线性分类器(图一)和非线性分类器（图二图三），从类别上，有二元分类器（图一）和多元分类器（两个类别以上，图二图三），而本章要讨论的感知机模型，就是一个二分类线性模型。<div align="center"><img src="http://i.imgur.com/jH3FvKL.png" alt=""></div>   </p>
 <h1 id="感知机模型"><a href="#感知机模型" class="headerlink" title="感知机模型"></a>感知机模型</h1><p>&emsp;&emsp;感知机模型很简单，为什么说它简单呢，因为该模型只用了一个线性方程$y = ax + b$ 以及 一个符号函数$sign(x)$（初中的知识是不是？）<br>&emsp;&emsp;下面来看下感知机模型的定义。<br>&emsp;&emsp;假设有$N$维的特征输入$X = \lbrace x_1,x_2,…,x_n \rbrace $，输出的类别有两类$ Y = \lbrace +1,-1\rbrace $，则由特征输入映射到类别输出的函数$$f(x) = sign(w*x+b)$$称为感知机模型，其中，$w$ 和$b$是我们要求解的模型的参数，这里的$w$其实是一个跟特征输入维度一样$N$维的权值向量（也称为权重），而参数$b$为偏置（在二维平面上，$b$就是截距）。<br>&emsp;&emsp;我们从公式上去解读下为什么说感知机模型是一个线性二分类模型。<br>&emsp;&emsp;先看符号函数里面的线性方程$$y=w*x+b$$显然，方程$ y = w*x +b $在二维平面上是一条直线，在三维空间上是一个平面，在四维甚至更高维空间上就是一个超平面。（哈哈哈，这个实在是画不出来）<div align="center"><img src="http://i.imgur.com/RtXJNgB.png" alt=""></div><br>也就是说，不管是在二维三维空间还是更高维空间，超平面都可以将空间一分为二，并且都可以表示成方程$ y = w*x +b $，所以感知机模型首先是一个线性模型。<br>&emsp;&emsp;再看符号函数，这个更简单，符号函数的定义如下：<br>$$<br>sign(x)=\begin{cases}<br>+1,\quad x\geq 0\\<br>-1, \quad x&lt;0<br>\end{cases}$$   </p>
 <p>如果$x&gt;=0$则$f(x)=+1$，否则$f(x)=-1$。那么对于函数$f(x) = sign(w*x+b)$，如果输入样本$w*x+b&gt;=0$，那么该样本会被判为+1类，否则判为-1类。举个例子，回到上文图一，对于直线上方有$w*x+b&gt;0$，所以所有的A样本都会归为+1类，对于直线下方有$w*x+b&lt;0$，这样所有的B样本都会归为-1类。因此，感知机模型是一个线性二分类模型，其任务就是，找到这样的一个超平面，能够把两个不同的分类完全分割开。   </p>
@@ -243,7 +243,7 @@ plt.ylabel(<span class="string">'x2'</span>)
 plt.show()
 </code></pre>
 <p>&emsp;&emsp;因为这里的两个样本区分度太明显，所以经过几次迭代就已经收敛了。最终求得参数$w=[1.03972853 \  0.97360177] ,b=0$，根据参数$(w,b)$画出的直线如下图所示：<div align="center"><img src="http://i.imgur.com/WftOMnU.png" alt=""></div><br>&emsp;&emsp;选取不同的初始值$(w,b)$或者不同的误分类点，划分的超平面很有可能会不一样，这也就是为什么在线性可分数据集中，用感知机模型求出来的解有无穷多个。如下面直线$A,B,C$都可作为解。</p>
-<p><div align="center"> <img src="http://i.imgur.com/ibURFh2.png" alt=""></div> </p>
+<p><div align="center"> <img src="http://i.imgur.com/ibURFh2.png" alt=""></div></p>
 <h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>&emsp;&emsp;感知机模型假设训练数据集是线性可分的，如果线性不可分，算法会一直震荡无法收敛，所以其无法处理一些复杂的数据，如在分类器中提到的图二和图三。考虑到实际业务的数据一般比较复杂，简单的感知机模型无法有效地处理如此复杂的数据，所以在建模中很少会使用该模型。但是感知机模型还是比较重要的，为什么这么说呢，因为只要稍微修改下模型的损失函数，感知机模型就可转变为广受欢迎的分类神器：支持向量机，而通过简单的堆叠可演变为神经网络模型。</p>
 
       
@@ -258,7 +258,7 @@ plt.show()
             <span class="tooltip-content">
               <span class="tooltip-text">
                 <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>你要请我大保健吗？<i class="icon icon-quo-right"></i></p>
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>赏个铜板呗<i class="icon icon-quo-right"></i></p>
                   <div class="reward-box">
                     
                     <div class="reward-box-item">
@@ -266,11 +266,6 @@ plt.show()
                       <span class="reward-type">支付宝</span>
                     </div>
                     
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="\img\wechat.png">
-                      <span class="reward-type">微信</span>
-                    </div>
                     
                   </div>
                 </span>
@@ -403,7 +398,7 @@ plt.show()
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 山久丰
+    		&copy; 2019 山久丰
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -519,10 +514,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">效果评估</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
@@ -531,15 +522,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">效果评估</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">对数线性模型</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">广义线性模型</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -552,6 +547,26 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">无监督监督学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">分词</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NER</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">新词发现</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">attention</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">情感分类</a>
               </li>
             
             <div class="clearfix"></div>

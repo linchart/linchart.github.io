@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://i.imgur.com/j0iIYfg.png">
 <meta property="og:image" content="https://i.imgur.com/d01eJlT.png">
 <meta property="og:image" content="https://i.imgur.com/cyfV69c.png">
-<meta property="og:updated_time" content="2018-09-02T15:09:54.700Z">
+<meta property="og:updated_time" content="2019-02-27T02:49:10.683Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逻辑回归">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;逻辑回归（Logistic Regression）是一个非常经典的回归模型，在神经网络里作为激活函数时也称为sigmoid函数。逻辑回归模型既可以处理线性分类问题也可以处理非线性分类问题，但其本质上是一个线性模型。作为机器学习入门级模型，该模型既简单又强大，在现实中有着广泛应用，比如国外成熟的信用卡评分模型就是基于逻辑回归模型建立的。">
@@ -195,19 +195,8 @@
       
         <p>&emsp;&emsp;逻辑回归（Logistic Regression）是一个非常经典的回归模型，在神经网络里作为激活函数时也称为sigmoid函数。逻辑回归模型既可以处理线性分类问题也可以处理非线性分类问题，但其本质上是一个线性模型。作为机器学习入门级模型，该模型既简单又强大，在现实中有着广泛应用，比如国外成熟的信用卡评分模型就是基于逻辑回归模型建立的。<br><a id="more"></a>   </p>
 <h1 id="模型推导"><a href="#模型推导" class="headerlink" title="模型推导"></a>模型推导</h1><p>&emsp;&emsp;线性模型试图通过属性间的线性组合来预测目标值，它的模型形式是这样的：$$y=w_1x_1+w_2x_2+…+w_dx_d+b$$<br>其中$x_i,  i\in (1,2,…,d)$表示$x$在第$i$个属性上的取值。上式表示成向量的形式就是：$$y=w^Tx+b$$<br>其中$w=(w_1;w_2;…;w_3)$。<br>&emsp;&emsp;在二维平面上，线性回归模型，其实就是一条直线，再来看下另外一个函数$y=e^x$。<div align="center"><img src="https://i.imgur.com/FvaFjR8.png" alt=""></div><br>不难看出对数函数和线性函数都是单调的，那么肯定可以找到一个映射函数使得对于直线上的任意一个点$y=w^Tx+b$，都能在函数$y=e^x$上找到唯一的一个点与之相对应。对于函数$y=e^x$不妨令：$$x \leftarrow w^Tx+b$$则有$y=e^{w^Tx+b}$，两边取对数之后，就有$lny=w^Tx+b$。</p>
-<p><div align="center"><img src="https://i.imgur.com/zfjSPxA.png" alt=""></div><br>给定数据集$D= \{ (x_1,y_1),(x_2,y_2),…,(x_m,y_m) \} $，其中 $y_i \in \{0,1\}$。我们可以用概率$p,p \in [0,1]$来表示样本$x$被判为$y=1$时的可能性，$p$值越大，代表$x$被归为正样本$y=1$的可能性越大，也就是$p(y=1|x)$的概率为$p$，那么对应的$p(y=0|x)$的概率就是$1-p$，这两者的比值$$\frac{p}{1-p}$$称为“几率”也有些家伙会称它为“优势比”。<br>这个时候，我们再回到取对数之后的等式：$lny=w^Tx+b$，令$y=\frac{p}{1-p}$，可以将等式转化为：$$ln\frac{p}{1-p}=w^Tx+b$$ 同时将等式两边的值作为指数，以$e$为底，可以得到：$$\frac{p}{1-p} = e^{w^Tx+b}$$ 稍微处理一下就可以推导出经典的逻辑回归模型:<div align="center"><img src="https://i.imgur.com/LLuWYHk.png" alt=""></div><br>也就是说，对于$y=1$，我们有$$p(y=1|x)=\frac {e^{w^Tx+b}}{1+e^{w^Tx+b}}$$<br>对于$y=0$，我们有$$p(y=0|x)=\frac {1}{1+e^{w^Tx+b}}$$<br>为了看的更舒服一点，令$z=w^Tx+b$，分子分母再同时除以$e^z$，则模型写成以下形式：$$f(z)=\frac {1}{1+e^{-z}}$$<br>上面的等式其实是一个单调“S”形函数，$f(z)$的取值在$(0,1)$之间，当$z$取值越大时，$f(z)$越接近于1，反之，当$z$取值越小时，$f(z)$越接近于0，当$z=0$时，$f(z)=0.5$。<div align="center"><img src="https://i.imgur.com/zmzPE1t.png" alt=""></div><br>其工作方式是，当$z&gt;0$时，对应的样本被判为正类$y=1$，当$z&lt;0$时，对应的样本被判为负类$y=0$，当$z=0$时，可视情况将样本归为任意类别。   </p>
-<h1 id="线性and非线性"><a href="#线性and非线性" class="headerlink" title="线性and非线性"></a>线性and非线性</h1><p>为什么逻辑回归模型，既可以解决线性分类，也可以解决部分非线性分类问题呢？这里举两个例子。   </p>
-<h2 id="线性分类"><a href="#线性分类" class="headerlink" title="线性分类"></a>线性分类</h2><p>假设有$y \in \{0,1\}$两类样本，如下图，存在一条直线$f(x_1,x_2)=\frac{1}{2}x_1-x_2+1$（我随便写的）能把这两类样本完全分割开，也就是对于所有的$y=1$有$f(x_1,x_2)&gt;0$，对于所有的$y=0$有$f(x_1,x_2)&lt;0$。   </p>
-<p><div align="center"><img src="https://i.imgur.com/U543AYa.png" alt=""></div><br>我们将$f(x_1,x_2)$代入逻辑回归模型，就会有：$$f(f(x_1,x_2))=\frac {1}{1+e^{-f(x_1,x_2)}}$$<br>显然，根据刚才提到的逻辑回归的工作方式，当$f(x_1,x_2)&gt;0$时，逻辑回归函数的取值$f(f(x_1,x_2))&gt;0.5$，也就是说，样本$(x_1,x_2)$被判为正类的可能性更大，相对应地，当$f(x_1,x_2)&lt;0$时，逻辑回归函数的取值$f(f(x_1,x_2))&lt;0.5$，样本$(x_1,x_2)$被判为负类的可能性更大。   </p>
-<h2 id="非线性分类"><a href="#非线性分类" class="headerlink" title="非线性分类"></a>非线性分类</h2><p>&emsp;&emsp;同样，假设有$y \in \{0,1\}$两类样本，但是这两类样本在二维平面上不再线性可分，而是长成下面的样子。   </p>
-<p><div align="center"><img src="https://i.imgur.com/hz0Zzvq.png" alt=""></div><br>这个时候继续使用直线一刀切地划分显然是不行的（当然，你可以将样本映射到高维空间，然后寻找划分超平面这两类样本分隔开）。但是我们可以找到这样的一个圆（如下图），能把正负样本完全分隔开，假设关于这个圆的函数是$(x1-4)^2+(x2-3)^2=0$（还是随便写的）。   </p>
-<p><div align="center"><img src="https://i.imgur.com/wGa2z5I.png" alt=""></div><br>函数$(x1-4)^2+(x2-3)^2&gt;0$时，代表样本点位于圆的外面，此时有$y=1$，把函数代入逻辑回归模型，会有$f(x)&gt;0.5$，此时样本$(x_1,x_2)$被判为正类的可能性更大。同样地，函数$(x1-4)^2+(x2-3)^2&lt;0$时，代表样本点位于圆的里面，此时有$y=0$，把函数代入逻辑回归模型，会有$f(x)&lt;0.5$，此时样本$(x_1,x_2)$被判为负类的可能性更大。<br>&emsp;&emsp;因此，逻辑回归模型能够很好地处理线性分类以及部分非线性分类问题。   </p>
-<h1 id="极大似然估计"><a href="#极大似然估计" class="headerlink" title="极大似然估计"></a>极大似然估计</h1><p>&emsp;&emsp;模型找出来了，但是参数$w$和$b$还没有求解，所以又到了寻找损失函数的时候了。在线性回归中，一般会使用均方误差（也叫最小二乘法）来衡量预测的好坏，该损失函数试图找到这样的一条直线，能够使得所有样本到直线上的距离之和最小，说白了就是用欧氏距离来衡量预测效果。</p>
-<p><div align="center"><img src="https://i.imgur.com/wd7PCwB.png" alt=""></div><br>&emsp;&emsp;用均方误差求解线性回归参数，是因为该损失函数是一个凸函数，凸函数有一个比较好的性质就是，局部极小点就是全局最小点，在达到全局最优的过程中不会经历太多的波折，更不会走到半路就以为是终点。<div align="center"><img src="https://i.imgur.com/fL6A9Bv.png" alt=""></div><br>不妨也试一下，使用均方误差来衡量逻辑回归模型的拟合效果如何，把上面的$h_ \theta(x)$换成逻辑回归的方程式可以得到：<div align="center"><img src="https://i.imgur.com/GsLNrEl.png" alt=""></div><br>很遗憾的是，这个函数是非凸的，它可能是长成这个样子的：<div align="center"><img src="https://i.imgur.com/X9sec3T.png" alt=""></div><br>这样的函数，在进行最优化求解时，函数值很有可能一直逗留在某些奇怪的地方比如图中红色的点，而没办法达到全局最优。<br>&emsp;&emsp;我们可以从概率的角度去思考，根据逻辑回归模型预测出来的概率值，肯定是离样本的真实标记越接近越好。比如对于正样本$x_1$，肯定是值$f(x_1)$越大越好，对于负样本$x_2$，值$f(x_2)$越小越好，因为值$f(x_2)$越小，样本$x_2$被判为负样本的可能性越大。<br>对所有训练样本，我们希望最大化其似然函数：</p>
-<p><div align="center"><img src="https://i.imgur.com/tt9pKjt.png" alt=""></div><br>当$y_i=1$时，$p$越大，$L(p)$越大。当$y_i=0$时，$p$越小，$L(p)$越大。对上式取对数之后，就得到对数似然函数：<div align="center"><img src="https://i.imgur.com/j0iIYfg.png" alt=""></div><br>这里的$p(y_i=1|x_i)$对我们来说还是未知的，想要求解参数$w$，还需要稍微推导下。在模型推导中，我们知道：$$p(y=1|x)=\frac {e^{w^Tx+b}}{1+e^{w^Tx+b}}$$<br>把这个等式代入到损失函数（对数似然函数）中：</p>
-<p><div align="center"><img src="https://i.imgur.com/d01eJlT.png" alt=""></div><br>这样就可以使用最优化方法来求解参数$w$了。对$L(w)$求极大值，就可以得到$w$的估计值。当然，也可以将对数似然函数写成以下形式，就变成求极小值：<div align="center"><img src="https://i.imgur.com/cyfV69c.png" alt=""></div>   </p>
-<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>哈哈</p>
-
+<div align="center"><img src="https://i.imgur.com/zfjSPxA.png" alt=""></div><br>给定数据集$D= \{ (x_1,y_1),(x_2,y_2),…,(x_m,y_m) \} $，其中 $y_i \in \{0,1\}$。我们可以用概率$p,p \in [0,1]$来表示样本$x$被判为$y=1$时的可能性，$p$值越大，代表$x$被归为正样本$y=1$的可能性越大，也就是$p(y=1|x)$的概率为$p$，那么对应的$p(y=0|x)$的概率就是$1-p$，这两者的比值$$\frac{p}{1-p}$$称为“几率”也有些家伙会称它为“优势比”。<br>这个时候，我们再回到取对数之后的等式：$lny=w^Tx+b$，令$y=\frac{p}{1-p}$，可以将等式转化为：$$ln\frac{p}{1-p}=w^Tx+b$$ 同时将等式两边的值作为指数，以$e$为底，可以得到：$$\frac{p}{1-p} = e^{w^Tx+b}$$ 稍微处理一下就可以推导出经典的逻辑回归模型:<div align="center"><img src="https://i.imgur.com/LLuWYHk.png" alt=""></div><br>也就是说，对于$y=1$，我们有$$p(y=1|x)=\frac {e^{w^Tx+b}}{1+e^{w^Tx+b}}$$<br>对于$y=0$，我们有$$p(y=0|x)=\frac {1}{1+e^{w^Tx+b}}$$<br>为了看的更舒服一点，令$z=w^Tx+b$，分子分母再同时除以$e^z$，则模型写成以下形式：$$f(z)=\frac {1}{1+e^{-z}}$$<br>上面的等式其实是一个单调“S”形函数，$f(z)$的取值在$(0,1)$之间，当$z$取值越大时，$f(z)$越接近于1，反之，当$z$取值越小时，$f(z)$越接近于0，当$z=0$时，$f(z)=0.5$。<div align="center"><img src="https://i.imgur.com/zmzPE1t.png" alt=""></div><br>其工作方式是，当$z&gt;0$时，对应的样本被判为正类$y=1$，当$z<0$时，对应的样本被判为负类$y=0$，当$z=0$时，可视情况将样本归为任意类别。 #="" 线性and非线性="" 为什么逻辑回归模型，既可以解决线性分类，也可以解决部分非线性分类问题呢？这里举两个例子。="" ##="" 线性分类="" 假设有$y="" \in="" \\{0,1\\}$两类样本，如下图，存在一条直线$f(x_1,x_2)="\frac{1}{2}x_1-x_2+1$（我随便写的）能把这两类样本完全分割开，也就是对于所有的$y=1$有$f(x_1,x_2)">0$，对于所有的$y=0$有$f(x_1,x_2)<0$。 <div="" align="center"><img src="https://i.imgur.com/U543AYa.png" alt=""><br>我们将$f(x_1,x_2)$代入逻辑回归模型，就会有：$$f(f(x_1,x_2))=\frac {1}{1+e^{-f(x_1,x_2)}}$$<br>显然，根据刚才提到的逻辑回归的工作方式，当$f(x_1,x_2)&gt;0$时，逻辑回归函数的取值$f(f(x_1,x_2))&gt;0.5$，也就是说，样本$(x_1,x_2)$被判为正类的可能性更大，相对应地，当$f(x_1,x_2)<0$时，逻辑回归函数的取值$f(f(x_1,x_2))<0.5$，样本$(x_1,x_2)$被判为负类的可能性更大。 ##="" 非线性分类="" &emsp;&emsp;同样，假设有$y="" \in="" \\{0,1\\}$两类样本，但是这两类样本在二维平面上不再线性可分，而是长成下面的样子。="" <div="" align="center"><img src="https://i.imgur.com/hz0Zzvq.png" alt=""><br>这个时候继续使用直线一刀切地划分显然是不行的（当然，你可以将样本映射到高维空间，然后寻找划分超平面这两类样本分隔开）。但是我们可以找到这样的一个圆（如下图），能把正负样本完全分隔开，假设关于这个圆的函数是$(x1-4)^2+(x2-3)^2=0$（还是随便写的）。<br><div align="center"><img src="https://i.imgur.com/wGa2z5I.png" alt=""></div><br>函数$(x1-4)^2+(x2-3)^2&gt;0$时，代表样本点位于圆的外面，此时有$y=1$，把函数代入逻辑回归模型，会有$f(x)&gt;0.5$，此时样本$(x_1,x_2)$被判为正类的可能性更大。同样地，函数$(x1-4)^2+(x2-3)^2<0$时，代表样本点位于圆的里面，此时有$y=0$，把函数代入逻辑回归模型，会有$f(x)<0.5$，此时样本$(x_1,x_2)$被判为负类的可能性更大。 &emsp;&emsp;因此，逻辑回归模型能够很好地处理线性分类以及部分非线性分类问题。="" #="" 极大似然估计="" &emsp;&emsp;模型找出来了，但是参数$w$和$b$还没有求解，所以又到了寻找损失函数的时候了。在线性回归中，一般会使用均方误差（也叫最小二乘法）来衡量预测的好坏，该损失函数试图找到这样的一条直线，能够使得所有样本到直线上的距离之和最小，说白了就是用欧氏距离来衡量预测效果。="" <div="" align="center"><img src="https://i.imgur.com/wd7PCwB.png" alt=""><br>&emsp;&emsp;用均方误差求解线性回归参数，是因为该损失函数是一个凸函数，凸函数有一个比较好的性质就是，局部极小点就是全局最小点，在达到全局最优的过程中不会经历太多的波折，更不会走到半路就以为是终点。<div align="center"><img src="https://i.imgur.com/fL6A9Bv.png" alt=""></div><br>不妨也试一下，使用均方误差来衡量逻辑回归模型的拟合效果如何，把上面的$h_ \theta(x)$换成逻辑回归的方程式可以得到：<div align="center"><img src="https://i.imgur.com/GsLNrEl.png" alt=""></div><br>很遗憾的是，这个函数是非凸的，它可能是长成这个样子的：<div align="center"><img src="https://i.imgur.com/X9sec3T.png" alt=""></div><br>这样的函数，在进行最优化求解时，函数值很有可能一直逗留在某些奇怪的地方比如图中红色的点，而没办法达到全局最优。<br>&emsp;&emsp;我们可以从概率的角度去思考，根据逻辑回归模型预测出来的概率值，肯定是离样本的真实标记越接近越好。比如对于正样本$x_1$，肯定是值$f(x_1)$越大越好，对于负样本$x_2$，值$f(x_2)$越小越好，因为值$f(x_2)$越小，样本$x_2$被判为负样本的可能性越大。<br>对所有训练样本，我们希望最大化其似然函数：<br><div align="center"><img src="https://i.imgur.com/tt9pKjt.png" alt=""></div><br>当$y_i=1$时，$p$越大，$L(p)$越大。当$y_i=0$时，$p$越小，$L(p)$越大。对上式取对数之后，就得到对数似然函数：<div align="center"><img src="https://i.imgur.com/j0iIYfg.png" alt=""></div><br>这里的$p(y_i=1|x_i)$对我们来说还是未知的，想要求解参数$w$，还需要稍微推导下。在模型推导中，我们知道：$$p(y=1|x)=\frac {e^{w^Tx+b}}{1+e^{w^Tx+b}}$$<br>把这个等式代入到损失函数（对数似然函数）中：<br><div align="center"><img src="https://i.imgur.com/d01eJlT.png" alt=""></div><br>这样就可以使用最优化方法来求解参数$w$了。对$L(w)$求极大值，就可以得到$w$的估计值。当然，也可以将对数似然函数写成以下形式，就变成求极小值：<div align="center"><img src="https://i.imgur.com/cyfV69c.png" alt=""></div>   
+</0$时，代表样本点位于圆的里面，此时有$y=0$，把函数代入逻辑回归模型，会有$f(x)<0.5$，此时样本$(x_1,x_2)$被判为负类的可能性更大。></0$时，逻辑回归函数的取值$f(f(x_1,x_2))<0.5$，样本$(x_1,x_2)$被判为负类的可能性更大。></0$。></0$时，对应的样本被判为负类$y=0$，当$z=0$时，可视情况将样本归为任意类别。>
       
 
       
@@ -220,7 +209,7 @@
             <span class="tooltip-content">
               <span class="tooltip-text">
                 <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>你要请我大保健吗？<i class="icon icon-quo-right"></i></p>
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>赏个铜板呗<i class="icon icon-quo-right"></i></p>
                   <div class="reward-box">
                     
                     <div class="reward-box-item">
@@ -228,11 +217,6 @@
                       <span class="reward-type">支付宝</span>
                     </div>
                     
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="\img\wechat.png">
-                      <span class="reward-type">微信</span>
-                    </div>
                     
                   </div>
                 </span>
@@ -373,7 +357,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 山久丰
+    		&copy; 2019 山久丰
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -489,10 +473,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">效果评估</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
@@ -501,15 +481,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">效果评估</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">对数线性模型</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">广义线性模型</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -522,6 +506,26 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">无监督监督学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">分词</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NER</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">新词发现</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">attention</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">情感分类</a>
               </li>
             
             <div class="clearfix"></div>

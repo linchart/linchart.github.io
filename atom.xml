@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-09-02T15:52:12.469Z</updated>
+  <updated>2019-02-26T13:28:40.505Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,18 +16,801 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>基于牛顿法优化逻辑回归损失函数（一）</title>
+    <title>Deep Learning for Sentiment Analysis A Survey 笔记</title>
+    <link href="http://yoursite.com/posts/2019/02/26/Deep_Learning_for_Sentiment_Analysis_A_Survey_note.html"/>
+    <id>http://yoursite.com/posts/2019/02/26/Deep_Learning_for_Sentiment_Analysis_A_Survey_note.html</id>
+    <published>2019-02-26T13:20:03.607Z</published>
+    <updated>2019-02-26T13:28:40.505Z</updated>
+    
+    <content type="html"><![CDATA[<p>（未完整版…）<br>&emsp;&emsp;该论文详细论述了近年来深度学习在情感分析上的研究应用。论文前半部分先介绍了情感分析涉及的一些基本模型：FNN（前馈神经网络）、word embedding(提及word2vec,glove)、自编码及降噪自编码、CNN、RNN、LSTM、RNN与注意力机制、MemNN(记忆网络)、递归神经网络。后半部分对 Document level、sentence level、aspect level及其他一些比较细/前沿的情感分析方法进行调研。根据目前的工作，仅重点关注document level 和 sentence level所使用的一些方法。<br><a id="more"></a></p>
+<h1 id="情感分析任务"><a href="#情感分析任务" class="headerlink" title="情感分析任务"></a>情感分析任务</h1><p>情感分析任务主要分为三个：   </p>
+<ul>
+<li>Document level   </li>
+<li>sentence level    </li>
+<li>aspect level(如“the voice quality of    iPhone is great, bu its    battery    sucks 要识别 voice quality 是正向的，battery 是负向的)</li>
+</ul>
+<h1 id="Document-level"><a href="#Document-level" class="headerlink" title="Document level"></a>Document level</h1><p>下表总结了文档级情感分析的深度学习方法   </p>
+<div align="center"><br><p><img src="img/pic1.jpg"></p><br></div><br><div align="center"><br><p><img src="img/pic2.jpg"></p><br></div>
+
+<p>简要介绍一下这些方法：   </p>
+<p>1、 <a href="https://www.researchgate.net/publication/320729882_Sentiment_Analysis_at_Document_Level" target="_blank" rel="external">Document-level sentiment classification: An empirical comparison between SVM and ANN</a><br>&emsp;&emsp;该论文主要是比较SVM 和ANN在Document level 上的情感分析应用效果，结论是大部分情况下ANN 优于 SVM ，尤其是在benchmark dataset of Movies reviews 上。<br>2、<a href="https://arxiv.org/pdf/1405.4053.pdf" target="_blank" rel="external">Distributed Representations of Sentences and Documents</a><br>&emsp;&emsp;为了克服BOW的缺点（没考虑词之间的顺序，以及词之间的关系），Le and Mikolov 提出了一种可以学习可变长度文本的段落向量，如句子、段落、文档。该段落向量表示通过预测抽取文本周围的词来学习。？   </p>
+<p>3、<a href="http://www.icml-2011.org/papers/342_icmlpaper.pdf" target="_blank" rel="external">Domain Adaptation for Large-Scale Sentiment Classification:A Deep Learning Approach</a><br>&emsp;&emsp;Glorot et al 研究了大规模情感分类中的域自适应问题，他们提出了一种基于多层降噪自动编码器和    sparse rectifier units的深度学习系统，该系统能够根据标注/无标注提取无监督文本特征/表示，这些特征能够很好地应用于域适应的情感分类。   </p>
+<p>4、<a href="https://arxiv.org/abs/1512.04466" target="_blank" rel="external">Semisupervised autoencoder for sentiment analysis</a><br>&emsp;&emsp;Zhai and Zhang介绍了一种半监督自编码的方法，为了获得更好的document vectors ，该方法能够在学习过程中考虑更多的情感信息。具体来说就是，模型通过将自编码器中的损失函数松弛到Bregman散度以及从标签信息中推导出判别损失函数来学习特定任务的文本数据表示。   </p>
+<p>5、<a href="https://arxiv.org/abs/1412.1058" target="_blank" rel="external">Effective Use of Word Order for Text Categorization with Convolutional Neural Networks</a><br>&emsp;&emsp;Johnson    and    Zhang 提出了一种CNN的变体方法：BOW-CNN，该方法在卷积层使用了BOW。另外，他们也设计了一种新的模型：Seq-cnn，通过拼接多个词的one-hot向量来保持连续词的信息。   </p>
+<p>6、<a href="http://aclweb.org/anthology/D15-1167" target="_blank" rel="external">Document Modeling with Gated Recurrent Neural Network for Sentiment Classification</a><br>&emsp;&emsp;Tang 等人提出了一种能够学习文档表示的神经网络，该网络考虑了句子之间的关系。该方法首先使用CNN 或LSTM从word embedding中学习句子的表示，然后使用GRU自适应地编码句子的语义以及文档中句子之间的关系。   </p>
+<p>7、<a href="http://ir.hit.edu.cn/~dytang/paper/acl2015/acl2015.pdf" target="_blank" rel="external">learning semantic representations of users and products for document level sentiment classification</a><br>&emsp;&emsp;Tang 等人将用户表示和产品表示应用于评论分类中。想法就是，这些（用户和产品）表示能够捕获一些重要的全局线索，比如能够提供更好的文本表示的 用户的个人偏好、产品的整体质量。   </p>
+<p>8、<a href="https://aclweb.org/anthology/D16-1171" target="_blank" rel="external">Neural sentiment classification with    user and product attention</a><br>&emsp;&emsp;Chen 等人也在分类中考虑了用户和产品信息，但是是通过词和句子级别的注意力机制来实现的。该方法能够考虑到整体用户的偏好以及产品特性。同样地，Dou使用了一个深度记忆网络来捕获用户和产品信息，该模型可以分为两个独立的部分，第一部分，使用LSTM学习文档表示，第二部分，利用由多个计算层（hops）组成的深度记忆网络来预测每个文档的评分等级(review rating)。   </p>
+<p>9、<a href="https://arxiv.org/abs/1610.04989" target="_blank" rel="external">Cached Long Short-Term Memory Neural Networks for Document-Level Sentiment Classification</a><br>&emsp;&emsp;Xu 等人提出了一种缓存LSTM模型，该模型能够在长文本中捕获整体语义信息。模型中的memory被分成几个不同遗忘率的组。能够让低遗忘率的memory捕获全局语义特征，让高遗忘率的memory捕获局部语义特征。   </p>
+<p>10、<a href="https://www.cs.cmu.edu/~hovy/papers/16HLT-hierarchical-attention-networks.pdf" target="_blank" rel="external">hierarchical attention networks for document classification</a><br>&emsp;&emsp;Yang 等人提出了一个多层attention 网络用于documennt level 的评论情感预测。该模型包含两个level 的注意力机制：一个是word level，能够让模型更多地关注个体词；另一个是sentence level ,能够让模型更多地关注文档中的句子的结构表示。   </p>
+<p>11、<a href="http://www.cse.ust.hk/~yqsong/papers/2017-EMNLP-AspectClassification.pdf" target="_blank" rel="external">Document-level multi-aspect sentiment classification as machine comprehension.</a><br>&emsp;&emsp;Yin等人将文档级的目标情感等级预测任务作为机器阅读理解问题来解决， 同时提出了一个基于注意力的多层交互模型。Specifically,documents and pseudo aspect-questions are interleaved to learn aspect-aware document representation.   </p>
+<p>12、<a href="https://aclweb.org/anthology/D16-1024" target="_blank" rel="external">Attention-based LSTM Network for Cross-Lingual Sentiment Classification</a><br>&emsp;&emsp;Zhou 等人针对文档级的跨语言情感分类问题，设计了一个基于注意力机制的LSTM模型。该模型用了两个基于注意力机制的LSTM网络，并且每个LSTM都是分成结构的。这种方法，能够有效地将情感信息从资源丰富的语言（英语）转换为资源匮乏的语言（中文），有助于提升分类性能。   </p>
+<p>13、<a href="https://www.ijcai.org/proceedings/2017/0311.pdf" target="_blank" rel="external">End-to-End Adversarial Memory Network for Cross-domain Sentiment Classification</a><br>&emsp;&emsp;li 等人将跨领域情感分类视为迁移学习，提出了一种对抗记忆网络，将源数据和目标域放在一起建模。该模型将情感分类和域分类放到一起训练（也就是，不管文档是来自源还是来自目标域）   </p>
+<h1 id="Sentence-level"><a href="#Sentence-level" class="headerlink" title="Sentence level"></a>Sentence level</h1><p>&emsp;&emsp;sentence level 的情感分析一般被当成一个三分类问题，也就是预测句子情感是正向、负向还是中性。相较于文档，句子级的情感分析可以使用一些语法语义信息，比如：分析树、观点词典、POS，以及其他的一些评论等级（1-5星）、社交关系、跨领域信息都能派上用场。但是随着神经网络的发展，使用CNN、RNN等模型不再需要额外提取分析树等特征，因为CNN、RNN将词嵌入作为输入，在encode的时候已经考虑了句子的语法和语义信息，模型也能学到句子中词之间的内在关系。下面介绍NN在sentence level的应用。   </p>
+<p>1、<a href="http://www.aclweb.org/anthology/D11-1014" target="_blank" rel="external">Semi-Supervised Recursive Autoencoders for Predicting Sentiment Distributions</a><br>&emsp;&emsp;Socher 等人首次提出一种半监督的递归自编码网络(RAE)用于句子级别的情感分类，该模型得到一个句子的降维向量表示。他也提出了一个Matrix-vector递归神经网络，其中，在树结构中，每个词都与一个矩阵表示（不是与矩阵的向量表示）相关联。该树结构从额外的语法解析器获得。Socher et al进一步介绍了一种递归神经张量网络（RNTN），它是基于张量的复合函数，能够更好地捕捉元素之间的相互作用。Qian 等人提出了两个更先进的模型：Tag-guided递归神经网络（TG-RNN）和Tag-embedded递归神经网络/递归神经张量网络（TE-RNN/RNTN），前者根据短语的词性标注来选择复合函数来训练，后者先学习标签嵌入，然后将标签嵌入和词嵌入融合在一起来训练。   </p>
+<p>2、<a href="http://www.aclweb.org/anthology/P14-1062" target="_blank" rel="external">A convolutional neural network for modelling sentences</a><br>&emsp;&emsp;Kalchbrenner 等人提出了动态CNN(DCNN)用于句子的语义建模。DCNN采用动态K-Max池化作为非线性下采样，该网络生成的特征图能够捕获词之间的关系。Kim也使用CNN做句子级的情感分类，并尝试了CNN的几种变体：RNN-rand(随机初始化词嵌入)、CNN-static(词向量已预训练好并且是静态的)、CNN-non-static(对预训练好的词向量微调)、CNN-multichannel(使用多个词向量集)   </p>
+<p>3、<a href="http://anthology.aclweb.org/C/C14/C14-1008.pdf" target="_blank" rel="external">Deep convolutional neural networks for sentiment analysis for short texts.</a><br>&emsp;&emsp;dos Santos and Gatti 提出了一种字符到句子的CNN(CharSCNN)模型，CharSCNN采用两个卷积层从任意大小的词和句子中提取相关特征。Wang等人采用LSTM通过模拟词语在成词过程中的相互作用来对twitter进行情感分类。与使用简单加法的循环神经网络相比，LSTM在门结构中使用乘法对word embedding操作更加灵活以及达到更好的组合效果。？跟双向RNN相似，单向LSTM能够通过在隐藏层双向链接扩展成双向LSTM。   </p>
+<p>4、<a href="http://anthology.aclweb.org/P16-2037" target="_blank" rel="external">Dimensional Sentiment Analysis Using a Regional CNN-LSTM Model</a><br>&emsp;&emsp;wang等人提出了一种区域CNN-LSTM(regional CNN-LSTM)模型，该模型包含两部分：regional CNN 和 LSTM，用来预测文本中valence arousal数值(Valence表示兴奋或平静的程度, Arousal表示与正面或者负面的程度)。   </p>
+<p>5、<a href="http://www.aclweb.org/anthology/C16-1229" target="_blank" rel="external">Combination of Convolutional and Recurrent Neural Network for Sentiment Analysis of Short Texts</a><br>&emsp;&emsp;wang 等人提出了一种联合CNN和RNN的模型，用于短文本情感分类。该模型汲取了CNN的粗粒度特征和RNN的长距离依赖的优点。   </p>
+<p>6、<a href="https://pdfs.semanticscholar.org/c250/b11a5909baebe5de3195d6ddcdacc809fda7.pdf" target="_blank" rel="external">CNN- and LSTM-based Claim Classification in Online User Comments</a><br>&emsp;&emsp;Guggilla等人提出了一种基于LSTM和CNN的深度神经网络模型，该模型使用word2vec 和语言嵌入进行陈述分类(claim classification，分为事实或者观点)   </p>
+<p>7、<a href="https://dl.acm.org/citation.cfm?id=3052770" target="_blank" rel="external">encoding syntactic knowledge in neural networks for sentiment classification</a><br>&emsp;&emsp;Huang 等人将句法知识(如POS tags)编码到树结构的LSTM中，以提升语法和句子的表示   </p>
+<p>8、<a href="http://aclweb.org/anthology/D17-1057" target="_blank" rel="external">a multilayer perceptron based ensemble technique for fine-grained financial sentiment analysis</a><br>&emsp;&emsp;Akhtar等人提出了几个基于多层感知机的融合模型，用于微博和新闻的金融细粒度情感分类。   </p>
+<p>9、<a href="https://www.ijcai.org/Proceedings/16/Papers/523.pdf" target="_blank" rel="external">Weakly-supervised deep learning for customer review sentiment classification</a><br>&emsp;&emsp;Guan 等人使用弱监督CNN对句子级（也可以用于aspect level）进行情感分类。该模型包含两个学习步骤：先通过整体评论评分来弱监督学习句子的表示，然后，使用句子(aspect)level 标签微调。   </p>
+<p>10、<a href="https://www.aclweb.org/anthology/D16-1169" target="_blank" rel="external">context-sensitive lexicon features for neural sentiment analysis</a><br>&emsp;&emsp;Teng 等人在一个简单的加权模型基础上，提出了一种基于词库的上下文感知方法？运用双向lstm分析情感词汇在构成句子情感价值时的情感强度、和情感否定程度。   </p>
+<p>11、<a href="https://aclweb.org/anthology/D16-1023" target="_blank" rel="external">learning sentence embeddings with auxiliary tasks for cross-domain sentiment classification</a><br>&emsp;&emsp;Yu and Jiang 研究了跨领域情感分类中的通用语句嵌入学习问题，并且设计了一个包含两个分离的CNN的神经网络模型，这两个CNN能够共同从标记和未标记的数据中学习两个隐藏特征表示。   </p>
+<p>12、<a href="https://www.ijcai.org/proceedings/2017/0494.pdf" target="_blank" rel="external">microblog sentiment classification via recurrent random walk network learning</a><br>&emsp;&emsp;Zhao 等人提出了一种循环随机漫走网络(recurrent random walk network)学习方法，用于通过利用用户发布tweets及其社交关系的深层语义表示的tweets观点分类。   </p>
+<p>13、<a href="https://www.cse.iitb.ac.in/~pb/papers/acl17-cogfeatures.pdf" target="_blank" rel="external">Learning Cognitive Features from Gaze Data for Sentiment and Sarcasm Classification using Convolutional Neural Network</a><br>&emsp;&emsp;Mishra等人借鉴人类阅读文本视角（眼睛移动阅读）的方法，采用CNN自动提取认知特征，作为丰富情感分类的特征。    </p>
+<p>14、<a href="http://www.aclweb.org/anthology/P17-1154" target="_blank" rel="external">Linguistically Regularized LSTM for Sentiment Classification</a><br>&emsp;&emsp;Qian 等人为该任务提出了一个语言规范化的LSTM，该模型将情感词汇、否定词汇、强度词汇整合在一起放入LSTM从而能够获得更好的情感分类效果。   </p>
+<p>note: 后面部分暂不作了解，等什么时候有时间再读下。   </p>
+<h1 id="Aspect-level"><a href="#Aspect-level" class="headerlink" title="Aspect level"></a>Aspect level</h1><h1 id="Aspect-抽取和分类"><a href="#Aspect-抽取和分类" class="headerlink" title="Aspect 抽取和分类"></a>Aspect 抽取和分类</h1><h1 id="观点表达提取"><a href="#观点表达提取" class="headerlink" title="观点表达提取"></a>观点表达提取</h1><h1 id="SENTIMENT-COMPOSITION"><a href="#SENTIMENT-COMPOSITION" class="headerlink" title="SENTIMENT COMPOSITION"></a>SENTIMENT COMPOSITION</h1><h1 id="OPINION-HOLDER-EXTRACTION"><a href="#OPINION-HOLDER-EXTRACTION" class="headerlink" title="OPINION HOLDER EXTRACTION"></a>OPINION HOLDER EXTRACTION</h1><h1 id="TEMPORAL-OPINION-MINING"><a href="#TEMPORAL-OPINION-MINING" class="headerlink" title="TEMPORAL OPINION MINING"></a>TEMPORAL OPINION MINING</h1><h1 id="SENTIMENT-ANALYSIS-WITH-WORD-EMBEDDING"><a href="#SENTIMENT-ANALYSIS-WITH-WORD-EMBEDDING" class="headerlink" title="SENTIMENT ANALYSIS WITH WORD    EMBEDDING"></a>SENTIMENT ANALYSIS WITH WORD    EMBEDDING</h1><h1 id="SARCASM-ANALYSIS"><a href="#SARCASM-ANALYSIS" class="headerlink" title="SARCASM ANALYSIS"></a>SARCASM ANALYSIS</h1><h1 id="EMOTION-ANALYSIS"><a href="#EMOTION-ANALYSIS" class="headerlink" title="EMOTION    ANALYSIS"></a>EMOTION    ANALYSIS</h1><h1 id="MULTIMODAL-DATA-FOR-SENTIMENT-ANALYSIS"><a href="#MULTIMODAL-DATA-FOR-SENTIMENT-ANALYSIS" class="headerlink" title="MULTIMODAL DATA FOR SENTIMENT ANALYSIS"></a>MULTIMODAL DATA FOR SENTIMENT ANALYSIS</h1><h1 id="RESOURCE-POOR-LANGUAGE-AND-MULTILINGUAL-SENTIMENT-ANALYSIS"><a href="#RESOURCE-POOR-LANGUAGE-AND-MULTILINGUAL-SENTIMENT-ANALYSIS" class="headerlink" title="RESOURCE-POOR LANGUAGE AND MULTILINGUAL SENTIMENT ANALYSIS"></a>RESOURCE-POOR LANGUAGE AND MULTILINGUAL SENTIMENT ANALYSIS</h1><h1 id="OTHER-RELATED-TASKS"><a href="#OTHER-RELATED-TASKS" class="headerlink" title="OTHER RELATED TASKS"></a>OTHER RELATED TASKS</h1><h1 id="CONCLUSION"><a href="#CONCLUSION" class="headerlink" title="CONCLUSION"></a>CONCLUSION</h1>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;（未完整版…）&lt;br&gt;&amp;emsp;&amp;emsp;该论文详细论述了近年来深度学习在情感分析上的研究应用。论文前半部分先介绍了情感分析涉及的一些基本模型：FNN（前馈神经网络）、word embedding(提及word2vec,glove)、自编码及降噪自编码、CNN、RNN、LSTM、RNN与注意力机制、MemNN(记忆网络)、递归神经网络。后半部分对 Document level、sentence level、aspect level及其他一些比较细/前沿的情感分析方法进行调研。根据目前的工作，仅重点关注document level 和 sentence level所使用的一些方法。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="NLP" scheme="http://yoursite.com/tags/NLP/"/>
+    
+      <category term="情感分类" scheme="http://yoursite.com/tags/%E6%83%85%E6%84%9F%E5%88%86%E7%B1%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>从attention到transformer</title>
+    <link href="http://yoursite.com/posts/2019/02/25/attention_to_transformer.html"/>
+    <id>http://yoursite.com/posts/2019/02/25/attention_to_transformer.html</id>
+    <published>2019-02-25T08:17:26.515Z</published>
+    <updated>2019-02-26T13:16:20.500Z</updated>
+    
+    <content type="html"><![CDATA[<p>&emsp;&emsp; attention机制最早是应用于图像领域，2014年由Bahdanau等人在论文<a href="https://arxiv.org/abs/1409.0473" target="_blank" rel="external">Neural Machine Translation by Jointly Learning to Align and Translate</a>中首次将attention机制应于NLP领域，其在seq2seq机器翻译中取得显著效果，在随后的几年attention得到越来越广泛的应用，尤其是NLP领域。最近在做情感分类的迁移学习用到了attention，疗效不错，考虑到以后接触attention的机会只多不少，便把之前看的论文整理下，做个总结。<br><a id="more"></a></p>
+<h1 id="soft-attention"><a href="#soft-attention" class="headerlink" title="(soft) attention"></a>(soft) attention</h1><p>&emsp;&emsp; 传统的seq2seq模型由encoder-decoder组成，在翻译任务中，encoder端将待翻译的语句作为input，对input中的每个word $x_1,x_2,…,x_n$ 依次喂入rnn，得到对应的隐藏状态 $h_1,h_2,…,h_n$ ，常见的方法是将最后一个状态 $h_n$ 作为固定的context vector C（其他方法请参照下图，C由隐藏状态通过一个非线性函数获得），然后dencoder端拿到这个C向量解码获得目标语句。这种做好就好像是我给你一个输入，这个输入可能是一个短语、一句话、甚至一篇文档，你看了一遍之后就不在看了，然后默默地根据脑海里记得的进行翻译，如果我给你的是短语或者一句话还好，如果是一篇文档就GG了，很难只看一遍就能把整个文档翻译出来的嘛。<a href="https://arxiv.org/abs/1409.1259" target="_blank" rel="external">cho等人</a>还专门对这种框架的翻译效果做了论证，结论是待翻译的输入句子越长，翻译质量下降越厉害。   </p>
+<div align="center"><img src="https://i.imgur.com/ntbkf3b.png" alt=""></div><br>Bahdanau等人将attention应用于翻译中，在decoder端每次解码的时候使用的context向量C都是不一样的。<br>下图展示了encoder端的隐藏状态是如何影响decoder端的目标词汇的。<br><div align="center"><img src="https://i.imgur.com/8bkDgrI.png" alt=""></div><br>通过以下两个公式也可以看出来：<br>在预测的时候，传统的seq2seq是求条件概率：<br><div align="center"><img src="https://i.imgur.com/3u46yn7.png" alt=""></div><br>使用attention之后是求条件概率：<br><div align="center"><img src="https://i.imgur.com/gLNP1dR.png" alt=""></div><br>&emsp;&emsp; 现在来看看attention是怎么应用的，还是encoder端将待翻译的语句作为input，对input中的每个word $x_1,x_2,…,x_n$ 依次喂入rnn（论文里面是使用了双向GRU，但这不是重点），得到对应的隐藏状态 $h_1,h_2,…,h_n$，我们先初始化decoder端的隐藏状态 $s_0$，拿过来跟encoder端的每个隐藏状态放入一个非线性函数做一个match，得到一系列的标量 $e_1,e_2,…,e_n$ 。<br>&emsp;&emsp; 这里的match函数种类还蛮多的，没有统一的规范，最终的目的是每个encoder端的隐藏状态会得到一个数值，这个数值表示decoder端该时刻输出与输入相应word的匹配程度，你可以使用余弦函数求余弦值也可以通过一个线性层得到，这个match函数里面的参数可以作为整个网络的参数一起学习更新，下图列出了常用的三种方法<br><div align="center"><img src="https://i.imgur.com/Tf8lNmT.png" alt=""></div><br>&emsp;&emsp; 在计算得到 $e_1,e_2,…,e_n$ 之后，经过一个softmax层，得到 $\alpha_ij$ 和为1的权重系数，再用这个权重系数与对应的encoder端隐藏状态 $h_1,h_2,…,h_n$ 做加权求和得到最终的向量 $c_i$。对于其他时刻的decoder也如法炮制，看下图就会很清晰了<br><div align="center"><img src="https://i.imgur.com/oOtKyRg.png" alt=""></div><br>&emsp;&emsp; 为了比较attention的突出效果，论文中分别训练了四个模型：RNNenc-30、RNNenc-50、RNNsearch-30、RNNsearch-50；RNNenc是传统的seq2seq模型，RNNsearch是加了attention的seq2seq模型，30 和50代表句子长度，除了attention 模型中的encoder使用了双向GRU，其他参数配置跟传统模型的参数配置一样，用Adatlta优化器训练了近5天效果如下左图，右图是翻译的时候，encoder端的输入对decoder端的每个输出的权重。<br><div align="center"><img src="https://i.imgur.com/5zGIj6E.png" alt=""></div>   
+
+<p>&emsp;&emsp; 可以看到，attention的提升效果还是很明显的，尤其是在长句子上，RNNsearch-50甚至在更长的句子上表现也比较平稳。    </p>
+<h1 id="hard-attention"><a href="#hard-attention" class="headerlink" title="hard attention"></a>hard attention</h1><p>&emsp;&emsp; Kelvin等人在<a href="https://arxiv.org/abs/1502.03044" target="_blank" rel="external">图像主题生成</a>中提出了soft attention 和 hard attention 两个概念，上面提及的是soft attention，soft 和 hard attention 是相对的，soft attention 是decoder每次输出都会对encoder端的所有hidden state 都计算权重，并且每个hidden state 的权重是不一样的，而hard attention 每次只关注一个位置，论文将要关注的位置 $s_t$ 作为一个变量，让模型自己去在生成主题的时候应该关注哪个位置，关注的位置对应取值为1，其他位置取值为0，也就是一个one-hot的向量。一个显而易见的问题就是，将one-hot放到网络里面是不可微的，然后作者就做了一系列的转换，这个在实际实施过程中还是比较麻烦的。</p>
+<div align="center"><img src="https://i.imgur.com/TBooLc9.png" alt=""></div>   
+
+<p>&emsp;&emsp; 作者将这两个类型的attention应用于Image Caption Generation，均取得了不错的效果，其中hard attention 比soft attention 要好那么一丢丢。</p>
+<h1 id="global-attention"><a href="#global-attention" class="headerlink" title="global attention"></a>global attention</h1><p>&emsp;&emsp; Luong等人同样也是从如何更好地生成动态的context向量C入手考虑，在论文<a href="https://arxiv.org/abs/1508.04025" target="_blank" rel="external">《Effective Approaches to Attention-based Neural Machine Translation》</a> 提出了global attention 和 local attention。 global attention其实跟soft attention 是一样的（虽然论文提及的global attention 跟上面soft attention的有点细微差别，这里使用的是stacking LSTM，上面提及的soft attention 是用双向GRU，并且在计算 $\alpha_ij$ 上也做了一点点简化，但本质是一样的）   </p>
+<div align="center"><img src="https://i.imgur.com/GMjtWZO.png" alt=""></div>   
+
+<h1 id="local-attention"><a href="#local-attention" class="headerlink" title="local attention"></a>local attention</h1><p>&emsp;&emsp; global attention存在的一个明显问题就是，对于每一个target word 都需要重新对 encoder 的所有hidden state 计算一遍权重，计算开销大效率低，其实在对一些长句子甚至是长文档做翻译的时候，每翻译一个词并不需要将整个句子或者整个文档都考虑一遍的，一般只需要关注正在翻译词语附近的词就行了。怎么把目标词语附近范围划分出来呢，论文提出的local attention对于每个target word 都生成一个对齐位置 $p_t$，context向量 $c_t$从窗口 $[p_t - D, p_t +D]$ 中的隐藏状态加权求和得到，位置 $p_t$ 的挑选有两种方法，一种很简单，直接令 $p_t=t$ 就ok了。 另一种方法是将 $p_t$ 也作为目标进行预测，这样模型就有了两个任务，在预测decoder输出的时候也预测生成 $c_t$ 所需要的位置 $p_t$。 local attention 可以认为是hard attention 和 soft attention 的一种结合，这样的方式使得计算量更小，并且反向传播是可微的。  </p>
+<div align="center"><img src="https://i.imgur.com/V5NizG5.png" alt=""></div>    
+
+<h1 id="self-attention"><a href="#self-attention" class="headerlink" title="self attention"></a>self attention</h1><p>&emsp;&emsp; 上面提及的attention都是encoder和decoder结合的，重点关注对于输出有利的输入，而尽量忽略对输出没什么影响的输入，这对于处理序列对序列问题是非常适合的。而self-attention 顾名思义就是自己对自己做注意力，self attention 是论文<a href="https://www.cs.cmu.edu/~hovy/papers/16HLT-hierarchical-attention-networks.pdf" target="_blank" rel="external">Hierarchical Attention Networks for Document Classification</a>提出的，self attention 其实跟传统的attention 是非常相似的，区别在于计算score的时候，不考虑decoder了，而是引入一个参数W，这个参数可以是一个向量也可以是一个多层的线性网络层，会跟着网络的其他参数一起学习，也是不统一的，anyway，最终生成的结果是，输入的每个隐藏状态都有一个对应的数值score。比如将 $x_1,x_2,…,x_n$ 喂入RNN，得到对应的隐藏状态 $h_1,h_2,…,h_n$，如果隐藏状态向量的维度为 $(1,m)$，只要引入一个大小为 $(m, 1)$ 的参数w，让 $h_1,h_2,…,h_n$ 分别与 $w$ 做内积，最后就会得到$n$ 个标量，后面的softmax还有加权求和跟传统的attention 是一样的。  </p>
+<div align="center"><img src="https://i.imgur.com/gQgmMIz.png" alt=""></div><br>&emsp;&emsp; 在文本分类上，self attention 还能区分出影响分类结果的关键词都有哪些，这样能够很清楚地知道模型在训练过程中到底学到哪些信息。<br><div align="center"><img src="https://i.imgur.com/KskVj7s.png" alt=""></div><br>&emsp;&emsp; 谷歌在17年的论文<a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="external">Attention Is All You Need</a>中将attention 抽象为一个查询(query)到一系列键值对(key-value)的映射，其中query、key、value及对应的输出值都是向量，此时attention的输入输出都不用依赖于RNN，这对attention 的本质会有一个更清晰的理解，同对后续理解multi-head attention 和 transformer也会很有帮助。<br><div align="center"><img src="https://i.imgur.com/oKeGszm.png" alt=""></div>  
+
+<p>&emsp;&emsp; 这个是从网上找到图，很清晰。query,key,value在不同的场景下取值不一样，以翻译为例，seq2seq中的attention是对于decoder端的每一个target word 的隐藏状态 与encoder端的输入的所有隐藏状态做一个match 函数得到对应评分，然后对评分softmax得到权值，将隐藏状态与权值加权求和得到向量 $c_t$，这里可以将decoder端的每一个target word 的隐藏状态看作是query，encoder端的输入的所有隐藏状态看作是key,通过计算query和各个key之间的匹配程度，得到key对应的value权重系数，然后对value加权求和得到attention值，这里key=value，都是encoder端的隐藏状态。如果是self attention，那么query=key=value。  </p>
+<h1 id="multi-head-attention"><a href="#multi-head-attention" class="headerlink" title="multi-head attention"></a>multi-head attention</h1><p>&emsp;&emsp; 要讲清楚multi-head attention 需要先了解下 scaled dot product attention。跟常规attention是将RNN的隐藏状态作为输入不一样，这里的query、key、value 不是RNN的隐藏状态，而是输入的word的embedding向量。首先，我们一个包含 $n$ 个词的句子 $(x_1,x_2,…,x_n)$ 作为输入，经过一个embedding层得到每个词的词嵌入向量 $(v_1,v_2,…,v_n)$ ，因为是self attention，query=key=value，对于某个query $v_i$ 要计算这个query对应的attention value 的话，是将 $v_i$ 与所有的key做相似度计算得到对应的value权重系数，然后对value加权求和得到attention值   </p>
+<div align="center"><img src="https://i.imgur.com/Zmy6tX4.png" alt=""></div>  
+
+<p>这是单个query的情况，对于所有的query，可以将 $Q_i$ 堆叠起来一起计算  </p>
+<div align="center"><img src="https://i.imgur.com/m9WQEH9.png" alt=""></div>
+
+<p>为了防止内积过大，对内积做了 $\frac{1}{\sqrt{d_{k}}}$ 的缩放，这就是scaled dot product attention了。   </p>
+<div align="center"><img src="https://i.imgur.com/T6b4pmc.png" alt=""></div><br>&emsp;&emsp; 如果理解了scaled dot product attention，那么multi-head attention 就很好理解了，multi-head attention 是多个scaled dot product attention 的叠加。如果要叠加h次，就是对 $(Q,K,V)$ 做h次的线性变换，得到新的h个 $(Q_i,K_i,V_i)$，分别做内积缩放得到h个不同的attention值，然后将这h个不同的attention值拼接(concat)起来，再做一个线性变化，得到的结果就是multi-head attention 的输出。<br><div align="center"><img src="https://i.imgur.com/9aEDV5D.png" alt=""></div>  
+
+<p>在encoder-decoder连接层的attention有一点点不一样的地方就是，query是decoder端上一时刻的隐藏状态，而key和value是来自于encoder端的输出。   </p>
+<h1 id="transformer"><a href="#transformer" class="headerlink" title="transformer"></a>transformer</h1><p>&emsp;&emsp; 首先强推一篇文章<a href="https://jalammar.github.io/illustrated-transformer/" target="_blank" rel="external">The Illustrated Transformer</a>，这篇文章像剥洋葱一样将transformer从外到里一层一层剥开来讲解，写的非常赞。<br>&emsp;&emsp; transformer中使用了大量的attention。论文中的transformer由堆叠的encoder和decoder组成，encoder 下由6个子编码器组成，而每一个编码器的第一层是一个multi-head self attention，第二层是一个简单的全连接前馈神经网络。decoder的层级结构基本一样，也是由6个子解码器组成，但在multi-head self attention 和前馈神经网络层之间会有一个attention层，以便更多地关注解码和编码特征向量之间的关系。</p>
+<div align="center"><img src="https://i.imgur.com/9aEDV5D.png" alt=""></div>    
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;emsp;&amp;emsp; attention机制最早是应用于图像领域，2014年由Bahdanau等人在论文&lt;a href=&quot;https://arxiv.org/abs/1409.0473&quot;&gt;Neural Machine Translation by Jointly Learning to Align and Translate&lt;/a&gt;中首次将attention机制应于NLP领域，其在seq2seq机器翻译中取得显著效果，在随后的几年attention得到越来越广泛的应用，尤其是NLP领域。最近在做情感分类的迁移学习用到了attention，疗效不错，考虑到以后接触attention的机会只多不少，便把之前看的论文整理下，做个总结。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="NLP" scheme="http://yoursite.com/tags/NLP/"/>
+    
+      <category term="attention" scheme="http://yoursite.com/tags/attention/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>新词发现</title>
+    <link href="http://yoursite.com/posts/2019/02/24/New_Word_discovery.html"/>
+    <id>http://yoursite.com/posts/2019/02/24/New_Word_discovery.html</id>
+    <published>2019-02-24T02:23:44.708Z</published>
+    <updated>2019-02-25T01:59:15.092Z</updated>
+    
+    <content type="html"><![CDATA[<p>&emsp;&emsp;新词发现，从文本中找出未登录词。本文主要参考<a href="http://www.matrix67.com/blog/archives/5044" target="_blank" rel="external">互联网时代的社会语言学：基于SNS的文本数据挖掘</a> 实现，实现的技术主要包括互信息、左右信息熵、n-gram。 另外为了方便提取新词，设计了一个评分函数，评分越高成词可能性越高。<br><a id="more"></a></p>
+<h1 id="左右信息熵"><a href="#左右信息熵" class="headerlink" title="左右信息熵"></a>左右信息熵</h1><p>&emsp;&emsp;左右信息熵用来衡量该词语所处语境的丰富程度，信息熵是用来衡量随机变量不确定度的一种度量，不确定程度越高，信息熵越高，越难以预测。 对于一个随机变量X，它的熵可以表示成以下形式：   </p>
+<div align="center"><img src="https://i.imgur.com/z3Tq7pR.png" alt=""></div><br>其中 $p(x)$ 代表随机变量 $x$ 出现的概率，在新词发现中，可以通过计算一个候选词左边和右边的信息熵来反映一个词是否有丰富的左右搭配，如果达到一定阈值则我们认为两个片段可以成为一个新词。例如（该例子来源于<a href="http://www.matrix67.com/blog/archives/5044" target="_blank" rel="external">互联网时代的社会语言学：基于SNS的文本数据挖掘</a>）<br><br>&gt; 考虑这么一句话 “吃葡萄不吐葡萄皮不吃葡萄倒吐葡萄皮”，“葡萄”一词出现了四次，其中左邻字分别为 {吃, 吐, 吃, 吐} ，右邻字分别为 {不, 皮, 倒, 皮} 。根据公式，“葡萄”一词的左邻字的信息熵为 – (1/2) · log(1/2) – (1/2) · log(1/2) ≈ 0.693  ，它的右邻字的信息熵则为 – (1/2) · log(1/2) – (1/4) · log(1/4) – (1/4) · log(1/4) ≈ 1.04 。可见，在这个句子中，“葡萄”一词的右邻字更加丰富一些。<br><br>因此，如果一个词所处的语境越丰富（不确定程度越高），则表明这个词与周围的字成词概率越低，该词独立性越好。<br><br># 点间互信息<br>&emsp;&emsp;互信息(mutual information)，表示的是两个随机变量X,Y共享的信息量。 或者说，互信息代表着知道了任意一个变量之后对另一个变量不确定性的减少。<br><div align="center"><img src="https://i.imgur.com/iDEqQBt.png" alt=""></div>
+
+<p>计算公式为：   </p>
+<p><div align="center"><img src="https://i.imgur.com/Orsyxmz.png" alt=""></div><br>点间互信息或称 内部聚合度、凝固度，相对于互信息，点间互信息仅计算了两个随机变量之间的互信息，两者相关性越大，点间互信息越大。例子参考文章<a href="http://www.matrix67.com/blog/archives/5044" target="_blank" rel="external">互联网时代的社会语言学：基于SNS的文本数据挖掘</a>中“电影院”的例子</p>
+<h1 id="n-gram"><a href="#n-gram" class="headerlink" title="n-gram"></a>n-gram</h1><p>&emsp;&emsp;<a href="https://zh.wikipedia.org/wiki/N元语法" target="_blank" rel="external">n-gram</a> 是将文本分成多个片段比较常用的方法，这里采用的是k-gram，其中 $k=2,…,n,n+1$ ，这里n为指定最大切词长度， $n+1$ 是为了计算词的左右信息熵。以词语“新词发现算法”为例，如果设定最大切词长度为3，则所有的切词片段为：新词、词发、发现、现算、算法、新词发、词发现、发现算、现算法、新词发现、词发现算、发现算法   </p>
+<h1 id="评分函数"><a href="#评分函数" class="headerlink" title="评分函数"></a>评分函数</h1><p>&emsp;&emsp;为了能够方便地评估一个词语的成词程度，设计公式：(词最小互信息 - 累计字信息熵 + 词最小左右信息熵) * 词频 对成词进行评分，分数越高成词效果越好。   </p>
+<h1 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h1><p>具体算法实现流程如下：</p>
+<ul>
+<li>输入：一个长文本字符串string   </li>
+<li>输出：新词 及 成词score   </li>
+<li>设定成词最大长度n；最小凝固度，最小自由度   </li>
+<li>将空格、逗号、分号等符号统一转换成换行符；   </li>
+<li>分别对每个句子、反转句子进行 $1,2,..,n,n+1-gram$ 分词；   </li>
+<li>将分好的词插入tire树中。并统计每个词的词频；   </li>
+<li>计算每个词的互信息，过滤掉不满足最小凝固度的词语；   </li>
+<li>计算每个词、反转词的左右信息熵，过滤掉不满足最小信息熵的词语；   </li>
+<li>计算每个字的左右信息熵，取最小值；   </li>
+<li>累计每个词的字信息熵；   </li>
+<li>计算词的成词score:(词最小互信息 - 累计字信息熵 + 词最小左右信息熵) * 词频     </li>
+</ul>
+<h1 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h1><p>&emsp;&emsp;下面是针对一些文本的抽取结果：<br>西游记：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">行者, 八戒, 师父, 菩萨, 和尚, 唐僧, 三藏, 者道, 怎么, 大圣, 沙僧, 甚么, 行者道, 悟空, 笑道, 妖精, 徒弟, 我们, 宝贝, 老孙, 袈裟, 吩咐, 闻言, 长老, 兄弟, 呆子, 铁棒, 葫芦, 国王, 仔细, 这般, 两个, 模样, 哥哥, 太宗, 左右, 兵器, 贫僧, 爷爷, 道士, 玉帝, 公主, 哪吒, 玄奘, 欢喜, 东土, 这等, 揭谛, 毕竟, 钉钯, 行李, 娘娘, 芭蕉, 收拾, 陛下, 师徒, 老爷, 猢狲, 如何, 衣服, 今日, 毫毛, 性命, 不知, 壁厢, 不曾, 取经, 战兢兢, 师兄, 包袱, 乾坤, 孙行者, 皇帝, 观音, 猪八戒, 安排, 罗刹, 不敢, 诗曰, 手段</div></pre></td></tr></table></figure></p>
+<p>通信行业会话数据：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">套餐, 小和, 流量, 可以, 办理, 取消, 国内, 服务, 飞享, 已经, 人工, 回复, 4G, 享套餐, 飞享套餐, 优惠, 分钟, 什么, 本机, 成功, 8元, 使用, 介绍, 其他, 现在, 请问, 业务, 省内, 手机, 问题, 短信, 需要, 退出, 温馨, 为您, 免费, 麻烦, 赠送, 生效, 青春, 微笑, 内通, 查询, 青春版, 谢谢, 直接, 港澳, 效劳, 月租, 没有, 号码, 确定, 显示, 支持, 记得, 身边, 4G飞享, 资费, 系统, 稍等, 通话, 开通, 接听, 宽带, 国内通用, 这个, 提醒, 个月, 光纤, 套餐青春, 拨打, 短号, 语音, 满意, 通用流量, ^_, _^, 扣费</div></pre></td></tr></table></figure></p>
+<p>红楼梦：   </p>
+<pre><code class="bash">宝玉, 什么, 凤姐, 黛玉, 姑娘, 贾母, 宝钗, 怎么, 太太, 笑道, 告诉, 丫头, 贾政, 自己, 东西, 鸳鸯, 奶奶, 紫鹃, 贾琏, 咱们, 晴雯, 袭人, 媳妇, 如今, 知道, 老爷, 探春, 李纨, 姨妈, 尤氏, 我们, 老太太, 湘云, 姐姐, 薛姨妈, 丫鬟, 刘姥姥, 薛蟠, 这样, 吩咐, 薛姨, 姊妹, 姥姥, 答应, 你们, 妹妹, 夫人, 香菱, 两个, 那里, 贾珍, 听见, 平儿, 周瑞, 屋里, 麝月, 二爷, 糊涂, 预备, 雨村, 林黛玉, 雪雁, 一个, 他们, 兄弟, 惜春, 所以, 贾赦, 伏侍, 只管, 不敢, 小厮, 贾蓉, 姨娘, 如此, 收拾, 那边, 哥哥, 嬷嬷, 悄悄, 喜欢
+</code></pre>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;emsp;&amp;emsp;新词发现，从文本中找出未登录词。本文主要参考&lt;a href=&quot;http://www.matrix67.com/blog/archives/5044&quot;&gt;互联网时代的社会语言学：基于SNS的文本数据挖掘&lt;/a&gt; 实现，实现的技术主要包括互信息、左右信息熵、n-gram。 另外为了方便提取新词，设计了一个评分函数，评分越高成词可能性越高。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="NLP" scheme="http://yoursite.com/tags/NLP/"/>
+    
+      <category term="新词发现" scheme="http://yoursite.com/tags/%E6%96%B0%E8%AF%8D%E5%8F%91%E7%8E%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>基于CRF的命名实体识别</title>
+    <link href="http://yoursite.com/posts/2019/02/23/%E5%9F%BA%E4%BA%8ECRF%E7%9A%84%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB.html"/>
+    <id>http://yoursite.com/posts/2019/02/23/基于CRF的命名实体识别.html</id>
+    <published>2019-02-23T06:47:33.867Z</published>
+    <updated>2019-02-27T15:03:46.736Z</updated>
+    
+    <content type="html"><![CDATA[<p>&emsp;&emsp; 分词、词性标注(POS)、实体识别(NER)都属于序列标注问题，解决的套路可以是一样的，在文章<a href="link">分词-基于CRF</a>中讲了如何使用CRF分词，照葫芦画瓢，本文将会使用CRF提取1998年人民日报语料中的时间(TIME)、人名(PERSON)、地名(LOCATION)、组织机构(ORGANIZATION)四类实体。<br><a id="more"></a>   </p>
+<h1 id="语料和工具"><a href="#语料和工具" class="headerlink" title="语料和工具"></a>语料和工具</h1><ul>
+<li>1998年人民日报标注语料</li>
+<li>CRF++0.58</li>
+<li>python   </li>
+</ul>
+<h1 id="数据清洗"><a href="#数据清洗" class="headerlink" title="数据清洗"></a>数据清洗</h1><p>98年的人民日报语料据说是全人工标注，数据质量还是比较高的，需要清洗的主要有以下几点：  </p>
+<ul>
+<li>全角转半角， 数据中有些文字是全角字符，如“１９９８”，统一转成半角字符处理；</li>
+<li>姓名合并，标注数据中，姓和名是分开的，如：“李/nr  鹏/nr”，需要合并成：”李鹏/nr”；</li>
+<li>实体名合并，数据中对于部分实体是分开标注的，并用中括号引起来表明其为某个实体，如：“[中国/ns  政府/n]nt”，“[人民/n  大会堂/n]ns”，需要将中括号内非标签文字合并，整理成：“中国政府/nt”形式。</li>
+</ul>
+<h1 id="特征构建"><a href="#特征构建" class="headerlink" title="特征构建"></a>特征构建</h1><p>在特征构建上，主要从字、字边界特征、词法特征、时间常用词、指示词（姓名、地名、组织机构）这六个方面去构建，如果有时间的话还可以整理下中国的姓名、地名、组织机构常用词特征的，anyway，构造特征的本质就是尽量找出对标签有利的信息     </p>
+<h2 id="字、字边界特征"><a href="#字、字边界特征" class="headerlink" title="字、字边界特征"></a>字、字边界特征</h2><p>字边界分为：B（词语首部）、M（词语中标）、E（词语尾部）、S（单字），对每个词标记其字边界，并整理成以下格式：   </p>
+<pre><code class="javascript">不    B
+依    M
+不    M
+饶    E
+，    S
+喋    B
+喋    M
+不    M
+休    E
+...
+</code></pre>
+<h2 id="词法特征"><a href="#词法特征" class="headerlink" title="词法特征"></a>词法特征</h2><p>词法特征，人民日报语料是做好词性标注的，但是如果需要对外部语料测试的话，需要标注词性会比较麻烦，因此这里使用thulac(效率好慢好慢…)将语料重新做词性标注。</p>
+<pre><code class="javascript">不    i
+依    i
+不    i
+饶    i
+，    w
+喋    i
+喋    i
+不    i
+休    i
+...
+</code></pre>
+<h2 id="时间常用词"><a href="#时间常用词" class="headerlink" title="时间常用词"></a>时间常用词</h2><p>如果词语中包含：今、明、昨、年、月、日、时、分、秒 则标记为Y，否则标记为N。<br>把时间这个作为实体放上来，只是想测试下CRF的效果，时间的识别其实还是相对简单的，如果项目时间不充足，正则写的溜的话，基于正则识别时间应该也是没有问题的。    </p>
+<h2 id="指示词"><a href="#指示词" class="headerlink" title="指示词"></a>指示词</h2><p>通常在人名、地名或者组织机构名出现的前后会有一些指示词，比如”国家/主席/XXX/发表”、“新华社/记者/XXX/摄”、“在/人民大会堂/召开”，这些指示词包含有上下文信息，能够有效地帮助我们识别实体，本文将出现实体的前后两个词作为候选指示词，然后从所有候选指示词中提取频数大于10的作为最终的指示词。如果是指示词则标记Y，否则标记N。</p>
+<pre><code class="javascript">新    Y
+华    Y
+社    Y
+记    Y
+者    Y
+樊    N
+如    N
+钧    N
+摄    Y
+</code></pre>
+<h1 id="模型构建"><a href="#模型构建" class="headerlink" title="模型构建"></a>模型构建</h1><h2 id="数据划分"><a href="#数据划分" class="headerlink" title="数据划分"></a>数据划分</h2><p>将人民日报语料抽70%做训练集，30%做测试集。</p>
+<h2 id="训练数据"><a href="#训练数据" class="headerlink" title="训练数据"></a>训练数据</h2><p>处理好的训练数据如下：<br>特征顺序依次为：字、字边界、词性、时间常用词、人名指示词、地名指示词、组织机构指示词、标签</p>
+<pre><code class="javascript">迈    B    v    N    N    N    N    O
+向    E    v    N    N    N    N    O
+充    B    v    N    N    N    N    O
+满    E    v    N    N    N    N    O
+希    B    n    N    Y    Y    N    O
+望    E    n    N    Y    Y    N    O
+的    S    u    N    Y    Y    Y    O
+新    S    a    N    Y    Y    N    O
+世    B    n    N    N    Y    N    O
+纪    E    n    N    N    Y    N    O
+—    B    w    N    Y    Y    N    O
+—    E    w    N    Y    Y    N    O
+一    B    t    N    N    N    N    B_TIME
+九    M    t    N    N    N    N    M_TIME
+九    M    t    N    N    N    N    M_TIME
+八    M    t    N    N    N    N    M_TIME
+年    E    t    Y    N    N    N    E_TIME
+新    B    t    N    N    Y    N    B_TIME
+年    E    t    Y    N    Y    N    E_TIME
+....
+</code></pre>
+<h2 id="特征模板"><a href="#特征模板" class="headerlink" title="特征模板"></a>特征模板</h2><pre><code class="javascript"># Unigram
+U00:%x[-2,0]
+U01:%x[-1,0]
+U02:%x[0,0]
+U03:%x[1,0]
+U04:%x[2,0]
+U05:%x[-2,0]/%x[-1,0]/%x[0,0]
+U06:%x[-1,0]/%x[0,0]/%x[1,0]
+U07:%x[0,0]/%x[1,0]/%x[2,0]
+
+U10:%x[-2,1]
+U11:%x[-1,1]
+U12:%x[0,1]
+U13:%x[1,1]
+U14:%x[2,1]
+U15:%x[-1,0]/%x[0,1]
+U16:%x[0,0]/%x[1,1]
+U17:%x[-1,0]/%x[-1,1]
+
+U18:%x[-2,2]
+U19:%x[-1,2]
+U20:%x[0,2]
+U21:%x[1,2]
+U22:%x[2,2]
+U23:%x[-2,0]/%x[0,2]
+U24:%x[-1,0]/%x[0,2]
+U25:%x[0,0]/%x[0,2]
+U26:%x[-2,0]/%x[-1,0]/%x[0,2]
+U27:%x[-1,0]/%x[0,0]/%x[0,2]
+
+U28:%x[-2,3]
+U29:%x[-1,3]
+U30:%x[0,3]
+U31:%x[-2,3]/%x[-1,3]/%x[0,3]
+
+U32:%x[-2,4]/%x[-1,4]/%x[1,4]%x[2,4]
+U33:%x[-2,5]/%x[-1,5]/%x[1,5]%x[2,5]
+U34:%x[-2,6]/%x[-1,6]/%x[1,6]%x[2,6]
+
+# Bigram
+B
+</code></pre>
+<h1 id="训练及效果评估"><a href="#训练及效果评估" class="headerlink" title="训练及效果评估"></a>训练及效果评估</h1><p>效果评估</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;emsp;&amp;emsp; 分词、词性标注(POS)、实体识别(NER)都属于序列标注问题，解决的套路可以是一样的，在文章&lt;a href=&quot;link&quot;&gt;分词-基于CRF&lt;/a&gt;中讲了如何使用CRF分词，照葫芦画瓢，本文将会使用CRF提取1998年人民日报语料中的时间(TIME)、人名(PERSON)、地名(LOCATION)、组织机构(ORGANIZATION)四类实体。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="NLP" scheme="http://yoursite.com/tags/NLP/"/>
+    
+      <category term="NER" scheme="http://yoursite.com/tags/NER/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CRF笔记</title>
+    <link href="http://yoursite.com/posts/2019/01/30/CRF%E7%AC%94%E8%AE%B0.html"/>
+    <id>http://yoursite.com/posts/2019/01/30/CRF笔记.html</id>
+    <published>2019-01-30T14:24:13.476Z</published>
+    <updated>2019-02-27T15:00:17.869Z</updated>
+    
+    <content type="html"><![CDATA[<p>&emsp;&emsp;本文是台湾AI届最强YouTuber李宏毅老师的Strutured Learning课程中关于CRF讲解的笔记。HMM很容易理解，但是在看CRF的时候一脸懵逼，看了李航老师的《统计学习》和周志华老师的西瓜书也是一知半解，不得要领，直到看了李宏毅老师的CRF课程视频才恍然大悟，哈哈哈。<br><a id="more"></a></p>
+<p>线性连条件随机场是判别式模型，目的是求给定 $X$ 的情况下 $Y$ 的条件概率分布，模型公式为：</p>
+<div align="center"><img src="https://i.imgur.com/Rq1bJNS.png" alt=""></div> 
+
+<p>CRF看起来跟HMM很不一样，但其实原理是相通的。</p>
+<p>HMM为生成式模型，计算的是 $x, y$ 的联合概率分布（计算方法如下图），将公式两边分别取log，这样公式由原来的相乘都变成了相加。   </p>
+<p><div align="center"><img src="https://i.imgur.com/ZT05kBI.png" alt=""> (1)</div><br>我们先关注相加的最后一项，这一项是对于长度为L的句子，给定状态y的情况下出现观测x的概率的对数和。   </p>
+<p><div align="center"><img src="https://i.imgur.com/8flvEyR.png" alt=""></div><br>将该项稍微做下转化：</p>
+<p><div align="center"><img src="https://i.imgur.com/7Df2c1P.png" alt=""></div><br>举个栗子，假设整个数据集中一共有10个不同的词，5种不同词性，对于句子“The dog ate the homework”，对应的词性为：“D/N/V/D/N”，要求这个句子在给定状态y的情况下出现观测x的概率的对数和，在HMM模型中，我们只统计句子中出现的(词，词性)对，比如 $P(the|D)$，而没有出现在该句子中(词，词性)对就不统计了，但CRF会把没有出现在该句子中的(词，词性)对也考虑进来，只不过对应的次数为0，所以下面公式中倒数第二个等式做了简化，其实是有 $5x10 - 1 =49$ 项，有一项重复，其他未出现的项次数为0（所以CRF才会有这么多无用的特征..）。    </p>
+<p><div align="center"><img src="https://i.imgur.com/sTqg189.png" alt=""></div><br>同理，我们可以对公式(1)中的每一项都照葫芦画瓢，将其调整为对数条件概率乘以相应次数的形式，这样就可以把 $log P(x,y)$ 写成一大推两项相乘的形式，将其描述成两个向量的内积，$w \cdot \phi(x,y)$ ，这里的 $\phi(x,y)$ 其实就是CRF里面的特征向量。<br> <div align="center"><img src="https://i.imgur.com/VrxhVLJ.png" alt=""></div><br>跟HMM的发射概率、状态转移概率、初始概率直接从训练数据中统计不同的是，这里的参数w是从训练数据中不断迭代学习得到的，既然是训练得到的，不加限制的话，参数w里面的每个元素是可正可负的，如果参数w是负数的话，计算 $P(x, y) = exp(w \cdot \phi(x,y))$ 得到的结果小于1，将其解析成概率好像没什么毛病，但是如果参数 $w$ 是正数的话，得到的 $P(x, y)$ 大于1，这时候将其解析成概率就很奇怪了，另外，在训练中，也没办法保证给定某个状态 $s_i$，对于所有的观测 $t$ ，其概率和为1（从理论上统计的话，和肯定是1的），所以，严格意义上，式子 $P(x, y) = exp(w \cdot \phi(x,y))$ 两边是不相等的，所以稍微做了下修改，认为 $P(x,y)$ 是跟 $exp(w \cdot \phi(x,y))$ 成正比的，写成：<br>$$P(x,y) \varpropto exp(w \cdot \phi(x,y)) &emsp;&emsp;&emsp;&emsp;（2）$$<br>我们知道，公式（2），中的参数 $w$ 其实是特征权重，是从训练中学习得到的，而 $\phi(x,y)$ 是特征向量，这个特征向量长什么样子的呢，继续以下图的例子进行解析。   </p>
+<p><div align="center"><img src="https://i.imgur.com/KgCZ48s.png" alt=""></div><br>这里的特征主要包含两部分：<br><strong>part1: 标签与词之间的关系</strong><br>前面解析过，CRF的特征是将所有可能的组合都考虑进来，不管这个组合在实际数据中有没有出现，其特征其实就是出现的次数。如果数据中有 $|S|$ 种可能的标签，非重复词的个数为 $|L|$，对应的特征维度大小为 $|S| x |L|$   </p>
+<p><div align="center"><img src="https://i.imgur.com/P0Pt0NG.png" alt=""></div><br><strong>标签与标签之间的关系</strong><br>跟part1 同理，这里计算的是标签与标签之间的所有组合的特征，另外将start 和 end 这两个位置也考虑进来，如果有 $|S|$ 种标签，那么对应的特征维度大小为 $|S| x |S| + 2|S|$。   </p>
+<p><div align="center"><img src="https://i.imgur.com/okiwjEl.png" alt=""></div><br>这样在训练CRF模型的时候，就可以将part1 和part2两个部分的特征接起来，当做CRF里面拿来算概率的vector,这里其实是跟HMM一样的，但是不一样的地方在于，CRF将其概率描述成一个 $w$ 和 特征向量的内积，可以自己定义特征，比如对于词性标注，可以尝试增加，该字是否句子首尾字，或者首字母是否大写（英文语料）等特征，CRF真正强大的地方也正在于此。<br>CRF的原理到这里就结束了，在训练的时候，目标是找到恰当的参数 $w$ ，使得 $P(y|x)$ 最大。  </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;emsp;&amp;emsp;本文是台湾AI届最强YouTuber李宏毅老师的Strutured Learning课程中关于CRF讲解的笔记。HMM很容易理解，但是在看CRF的时候一脸懵逼，看了李航老师的《统计学习》和周志华老师的西瓜书也是一知半解，不得要领，直到看了李宏毅老师的CRF课程视频才恍然大悟，哈哈哈。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="NLP" scheme="http://yoursite.com/tags/NLP/"/>
+    
+      <category term="分词" scheme="http://yoursite.com/tags/%E5%88%86%E8%AF%8D/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>分词-基于CRF</title>
+    <link href="http://yoursite.com/posts/2019/01/06/%E5%9F%BA%E4%BA%8ECRF%E7%9A%84%E4%B8%AD%E6%96%87%E5%88%86%E8%AF%8D.html"/>
+    <id>http://yoursite.com/posts/2019/01/06/基于CRF的中文分词.html</id>
+    <published>2019-01-06T03:25:40.057Z</published>
+    <updated>2019-02-27T07:09:54.523Z</updated>
+    
+    <content type="html"><![CDATA[<p>&emsp;&emsp;上篇使用HMM进行中文分词，HMM存在两个比较严格的假设条件：观测独立性和当前状态只与上一状态有关，相比于HMM，CRF不受这两个假设的限制，并且可以自定义特征。为了保持分词方法的连贯性，CRF的推理会在下篇给出，本文主要是使用CRF++分词，CRF虽然理解起来困难，但是CRF++使用起来却是很容易，只要按照规定的格式提供训练数据模板和特征模板就好了，因此本文会将重点会放在两个模板的理解上面。<br><a id="more"></a></p>
+<h1 id="语料和工具"><a href="#语料和工具" class="headerlink" title="语料和工具"></a>语料和工具</h1><ul>
+<li>语料采用<a href="http://sighan.cs.uchicago.edu/bakeoff2005/" target="_blank" rel="external">SIGHAN Bakeoff 2005 微软亚洲研究院中文分词语料</a>   </li>
+<li>CRF++0.58    </li>
+<li>python   </li>
+</ul>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>&emsp;&emsp;从<a href="https://taku910.github.io/crfpp/" target="_blank" rel="external">官网</a>上下载对应系统版本的CRF++ 0.58 并解压安装，安装方法和使用说明官网都有（win系统的好像是开袋即食，解压就可以用了）。安装好之后可以在example/chunking下执行crf_learn -a MIRA template train.data model 体验下。</p>
+<h1 id="数据模板"><a href="#数据模板" class="headerlink" title="数据模板"></a>数据模板</h1><p>训练和测试数据只需要按照给定的格式提供即可。<br>训练数据模板：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">不	B</div><div class="line">依	M</div><div class="line">不	M</div><div class="line">饶	E</div><div class="line">，	S</div><div class="line">喋	B</div><div class="line">喋	M</div><div class="line">不	M</div><div class="line">休	E</div><div class="line">...</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp;每一列是一种类型特征，最后一列为序列标签 ，列与列之间使用制表符\t分割，句子与句子之间使用\n分开（句子间多个换行符有问题？待求证）。上图只有原始输入的字本身这一列特征，序列标签为BEMS。需要注意的是，对于所有的行，列的数量必须都保持一致，不能有些行多一列有些行少一些。</p>
+<h1 id="特征模板"><a href="#特征模板" class="headerlink" title="特征模板"></a>特征模板</h1><p>特征模板如下：   </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># Unigram</div><div class="line">U00:%x[-2,0]</div><div class="line">U01:%x[-1,0]</div><div class="line">U02:%x[0,0]</div><div class="line">U03:%x[1,0]</div><div class="line">U04:%x[2,0]</div><div class="line">U05:%x[-2,0]/%x[-1,0]/%x[0,0]</div><div class="line">U06:%x[-1,0]/%x[0,0]/%x[1,0]</div><div class="line">U07:%x[0,0]/%x[1,0]/%x[2,0]</div><div class="line">U08:%x[-1,0]/%x[0,0]                                          </div><div class="line">U09:%x[0,0]/%x[1,0]</div><div class="line"></div><div class="line"># Bigram</div><div class="line">B</div></pre></td></tr></table></figure>
+<p>特征模板分为两部分，Unigram feature 和 Bigram feature。   </p>
+<p><strong>Unigram feature</strong>: 用来生成状态特征函数   </p>
+<ul>
+<li>标识符id， Unigram 特征根据第一个字符’U’识别，用于描述 unigram 的特征模板。U后面的数字00、01代表特征id，只是用于标记，不一定需要连续，只要不重复应该就ok了，当然，如果不考虑上下文相关，需要做bag-of-words的训练，可以不需要写id。   </li>
+<li>行列偏移<br>%x[row, col] x是观测序列，row代表相对的行偏移, col代表相对的列偏移。比如 %x[1, 0]代表后一个字对当前字的影响。%x[-2, 4] 代表前第二个字对第5列特征的影响(上图只有一列特征)。当然也可以进行特征组合，如U05:%x[-2,0]/%x[-1,0]/%x[0,0]，代表当前字的前第二个字、前一个字和当前字的特征组合。还是以上图为例，假设当前行为”满”，那么对应的特征为：   </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>特征模板</th>
+<th>意义</th>
+<th>代表特征</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>U00:%x[-2,0]</td>
+<td>-2行，0列</td>
+<td>向</td>
+</tr>
+<tr>
+<td>U01:%x[-1,0]</td>
+<td>-1行，0列</td>
+<td>充</td>
+</tr>
+<tr>
+<td>U02:%x[0,0]</td>
+<td>0行，0列</td>
+<td>满</td>
+</tr>
+<tr>
+<td>U03:%x[1,0]</td>
+<td>1行，0列</td>
+<td>希</td>
+</tr>
+<tr>
+<td>U04:%x[2,0]</td>
+<td>2行，0列</td>
+<td>望</td>
+</tr>
+<tr>
+<td>U05:%x[-2,0]/%x[-1,0]/%x[0,0]</td>
+<td>-2列，0行与-1列，0行和0列0行组合</td>
+<td>向/充/满</td>
+</tr>
+<tr>
+<td>U06:%x[-1,0]/%x[0,0]/%x[1,0]</td>
+<td>-1列，0行与0列，0行和1列0行组合</td>
+<td>充/满/希</td>
+</tr>
+<tr>
+<td>U07:%x[0,0]/%x[1,0]/%x[2,0]</td>
+<td>-1列，0行与0列，0行和1列0行组合</td>
+<td>满/希/望</td>
+</tr>
+<tr>
+<td>U08:%x[-1,0]/%x[0,0]</td>
+<td>-1列，0行与0列，0行组合</td>
+<td>充/满</td>
+</tr>
+<tr>
+<td>U09:%x[0,0]/%x[1,0]</td>
+<td>0列，0行与1列，0行组合</td>
+<td>满/希</td>
+</tr>
+</tbody>
+</table>
+<p>&emsp;&emsp;unigram特征模板是对训练数据的每一行中的每列特征都生效的，所以会产生很多的特征，对于特征模板中的每一行，产生的特征数为 $L \times N$ ，其中 $L$  是输出序列标签类别数， $N$ 是此行模板在训练集上展开的唯一样本数。这里比较困惑的就是模板如何在训练集上展开，以及唯一样本数是怎么统计的了，下面说说我的理解。以特征模板： U02:%x[0,0]  对上面训练模板中的部分样本“不依不饶，喋喋不休”为例，分词标签为BEMS四类，则会生成以下 $4 \times 6$ 个特征函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">func1 = <span class="keyword">if</span>(output=B and feature=U02:<span class="string">'不'</span>) <span class="keyword">return</span> <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span></div><div class="line">func2 = <span class="keyword">if</span>(output=E and feature=U02:<span class="string">'不'</span>) <span class="keyword">return</span> <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span></div><div class="line">func3 = <span class="keyword">if</span>(output=M and feature=U02:<span class="string">'不'</span>) <span class="keyword">return</span> <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span></div><div class="line">func4 = <span class="keyword">if</span>(output=S and feature=U02:<span class="string">'不'</span>) <span class="keyword">return</span> <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span></div><div class="line">...</div><div class="line">func37 = <span class="keyword">if</span>(output=B and feature=U02:<span class="string">'休'</span>) <span class="keyword">return</span> <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span></div><div class="line">func38 = <span class="keyword">if</span>(output=E and feature=U02:<span class="string">'休'</span>) <span class="keyword">return</span> <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span></div><div class="line">func39 = <span class="keyword">if</span>(output=M and feature=U02:<span class="string">'休'</span>) <span class="keyword">return</span> <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span></div><div class="line">func40 = <span class="keyword">if</span>(output=S and feature=U02:<span class="string">'休'</span>) <span class="keyword">return</span> <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span></div></pre></td></tr></table></figure>
+<p>也就是该特征与标签组合的唯一样本数。  </p>
+<!-- 不带斜杠的特征组合如何理解，如：U05:%x[-2,0]%x[-1,0]%x[0,0] -->
+<p><strong>Bigram feature</strong>: 用来生成转移特征函数<br>&emsp;&emsp;Bigram 特征根据第一个字符’B’识别，用于描述 Bigram 的特征模板。 这个特征一般不用处理，只保留一个 $B$ 就好了。也可以参照unigram的格式生成模板，只不过这样模型会变得很复杂。Bigram在生成转移特征函数的时候会把上一时刻标签 $y_{i-1}$ 也考虑进来，有点类似于：   </p>
+<pre><code class="javascript">func1 = <span class="keyword">if</span>(pred_output=B and output=B and feature=U02:<span class="string">'不'</span>) <span class="keyword">return</span> <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span>
+</code></pre>
+<p>&emsp;&emsp;因此产生的特征数为 $(L \times L \times N)$，其中，$L$ 是输出序列标签类别数， $N$ 是此行模板在训练集上展开的唯一样本数。</p>
+<h1 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h1><p>按照以上格式整理好训练就可以直接调用CRF++来对训练语料进行分词。在训练数据目录下执行：  </p>
+<pre><code class="javascript"># crf_learn template_file train_file model_file
+</code></pre>
+<p>其中，template_file 和 train_file 分别为事先准备好的特征模板文件和训练数据文件，model_file 是训练生成的模型文件，用于测试。<br><!-- 如何调参 -->   </p>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>训练好之后，按照训练数据的格式整理好测试数据，然后执行：   </p>
+<pre><code class="javascript"># crf_test model_file test_file &gt; test_result_file
+</code></pre>
+<h1 id="效果评估"><a href="#效果评估" class="headerlink" title="效果评估"></a>效果评估</h1><p>评估方法以下三种：<br>&emsp;&emsp;1、自己写个脚本评估效果，评估方式参考：<a href="https://www.codelast.com/%E5%8E%9F%E5%88%9B%E4%B8%AD%E6%96%87%E5%88%86%E8%AF%8D%E5%99%A8%E5%88%86%E8%AF%8D%E6%95%88%E6%9E%9C%E7%9A%84%E8%AF%84%E6%B5%8B%E6%96%B9%E6%B3%95/" target="_blank" rel="external">中文分词器分词效果的评测方法</a><br>&emsp;&emsp;2、使用Bakeoff 2005 icwb2-data数据集中自带的评分脚本:icwb2-data/scripts/score<br>&emsp;&emsp;3、使用<a href="https://www.clips.uantwerpen.be/conll2000/chunking/conlleval.txt" target="_blank" rel="external">conlleval.perl</a>评测，该方法可以直接对crf_test生成的结果进行评估，无需做进一步处理。   </p>
+<pre><code class="javascript"># perl conlleval.pl -r -d "\t"&lt; pku_test_result.data
+processed 172733 tokens with 172733 phrases; found: 172733 phrases; correct: 162436.
+accuracy:  94.04%; precision:  94.04%; recall:  94.04%; FB1:  94.04
+                B: precision:  94.85%; recall:  96.24%; FB1:  95.54  57713
+                E: precision:  94.65%; recall:  96.04%; FB1:  95.34  57713
+                M: precision:  78.98%; recall:  86.42%; FB1:  82.53  12560
+                S: precision:  96.42%; recall:  90.85%; FB1:  93.55  44747
+</code></pre>
+<h1 id="问题整理"><a href="#问题整理" class="headerlink" title="问题整理"></a>问题整理</h1><p>在使用crf++分词过程中遇到一些问题，记录下：<br>&emsp;&emsp;1、训练数据格式错误：encoder.cpp(340) [feature_index.open(templfile, trainfile)] feature_index.cpp(174) [max_size == size] inconsistent ；出现这个错误是没有按照规定的格式来整理训练数据，特征之间用制表符分隔，句子之间换行符…</p>
+<p>&emsp;&emsp;2、x86_64-conda_cos6-linux-gnu-gcc错误<br>安装python 接口， 执行python setup.py build 的时候出现错误：error: command ‘x86_64-conda_cos6-linux-gnu-gcc’ failed with exit status 1 。<br>解决方法：需要安装gxx_linux-64，执行命令：conda install gxx_linux-64。  </p>
+<p>&emsp;&emsp;3、在python环境中导入CRFPP出现错误：ImportError: libcrfpp.so.0: cannot open shared object file: No such file or directory<br>解决方法见<a href="https://blog.csdn.net/u010004460/article/details/77198389" target="_blank" rel="external">ubuntu16.04 CRF++安装及报错处理</a></p>
+<!-- 在小数量的特征很多时，-f参数对于提高训练速度，有很大的作用？。 -->
+<!-- 深入了解CRF++的使用方法，能够加深对条件随机场的理解，同时也能够很好地将CRF应用于其他问题中。 -->
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;emsp;&amp;emsp;上篇使用HMM进行中文分词，HMM存在两个比较严格的假设条件：观测独立性和当前状态只与上一状态有关，相比于HMM，CRF不受这两个假设的限制，并且可以自定义特征。为了保持分词方法的连贯性，CRF的推理会在下篇给出，本文主要是使用CRF++分词，CRF虽然理解起来困难，但是CRF++使用起来却是很容易，只要按照规定的格式提供训练数据模板和特征模板就好了，因此本文会将重点会放在两个模板的理解上面。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="NLP" scheme="http://yoursite.com/tags/NLP/"/>
+    
+      <category term="分词" scheme="http://yoursite.com/tags/%E5%88%86%E8%AF%8D/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>分词-基于HMM</title>
+    <link href="http://yoursite.com/posts/2019/01/06/%E5%9F%BA%E4%BA%8E%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E7%9A%84%E4%B8%AD%E6%96%87%E5%88%86%E8%AF%8D.html"/>
+    <id>http://yoursite.com/posts/2019/01/06/基于马尔可夫的中文分词.html</id>
+    <published>2019-01-06T02:06:30.144Z</published>
+    <updated>2019-02-25T03:11:10.892Z</updated>
+    
+    <content type="html"><![CDATA[<p>&emsp;&emsp;基于统计的分词方法有：N-gram、隐马尔可夫（Hidden Markov Model ，HMM）、最大熵模型（Maximum Entropy Model, ME）和条件随机场（Conditional Random Fields，CRF）等，一般用的比较多的是HMM和CRF，比如简单又好用的jieba就是字符串匹配+HMM 的分词方法，HanLP等有用到CRF。一般来说CRF分词效果要好于HMM，本文主要介绍HMM分词。<br><a id="more"></a><br>&emsp;&emsp;HMM由俄国数学家A.A.马尔可夫于1907年提出，主要用于描述随机生成过程， HMM在语音识别、信息科学、NLP等诸多领域有着极其广泛的应用。在NLP领域更多的是用来处理分词、词性标注、实体识别等序列标注问题，HMM属于生成式模型，原理在这里不打算细讲了，李航的《统计学习方法》和周志华的西瓜书都讲得很详细了，网上也是随便一搜一大堆的街货。</p>
+<h1 id="HMM基本问题"><a href="#HMM基本问题" class="headerlink" title="HMM基本问题"></a>HMM基本问题</h1><p>HMM有三个基本问题：   </p>
+<ul>
+<li>概率计算问题。给定模型 $\lambda=(A,B,\pi)$ 和观测序列 $O=(o_1,o_2,…,o_T)$ ，计算在模型 $\lambda$ 下观测序列 $O$ 出现的概率 $P(O|\lambda)$ 。也就是模型、参数、结果已知，求出现该结果的概率。  </li>
+<li>学习问题。 已知观测序列 $O=(o_1,o_2,…,o_T)$ , 估计模型 $\lambda=(A,B,\pi)$ 的参数，使得在该模型下观测序列概率 $P(O|\lambda)$ 最大，即用极大似然估计的方法估计参数。即模型已知，参数未知   </li>
+<li>预测问题。 也称为解码问题，已知模型 $\lambda=(A,B,\pi)$ 和观测序列 $O=(o_1,o_2,…,o_T)$ ，求对给定观测序列条件概率 $P(I|O)$ 最大的状态序列 $I=(i_1,i_2,…,i_T)$ ，即给定观测序列，求最有可能的对应状态序列。  </li>
+</ul>
+<p>中文分词属于第三个问题，也就是给定一个待分词句子/文本，找出最有可能的隐藏状态序列。   </p>
+<h1 id="基于HMM的中文分词"><a href="#基于HMM的中文分词" class="headerlink" title="基于HMM的中文分词"></a>基于HMM的中文分词</h1><p>假如现在要对这样一句话分词：“我们都是追梦人”，嗯，很简单，幼儿园水平，不假思索就分出来了，结果是：我们/都/是/追梦人 。如果使用BMES分别表示词首位、词中间位置、词末尾位置、单字词，那么：我们/都/是/追梦人 可以表示为：BE/S/S/BME。这里分词的语句被称为观测序列，“BE/S/S/BME”为隐藏状态序列。我们人工分词的话，一般是从左（句首）往右（句尾）浏览要分词的文本，根据场景以及语句的通顺程度将句子逐一切分，有时遇到易混淆的地方还会前后追溯，如“我们都是追梦人” 就可能会误分为：我们/都/是/追梦/人，HMM在分词时不会考虑这么多，其假设:   </p>
+<ul>
+<li>1、当前时刻t的状态只依赖于其前一时刻的状态，与其他时刻状态及观测无关，也与时刻t无关。也称为齐次马尔可夫性假设；  </li>
+<li>2、任意时刻的观测只依赖于该时刻的马尔可夫链的状态，与其他观测及状态无关。也称为观测独立性假设<br>这两个假设条件只是为了简化计算，不是必须的。对于假设1，如果当前时刻t的状态与前2个时刻的状态有关的话就是二阶马尔可夫，与前3个时刻的状态有关的话就是三阶马尔可夫，以此类推。   <div align="center"><img src="https://i.imgur.com/7jhivXL.png" alt=""></div>   
+
+</li>
+</ul>
+<p>上图，箭头指向代表依赖关系，如 $A \rightarrow B$ 表示 $B$ 依赖于 $A$ ，但 $A$事件发生与 $B$ 无关，无箭头指向的事件代表不相关，如观测“我”和观测“们”无关。<br>由t时刻到t+1时刻的状态可能性称为状态概率，各种状态之间可能性组成状态概率矩阵。   </p>
+<p><strong>状态转移概率矩阵：</strong>   </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>B</th>
+<th>S</th>
+<th>E</th>
+<th>M</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>-3.14E+100</td>
+<td>-3.14E+100</td>
+<td>-0.1569</td>
+<td>-1.9297</td>
+</tr>
+<tr>
+<td>S</td>
+<td>-0.5003</td>
+<td>-0.9323</td>
+<td>-3.14E+100</td>
+<td>-3.14E+100</td>
+</tr>
+<tr>
+<td>E</td>
+<td>-0.5138</td>
+<td>-0.9118</td>
+<td>-3.14E+100</td>
+<td>-3.14E+100</td>
+</tr>
+<tr>
+<td>M</td>
+<td>-3.14E+100</td>
+<td>-3.14E+100</td>
+<td>-0.3933</td>
+<td>-1.1234</td>
+</tr>
+</tbody>
+</table>
+<p>状态到观测的可能性称为发射概率，不同状态到不同观测的可能性组成的矩阵称为发射概率矩阵。  </p>
+<p><strong>发射概率矩阵：</strong>   </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>我</th>
+<th>们</th>
+<th>都</th>
+<th>是</th>
+<th>追</th>
+<th>梦</th>
+<th>人</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>-5.1686</td>
+<td>-3.14E+100</td>
+<td>-9.6289</td>
+<td>-8.1219</td>
+<td>-8.0042</td>
+<td>-9.3606</td>
+<td>-4.6367</td>
+</tr>
+<tr>
+<td>S</td>
+<td>-5.6816</td>
+<td>-6.4581</td>
+<td>-5.6245</td>
+<td>-3.9834</td>
+<td>-9.9594</td>
+<td>-9.6229</td>
+<td>-5.2732</td>
+</tr>
+<tr>
+<td>E</td>
+<td>-9.0729</td>
+<td>-4.9170</td>
+<td>-7.4431</td>
+<td>-5.9310</td>
+<td>-12.1938</td>
+<td>-9.8912</td>
+<td>-5.1183</td>
+</tr>
+<tr>
+<td>M</td>
+<td>-8.7115</td>
+<td>-11.0629</td>
+<td>-7.8849</td>
+<td>-8.4239</td>
+<td>-10.1466</td>
+<td>-9.1911</td>
+<td>-5.3862</td>
+</tr>
+</tbody>
+</table>
+<p>初始概率，组成初始概率矩阵。</p>
+<p><strong>初始状态: $\pi$</strong>   </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>P</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>-0.4691</td>
+</tr>
+<tr>
+<td>S</td>
+<td>-0.9823</td>
+</tr>
+<tr>
+<td>E</td>
+<td>-3.14E+100</td>
+</tr>
+<tr>
+<td>M</td>
+<td>-3.14E+100</td>
+</tr>
+</tbody>
+</table>
+<p>为了方便计算，上面矩阵的概率都转成了对数。这里有两个问题，第一是，发射矩阵、状态转移矩阵、初始概率矩阵怎么计算出来的；第二是：如何找出最有可能的隐藏状态序列。</p>
+<h2 id="概率矩阵计算"><a href="#概率矩阵计算" class="headerlink" title="概率矩阵计算"></a>概率矩阵计算</h2><p>矩阵的计算很简单，直接根据语料库统计出来就好了。<br>初始概率矩阵：   </p>
+<p>$$p(y_1=s)=\frac{count(y_1=s)}{\sum count(y_1 = s_i)}$$     </p>
+<p>发射概率矩阵：   </p>
+<p>$$p(y_{l+1}=s^{\prime}|y_l=s) = \frac{count(s \rightarrow s^{\prime})}{count(s)}$$     </p>
+<p>其中 $s$是当前时刻状态，$s^{\prime}$ 是下一时刻状态。<br>状态转移概率矩阵：    </p>
+<p>$$p(x_l=t|y_l=s) = \frac{count(s \rightarrow t)}{count(s)}$$      </p>
+<p>其中 $s$ 是当前时刻状态，t是当前时刻观测。   </p>
+<h2 id="viterbi"><a href="#viterbi" class="headerlink" title="viterbi"></a>viterbi</h2><p>&emsp;&emsp;前面计算了初始概率矩阵、发射概率矩阵和状态转移矩阵，理论上有了这三个矩阵，就可以进行分词了，最简单直观的方法是直接按照概率公式计算，列举出所有可能的路径，然后从所有可能的路径中找到概率最大的路径，但是这样计算量很大，对于观测序列长度为T,状态为N，算法复杂度为 $N^T$，计算量太大了，并不是有效的办法。针对这种情况，可以考虑使用动态规划来求解，viterbi算法天然适用于求解HMM路径问题，其计算复杂度为 $O(T|N|^2)$。<br>&emsp;&emsp;关于维特比算法的原理讲解可以看这篇文章<a href="https://blog.csdn.net/athemeroy/article/details/79339546" target="_blank" rel="external">小白给小白详解维特比算法（一)</a>，通俗易懂。为了方便说明，这里以“我们都是追梦人”为例介绍viterbi算法。  </p>
+<p>对于“我”字，通过初始状态与发射概率相乘（初始状态、发射概率矩阵、状态转移矩阵沿用上面三个表格数据，这里将概率取对数后计算，也就是相加），其各隐藏状态概率为：   </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>我</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>-0.4691 + -5.1686 = -5.6377</td>
+</tr>
+<tr>
+<td>S</td>
+<td>-0.9823 + -5.6816 = -6.6639</td>
+</tr>
+<tr>
+<td>E</td>
+<td>-3.14E+100 + -9.0729 = -3.14E+100</td>
+</tr>
+<tr>
+<td>M</td>
+<td>-3.14E+100 + -8.7115 = -3.14E+100</td>
+</tr>
+</tbody>
+</table>
+<p>这里初始最优路径有4条。对于第二个字“们”，其计算方法如下（手算比较麻烦，这里偷个懒）：   </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>们</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>$max(E \rightarrow B, S \rightarrow B)$</td>
+</tr>
+<tr>
+<td>S</td>
+<td>$max(S \rightarrow S, E \rightarrow S)$</td>
+</tr>
+<tr>
+<td>E</td>
+<td>$max(B \rightarrow E, M \rightarrow E)$</td>
+</tr>
+<tr>
+<td>M</td>
+<td>$max(B \rightarrow M, M \rightarrow M)$</td>
+</tr>
+</tbody>
+</table>
+<p>其中 $B \rightarrow E, S \rightarrow S$ 这些表示 $t-1$ 时刻（我）的状态到 $t$时刻（们）的状态的路径，剩下的“都是追梦人”的计算方法也是一样。如果还不是很清楚的话，可以看下图：   </p>
+<p><div align="center"><img src="https://i.imgur.com/vAxEunq.png" alt=""></div><br>我们要计算 $t=3$ 时刻状态为E的最大路径，只需要比较：$max(E \rightarrow B, S \rightarrow B) + B \rightarrow E$ 和 $max(B \rightarrow M, M \rightarrow M) + M \rightarrow E$ ，而无需将每条路径都遍历一次。<br>根据viterbi算法计算得到句子的4条可能路径为：</p>
+<table>
+<thead>
+<tr>
+<th>结束状态</th>
+<th>概率</th>
+<th>路径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>-45.866</td>
+<td>‘B’, ‘E’, ‘S’, ‘S’, ‘B’, ‘E’, ‘B’</td>
+</tr>
+<tr>
+<td>E</td>
+<td>-47.300</td>
+<td>‘B’, ‘E’, ‘S’, ‘S’, ‘B’, ‘M’, ‘E’</td>
+</tr>
+<tr>
+<td>M</td>
+<td>-48.298</td>
+<td>‘B’, ‘E’, ‘S’, ‘S’, ‘B’, ‘M’, ‘M’</td>
+</tr>
+<tr>
+<td>S</td>
+<td>-46.901</td>
+<td>‘B’, ‘E’, ‘S’, ‘S’, ‘B’, ‘E’, ‘S’</td>
+</tr>
+</tbody>
+</table>
+<p>因为句子结束状态只能是ES之一，两者中概率最大为-46.901，所以分词结果为：我们/都/是/追梦/人 。嗯，语料不太够。</p>
+<h1 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h1><p>1、不存在语料库的字发射概率为0<br>由于发射概率矩阵是从训练词汇中统计的，导致出现的一种情况是，HMM对于未曾出现在语料库中的字的发射概率为0，进而导致该字后面的路径概率都为0，分词不work也就无法有效地找出最佳路径，虽然在实际计算的时候对于不存在的词往往会默认给一个最小的数。对于下面两句话：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">句式1：每个月几乎都有两三条船停靠中国港口。   </div><div class="line">句式2：每个月几乎都有6条船停靠中国港口。</div></pre></td></tr></table></figure></p>
+<p>句式1均为中文，句式2有一个数字（该数字不在jieba预训练的语料库中），为方便测试，可以调用jieba的纯HMM模式切词，得到的效果完全不一样。   </p>
+<pre><code class="bash">list(jieba.finalseg.__cut(<span class="string">'每个月几乎都有两三条船停靠中国港口。'</span>))
+<span class="comment">#output: ['每个', '月', '几乎', '都', '有', '两三条', '船', '停靠', '中国港', '口', '。']   </span>
+
+list(jieba.finalseg.__cut(<span class="string">'每个月几乎都有6条船停靠中国港口。'</span>))
+<span class="comment">#output: ['每个', '月', '几乎', '都', '有', '6', '条', '船', '停', '靠', '中', '国', '港', '口', '。']</span>
+</code></pre>
+<p>jieba对此问题的处理方式是先将中文提取出来，喂入HMM，对一些非中文字符如数字百分号则单独处理。<br>2、优化的方法就是增加语料，调整初始、发射、转移概率矩阵。这是好事也是坏事，免去了做特征的繁琐，但也没有什么可以优化的了。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&emsp;&emsp;HMM简单且强大，将HMM应用于中文分词，其实就是求解带切分句子最有可能隐藏状态序列，其初始状态、转移状态、发射概率矩阵都可以从训练数据中统计而来，对于句子的所有可能隐藏状态序列，穷举复杂度太高，可以使用viterbi算法求解。另外，基于HMM的中文分词方法脚本已经上传至我的<a href="www">github</a>，包括生成初始概率矩阵、状态转移矩阵、发射概率矩阵的脚本，为了方便后续使用HMM训练专有领域数据，并结合jieba使用，这里生成的三个矩阵结果文件跟jieba调用文件一致。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;emsp;&amp;emsp;基于统计的分词方法有：N-gram、隐马尔可夫（Hidden Markov Model ，HMM）、最大熵模型（Maximum Entropy Model, ME）和条件随机场（Conditional Random Fields，CRF）等，一般用的比较多的是HMM和CRF，比如简单又好用的jieba就是字符串匹配+HMM 的分词方法，HanLP等有用到CRF。一般来说CRF分词效果要好于HMM，本文主要介绍HMM分词。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="NLP" scheme="http://yoursite.com/tags/NLP/"/>
+    
+      <category term="分词" scheme="http://yoursite.com/tags/%E5%88%86%E8%AF%8D/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>分词-基于字符串匹配</title>
+    <link href="http://yoursite.com/posts/2019/01/06/%E5%9F%BA%E4%BA%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D%E5%88%86%E8%AF%8D.html"/>
+    <id>http://yoursite.com/posts/2019/01/06/基于字符串匹配分词.html</id>
+    <published>2019-01-06T01:20:19.062Z</published>
+    <updated>2019-02-27T03:37:33.588Z</updated>
+    
+    <content type="html"><![CDATA[<p>&emsp;&emsp;分词是NLP领域基础但极其重要的功能，作为任务的上游，其分词质量直接影响了下游任务的性能（虽然现在流行end-to-end了）。分词方法主要有三大类：基于字符串匹配的分词方法、基于理解的分词方法和基于统计的分词方法。<a id="more"></a>   第一种将指定长度的子串与准备好的词典匹配，如果匹配成功则返回，第二种是在分词的时候同时进行句法和语义分析，第三种是使用统计方法对已分词的样本训练学习其规律从而实现对未知文本的切分，在使用时基本会结合第一种方法一起使用，该方法也是目前的主流方法。本文将重点介绍基于字符串匹配的分词方法，字符串匹配是分词方法中最简单的分词方法，该方法严重依赖于词典，无法识别未登录词以及歧义处理能力不佳。常用的字符串匹配方法有以下几种：   </p>
+<ul>
+<li>最大正向匹配法   </li>
+<li>最大逆向匹配法   </li>
+<li>双向最大匹配法    </li>
+</ul>
+<h1 id="最大正向匹配"><a href="#最大正向匹配" class="headerlink" title="最大正向匹配"></a>最大正向匹配</h1><p>&emsp;&emsp;该方法核心思想是，设定词语的最大匹配长度m（往往是词典中词的最大长度），从左往右取待切词的句子m个字符，在词典中查找是否存在这m个字符，如果存在则匹配成功，如果不存在则将这m个字符的最后一个字符去掉，重新从词典中查找，直到找到为止。   </p>
+<div align="center"><img src="https://i.imgur.com/oh7dBQC.png" alt=""></div>  
+
+<h1 id="最大逆向匹配法"><a href="#最大逆向匹配法" class="headerlink" title="最大逆向匹配法"></a>最大逆向匹配法</h1><p>&emsp;&emsp;与最大正向匹配相反，最大逆向匹配算法首先设定词语的最大匹配长度m（往往是词典中词的最大长度），从右往左取带切词的句子m个字符，在词典中查找是否存在这m个字符，如果存在则匹配成功，如果不存在，则将这m个字符的最左边一个字符去掉，重新从词典中查找，直到找到为止。<br>一般情况下逆向匹配结果比正向匹配结果更为准确。     </p>
+<div align="center"><img src="https://i.imgur.com/cZP5YYk.png" alt=""></div>  
+
+<h1 id="双向最大匹配法"><a href="#双向最大匹配法" class="headerlink" title="双向最大匹配法"></a>双向最大匹配法</h1><p>&emsp;&emsp;双向最大匹配法是将最大正向匹配的分词结果和最大逆向匹配的分词结果结合起来比较，一般会遵循以下原则：    </p>
+<ul>
+<li>分词粒度越大越好（根据算法性质，如果词存在与词典中的话，会优先匹配颗粒度最大的词，如中华人民共和国，如果拆分成中华/人民/共和国，会产生歧义）   </li>
+<li>非词典词越少越好   </li>
+<li>总体词数越少越好<br>本文实现思路是：   </li>
+<li>优先正反向总体分词词数最少的结果；   </li>
+<li>如果正反向分词结果词数相同，则选单个词在词典中数量较多的结果；</li>
+<li>如果单个词在词典中的数量一致，则从正反向中随机选择一个结果。   </li>
+</ul>
+<p><div align="center"><img src="https://i.imgur.com/Z2GmFVG.png" alt=""></div>    </p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>字符串匹配分词原理非常简单，因为只是简单的匹配，效率自然也是贼高。分词效果一般是：双向&gt;逆向&gt;正向。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;emsp;&amp;emsp;分词是NLP领域基础但极其重要的功能，作为任务的上游，其分词质量直接影响了下游任务的性能（虽然现在流行end-to-end了）。分词方法主要有三大类：基于字符串匹配的分词方法、基于理解的分词方法和基于统计的分词方法。
+    
+    </summary>
+    
+    
+      <category term="NLP" scheme="http://yoursite.com/tags/NLP/"/>
+    
+      <category term="分词" scheme="http://yoursite.com/tags/%E5%88%86%E8%AF%8D/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>基于牛顿法优化逻辑回归损失函数</title>
     <link href="http://yoursite.com/posts/2018/09/01/Newton&#39;s_method_1.html"/>
     <id>http://yoursite.com/posts/2018/09/01/Newton&#39;s_method_1.html</id>
     <published>2018-09-01T06:47:52.521Z</published>
-    <updated>2018-09-02T15:52:12.469Z</updated>
+    <updated>2019-02-26T13:30:26.129Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;牛顿法，又称为牛顿-拉佛森方法，最开始是用来求解高次方程的根，其核心思想就是利用迭代点在曲线上的切线不断逼近曲线的根，直至收敛。我们知道，连续可微曲线的最值可以通过对曲线进行求导，并令导数为0来求解，所以牛顿法也可以作为一种最优化方法求最值。如果是把最优化（最小值）比作从山顶移动到山脚的过程，之前在文章<a href="https://linchart.github.io/posts/2017/08/07/Gradient_descent.html" target="_blank" rel="external">梯度下降法</a>有提到，梯度下降法是选择往相对当前位置来说最陡峭的地方向下移动，而牛顿法的目光会相对长远一点，牛顿法在选择方向的时候，不仅会考虑当前这一步是否是最陡峭的，还会结合下一步一起考虑，就像下象棋能够看到走完这一步之后下一步还应该怎么走才是最有利的，这是因为牛顿法是二阶收敛，梯度下降法是一阶收敛的。关于牛顿法二阶收敛的证明<a href="https://wenku.baidu.com/view/c5a755d850e2524de5187eb9.html" target="_blank" rel="external">请看这里</a>，根据收敛的方式，牛顿法的收敛速度显然要快于梯度下降算法。</p>
 <a id="more"></a>  
 <h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>&emsp;&emsp;其实在上大学的时候有学过牛顿法，但是作为数学系一名不折不扣的学渣，当然是考完就忘啦。关于牛顿法的原理，强烈推荐马同学在知乎上的这个回答<a href="https://www.zhihu.com/question/20690553" target="_blank" rel="external">如何通俗易懂地讲解牛顿迭代法求开方？</a> 行文流畅，脉络清晰明了，一看就懂，总结起来就是：   </p>
 <ul>
 <li>（1）牛顿法首先随机找一个初始点$x_0$，作为迭代点；</li>
-<li>（2）计算函数$f(x)$ 在改点的切线，将该切线与$x$轴的交点作为新的迭代点，其更新方式为$$x_{n+1} = x_n - \frac{f(x_n)}{f’(x_n)}$$ </li>
+<li>（2）计算函数$f(x)$ 在改点的切线，将该切线与$x$轴的交点作为新的迭代点，其更新方式为$$x_{n+1} = x_n - \frac{f(x_n)}{f’(x_n)}$$</li>
 <li>（3）重复步骤（2），直至找到函数的根或者满足指定的迭代条件。   </li>
 </ul>
 <h1 id="牛顿法应用"><a href="#牛顿法应用" class="headerlink" title="牛顿法应用"></a>牛顿法应用</h1><p>下面来看下，牛顿法是如何对逻辑回归的损失函数进行优化的。<br>上面提及的迭代更新方式$$x_{n+1} = x_n - \frac{f(x_n)}{f’(x_n)} \qquad （1）$$ 是求函数的根的，也就是求解$f(x)=0$。而求曲线的最值，是令曲线导数等于0来求解，所以，逻辑回归损失函数的优化目标应该是$f’(x) = 0$。<br>举个例子，对于函数$f(x) = (x+2)(x-2)(x-4)$，基于（1）进行迭代，其实就是求解$f(x)$的根，也就是下图的$x_0,x_1,x_2 $三个点。<div align="center"><img src="https://i.imgur.com/rU6o2rI.png" alt=""></div>    </p>
@@ -37,7 +820,7 @@
 <p>我们在函数$f’(x)$随机找一个点，作该点在$f’(x)$的上切线，将该切线与$x$轴的交点作为新的迭代点，那么更新方式就变为(也可以通过二阶泰勒展开式直接得出)：$$x_{n+1} = x_n - \frac{f’(x_n)}{f’’(x_n)} $$    </p>
 <p><div align="center"><img src="https://i.imgur.com/xF3U0x9.png" alt=""></div><br>逻辑回归的方程为：<div align="center"><img src="https://i.imgur.com/G4IOlSh.png" alt=""></div><br>则其对应的似然损失函数为：</p>
 <p><div align="center"><img src="https://i.imgur.com/KlUa8r7.png" alt=""></div><br>求损失函数的一阶导，有<div align="center"><img src="https://i.imgur.com/JWnzUHe.png" alt=""></div><br>由一阶导组成的矩阵，就是雅可比矩阵，记为$\nabla$<br>对应的二阶导为：</p>
-<p><div align="center"><img src="https://i.imgur.com/S6p00wn.png" alt=""></div><br>由二阶导组成的矩阵，就是Hessian矩阵，记为$H$，所以，损失函数优化迭代的方式为：<br>$$\theta \leftarrow \theta -H^{-1}\nabla $$ </p>
+<p><div align="center"><img src="https://i.imgur.com/S6p00wn.png" alt=""></div><br>由二阶导组成的矩阵，就是Hessian矩阵，记为$H$，所以，损失函数优化迭代的方式为：<br>$$\theta \leftarrow \theta -H^{-1}\nabla $$</p>
 ]]></content>
     
     <summary type="html">
@@ -170,7 +953,7 @@
     <link href="http://yoursite.com/posts/2017/09/03/softmax.html"/>
     <id>http://yoursite.com/posts/2017/09/03/softmax.html</id>
     <published>2017-09-03T07:35:43.317Z</published>
-    <updated>2017-09-12T08:41:45.087Z</updated>
+    <updated>2019-02-27T02:49:43.189Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;上一篇讲了逻辑回归的由来，在分类问题上，逻辑回归是一个二分类模型，而实际的项目中有可能需要处理一些多分类的问题（比如经典的MNIST），这时候如果使用二分类模型去处理多分类问题，会相对麻烦，这里介绍一种处理多分类问题的简单模型-<a href="https://zh.wikipedia.org/wiki/Softmax%E5%87%BD%E6%95%B0" target="_blank" rel="external">softmax</a>。softmax相当于做了一个归一化的工作，让强者相对更强，弱者相对更弱。<br><a id="more"></a>   </p>
 <h1 id="模型推导"><a href="#模型推导" class="headerlink" title="模型推导"></a>模型推导</h1><p>&emsp;&emsp;softmax模型是逻辑回归模型的推广，逻辑回归模型是softmax模型的一个特例，这两者都算是<a href="https://zh.wikipedia.org/wiki/%E5%BB%A3%E7%BE%A9%E7%B7%9A%E6%80%A7%E6%A8%A1%E5%9E%8B" target="_blank" rel="external">广义线性模型(Generalized Linear Model,GLM)</a>。广义线性模型假设在给定属性$x$和参数$\theta$之后，类别$y$的条件概率$p(y|x;\theta)$服从指数分布族，它是长这样子的：$$P(y;\eta)=b(y)exp(\eta^TT(y) - a(\eta))$$<br>下面就是根据类别的联合分布概率密度搞成上面公式的样子。假设现在有$k$种分类$y \in (1,2,…,k)$的数据，对于每一条观测（样本）都有一个对应的类别，假设每种分类对应的概率是$(p_1,p_2,…,p_k)$，那么所有类别的概率之和就是：</p>
@@ -196,7 +979,6 @@
 <p><div align="center"><img src="https://i.imgur.com/z4v1gM6.png" alt=""></div><br>对第$l$类的参数$\theta _l$进行求导，所以就会有：</p>
 <p><div align="center"><img src="https://i.imgur.com/5BIYhy0.png" alt=""></div><br>然后通过梯度上升更新参数：</p>
 <p><div align="center"><img src="https://i.imgur.com/qzGUwzb.png" alt=""></div><br>这里的$\alpha$为学习率。   </p>
-<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>哈哈</p>
 ]]></content>
     
     <summary type="html">
@@ -223,23 +1005,12 @@
     <link href="http://yoursite.com/posts/2017/09/02/logistic.html"/>
     <id>http://yoursite.com/posts/2017/09/02/logistic.html</id>
     <published>2017-09-02T02:11:02.897Z</published>
-    <updated>2018-09-02T15:09:54.700Z</updated>
+    <updated>2019-02-27T02:49:10.683Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;逻辑回归（Logistic Regression）是一个非常经典的回归模型，在神经网络里作为激活函数时也称为sigmoid函数。逻辑回归模型既可以处理线性分类问题也可以处理非线性分类问题，但其本质上是一个线性模型。作为机器学习入门级模型，该模型既简单又强大，在现实中有着广泛应用，比如国外成熟的信用卡评分模型就是基于逻辑回归模型建立的。<br><a id="more"></a>   </p>
 <h1 id="模型推导"><a href="#模型推导" class="headerlink" title="模型推导"></a>模型推导</h1><p>&emsp;&emsp;线性模型试图通过属性间的线性组合来预测目标值，它的模型形式是这样的：$$y=w_1x_1+w_2x_2+…+w_dx_d+b$$<br>其中$x_i,  i\in (1,2,…,d)$表示$x$在第$i$个属性上的取值。上式表示成向量的形式就是：$$y=w^Tx+b$$<br>其中$w=(w_1;w_2;…;w_3)$。<br>&emsp;&emsp;在二维平面上，线性回归模型，其实就是一条直线，再来看下另外一个函数$y=e^x$。<div align="center"><img src="https://i.imgur.com/FvaFjR8.png" alt=""></div><br>不难看出对数函数和线性函数都是单调的，那么肯定可以找到一个映射函数使得对于直线上的任意一个点$y=w^Tx+b$，都能在函数$y=e^x$上找到唯一的一个点与之相对应。对于函数$y=e^x$不妨令：$$x \leftarrow w^Tx+b$$则有$y=e^{w^Tx+b}$，两边取对数之后，就有$lny=w^Tx+b$。</p>
-<p><div align="center"><img src="https://i.imgur.com/zfjSPxA.png" alt=""></div><br>给定数据集$D= \{ (x_1,y_1),(x_2,y_2),…,(x_m,y_m) \} $，其中 $y_i \in \{0,1\}$。我们可以用概率$p,p \in [0,1]$来表示样本$x$被判为$y=1$时的可能性，$p$值越大，代表$x$被归为正样本$y=1$的可能性越大，也就是$p(y=1|x)$的概率为$p$，那么对应的$p(y=0|x)$的概率就是$1-p$，这两者的比值$$\frac{p}{1-p}$$称为“几率”也有些家伙会称它为“优势比”。<br>这个时候，我们再回到取对数之后的等式：$lny=w^Tx+b$，令$y=\frac{p}{1-p}$，可以将等式转化为：$$ln\frac{p}{1-p}=w^Tx+b$$ 同时将等式两边的值作为指数，以$e$为底，可以得到：$$\frac{p}{1-p} = e^{w^Tx+b}$$ 稍微处理一下就可以推导出经典的逻辑回归模型:<div align="center"><img src="https://i.imgur.com/LLuWYHk.png" alt=""></div><br>也就是说，对于$y=1$，我们有$$p(y=1|x)=\frac {e^{w^Tx+b}}{1+e^{w^Tx+b}}$$<br>对于$y=0$，我们有$$p(y=0|x)=\frac {1}{1+e^{w^Tx+b}}$$<br>为了看的更舒服一点，令$z=w^Tx+b$，分子分母再同时除以$e^z$，则模型写成以下形式：$$f(z)=\frac {1}{1+e^{-z}}$$<br>上面的等式其实是一个单调“S”形函数，$f(z)$的取值在$(0,1)$之间，当$z$取值越大时，$f(z)$越接近于1，反之，当$z$取值越小时，$f(z)$越接近于0，当$z=0$时，$f(z)=0.5$。<div align="center"><img src="https://i.imgur.com/zmzPE1t.png" alt=""></div><br>其工作方式是，当$z&gt;0$时，对应的样本被判为正类$y=1$，当$z&lt;0$时，对应的样本被判为负类$y=0$，当$z=0$时，可视情况将样本归为任意类别。   </p>
-<h1 id="线性and非线性"><a href="#线性and非线性" class="headerlink" title="线性and非线性"></a>线性and非线性</h1><p>为什么逻辑回归模型，既可以解决线性分类，也可以解决部分非线性分类问题呢？这里举两个例子。   </p>
-<h2 id="线性分类"><a href="#线性分类" class="headerlink" title="线性分类"></a>线性分类</h2><p>假设有$y \in \{0,1\}$两类样本，如下图，存在一条直线$f(x_1,x_2)=\frac{1}{2}x_1-x_2+1$（我随便写的）能把这两类样本完全分割开，也就是对于所有的$y=1$有$f(x_1,x_2)&gt;0$，对于所有的$y=0$有$f(x_1,x_2)&lt;0$。   </p>
-<p><div align="center"><img src="https://i.imgur.com/U543AYa.png" alt=""></div><br>我们将$f(x_1,x_2)$代入逻辑回归模型，就会有：$$f(f(x_1,x_2))=\frac {1}{1+e^{-f(x_1,x_2)}}$$<br>显然，根据刚才提到的逻辑回归的工作方式，当$f(x_1,x_2)&gt;0$时，逻辑回归函数的取值$f(f(x_1,x_2))&gt;0.5$，也就是说，样本$(x_1,x_2)$被判为正类的可能性更大，相对应地，当$f(x_1,x_2)&lt;0$时，逻辑回归函数的取值$f(f(x_1,x_2))&lt;0.5$，样本$(x_1,x_2)$被判为负类的可能性更大。   </p>
-<h2 id="非线性分类"><a href="#非线性分类" class="headerlink" title="非线性分类"></a>非线性分类</h2><p>&emsp;&emsp;同样，假设有$y \in \{0,1\}$两类样本，但是这两类样本在二维平面上不再线性可分，而是长成下面的样子。   </p>
-<p><div align="center"><img src="https://i.imgur.com/hz0Zzvq.png" alt=""></div><br>这个时候继续使用直线一刀切地划分显然是不行的（当然，你可以将样本映射到高维空间，然后寻找划分超平面这两类样本分隔开）。但是我们可以找到这样的一个圆（如下图），能把正负样本完全分隔开，假设关于这个圆的函数是$(x1-4)^2+(x2-3)^2=0$（还是随便写的）。   </p>
-<p><div align="center"><img src="https://i.imgur.com/wGa2z5I.png" alt=""></div><br>函数$(x1-4)^2+(x2-3)^2&gt;0$时，代表样本点位于圆的外面，此时有$y=1$，把函数代入逻辑回归模型，会有$f(x)&gt;0.5$，此时样本$(x_1,x_2)$被判为正类的可能性更大。同样地，函数$(x1-4)^2+(x2-3)^2&lt;0$时，代表样本点位于圆的里面，此时有$y=0$，把函数代入逻辑回归模型，会有$f(x)&lt;0.5$，此时样本$(x_1,x_2)$被判为负类的可能性更大。<br>&emsp;&emsp;因此，逻辑回归模型能够很好地处理线性分类以及部分非线性分类问题。   </p>
-<h1 id="极大似然估计"><a href="#极大似然估计" class="headerlink" title="极大似然估计"></a>极大似然估计</h1><p>&emsp;&emsp;模型找出来了，但是参数$w$和$b$还没有求解，所以又到了寻找损失函数的时候了。在线性回归中，一般会使用均方误差（也叫最小二乘法）来衡量预测的好坏，该损失函数试图找到这样的一条直线，能够使得所有样本到直线上的距离之和最小，说白了就是用欧氏距离来衡量预测效果。</p>
-<p><div align="center"><img src="https://i.imgur.com/wd7PCwB.png" alt=""></div><br>&emsp;&emsp;用均方误差求解线性回归参数，是因为该损失函数是一个凸函数，凸函数有一个比较好的性质就是，局部极小点就是全局最小点，在达到全局最优的过程中不会经历太多的波折，更不会走到半路就以为是终点。<div align="center"><img src="https://i.imgur.com/fL6A9Bv.png" alt=""></div><br>不妨也试一下，使用均方误差来衡量逻辑回归模型的拟合效果如何，把上面的$h_ \theta(x)$换成逻辑回归的方程式可以得到：<div align="center"><img src="https://i.imgur.com/GsLNrEl.png" alt=""></div><br>很遗憾的是，这个函数是非凸的，它可能是长成这个样子的：<div align="center"><img src="https://i.imgur.com/X9sec3T.png" alt=""></div><br>这样的函数，在进行最优化求解时，函数值很有可能一直逗留在某些奇怪的地方比如图中红色的点，而没办法达到全局最优。<br>&emsp;&emsp;我们可以从概率的角度去思考，根据逻辑回归模型预测出来的概率值，肯定是离样本的真实标记越接近越好。比如对于正样本$x_1$，肯定是值$f(x_1)$越大越好，对于负样本$x_2$，值$f(x_2)$越小越好，因为值$f(x_2)$越小，样本$x_2$被判为负样本的可能性越大。<br>对所有训练样本，我们希望最大化其似然函数：</p>
-<p><div align="center"><img src="https://i.imgur.com/tt9pKjt.png" alt=""></div><br>当$y_i=1$时，$p$越大，$L(p)$越大。当$y_i=0$时，$p$越小，$L(p)$越大。对上式取对数之后，就得到对数似然函数：<div align="center"><img src="https://i.imgur.com/j0iIYfg.png" alt=""></div><br>这里的$p(y_i=1|x_i)$对我们来说还是未知的，想要求解参数$w$，还需要稍微推导下。在模型推导中，我们知道：$$p(y=1|x)=\frac {e^{w^Tx+b}}{1+e^{w^Tx+b}}$$<br>把这个等式代入到损失函数（对数似然函数）中：</p>
-<p><div align="center"><img src="https://i.imgur.com/d01eJlT.png" alt=""></div><br>这样就可以使用最优化方法来求解参数$w$了。对$L(w)$求极大值，就可以得到$w$的估计值。当然，也可以将对数似然函数写成以下形式，就变成求极小值：<div align="center"><img src="https://i.imgur.com/cyfV69c.png" alt=""></div>   </p>
-<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>哈哈</p>
-]]></content>
+<div align="center"><img src="https://i.imgur.com/zfjSPxA.png" alt=""></div><br>给定数据集$D= \{ (x_1,y_1),(x_2,y_2),…,(x_m,y_m) \} $，其中 $y_i \in \{0,1\}$。我们可以用概率$p,p \in [0,1]$来表示样本$x$被判为$y=1$时的可能性，$p$值越大，代表$x$被归为正样本$y=1$的可能性越大，也就是$p(y=1|x)$的概率为$p$，那么对应的$p(y=0|x)$的概率就是$1-p$，这两者的比值$$\frac{p}{1-p}$$称为“几率”也有些家伙会称它为“优势比”。<br>这个时候，我们再回到取对数之后的等式：$lny=w^Tx+b$，令$y=\frac{p}{1-p}$，可以将等式转化为：$$ln\frac{p}{1-p}=w^Tx+b$$ 同时将等式两边的值作为指数，以$e$为底，可以得到：$$\frac{p}{1-p} = e^{w^Tx+b}$$ 稍微处理一下就可以推导出经典的逻辑回归模型:<div align="center"><img src="https://i.imgur.com/LLuWYHk.png" alt=""></div><br>也就是说，对于$y=1$，我们有$$p(y=1|x)=\frac {e^{w^Tx+b}}{1+e^{w^Tx+b}}$$<br>对于$y=0$，我们有$$p(y=0|x)=\frac {1}{1+e^{w^Tx+b}}$$<br>为了看的更舒服一点，令$z=w^Tx+b$，分子分母再同时除以$e^z$，则模型写成以下形式：$$f(z)=\frac {1}{1+e^{-z}}$$<br>上面的等式其实是一个单调“S”形函数，$f(z)$的取值在$(0,1)$之间，当$z$取值越大时，$f(z)$越接近于1，反之，当$z$取值越小时，$f(z)$越接近于0，当$z=0$时，$f(z)=0.5$。<div align="center"><img src="https://i.imgur.com/zmzPE1t.png" alt=""></div><br>其工作方式是，当$z&gt;0$时，对应的样本被判为正类$y=1$，当$z<0$时，对应的样本被判为负类$y=0$，当$z=0$时，可视情况将样本归为任意类别。 #="" 线性and非线性="" 为什么逻辑回归模型，既可以解决线性分类，也可以解决部分非线性分类问题呢？这里举两个例子。="" ##="" 线性分类="" 假设有$y="" \in="" \\{0,1\\}$两类样本，如下图，存在一条直线$f(x_1,x_2)="\frac{1}{2}x_1-x_2+1$（我随便写的）能把这两类样本完全分割开，也就是对于所有的$y=1$有$f(x_1,x_2)">0$，对于所有的$y=0$有$f(x_1,x_2)<0$。 <div="" align="center"><img src="https://i.imgur.com/U543AYa.png" alt=""><br>我们将$f(x_1,x_2)$代入逻辑回归模型，就会有：$$f(f(x_1,x_2))=\frac {1}{1+e^{-f(x_1,x_2)}}$$<br>显然，根据刚才提到的逻辑回归的工作方式，当$f(x_1,x_2)&gt;0$时，逻辑回归函数的取值$f(f(x_1,x_2))&gt;0.5$，也就是说，样本$(x_1,x_2)$被判为正类的可能性更大，相对应地，当$f(x_1,x_2)<0$时，逻辑回归函数的取值$f(f(x_1,x_2))<0.5$，样本$(x_1,x_2)$被判为负类的可能性更大。 ##="" 非线性分类="" &emsp;&emsp;同样，假设有$y="" \in="" \\{0,1\\}$两类样本，但是这两类样本在二维平面上不再线性可分，而是长成下面的样子。="" <div="" align="center"><img src="https://i.imgur.com/hz0Zzvq.png" alt=""><br>这个时候继续使用直线一刀切地划分显然是不行的（当然，你可以将样本映射到高维空间，然后寻找划分超平面这两类样本分隔开）。但是我们可以找到这样的一个圆（如下图），能把正负样本完全分隔开，假设关于这个圆的函数是$(x1-4)^2+(x2-3)^2=0$（还是随便写的）。<br><div align="center"><img src="https://i.imgur.com/wGa2z5I.png" alt=""></div><br>函数$(x1-4)^2+(x2-3)^2&gt;0$时，代表样本点位于圆的外面，此时有$y=1$，把函数代入逻辑回归模型，会有$f(x)&gt;0.5$，此时样本$(x_1,x_2)$被判为正类的可能性更大。同样地，函数$(x1-4)^2+(x2-3)^2<0$时，代表样本点位于圆的里面，此时有$y=0$，把函数代入逻辑回归模型，会有$f(x)<0.5$，此时样本$(x_1,x_2)$被判为负类的可能性更大。 &emsp;&emsp;因此，逻辑回归模型能够很好地处理线性分类以及部分非线性分类问题。="" #="" 极大似然估计="" &emsp;&emsp;模型找出来了，但是参数$w$和$b$还没有求解，所以又到了寻找损失函数的时候了。在线性回归中，一般会使用均方误差（也叫最小二乘法）来衡量预测的好坏，该损失函数试图找到这样的一条直线，能够使得所有样本到直线上的距离之和最小，说白了就是用欧氏距离来衡量预测效果。="" <div="" align="center"><img src="https://i.imgur.com/wd7PCwB.png" alt=""><br>&emsp;&emsp;用均方误差求解线性回归参数，是因为该损失函数是一个凸函数，凸函数有一个比较好的性质就是，局部极小点就是全局最小点，在达到全局最优的过程中不会经历太多的波折，更不会走到半路就以为是终点。<div align="center"><img src="https://i.imgur.com/fL6A9Bv.png" alt=""></div><br>不妨也试一下，使用均方误差来衡量逻辑回归模型的拟合效果如何，把上面的$h_ \theta(x)$换成逻辑回归的方程式可以得到：<div align="center"><img src="https://i.imgur.com/GsLNrEl.png" alt=""></div><br>很遗憾的是，这个函数是非凸的，它可能是长成这个样子的：<div align="center"><img src="https://i.imgur.com/X9sec3T.png" alt=""></div><br>这样的函数，在进行最优化求解时，函数值很有可能一直逗留在某些奇怪的地方比如图中红色的点，而没办法达到全局最优。<br>&emsp;&emsp;我们可以从概率的角度去思考，根据逻辑回归模型预测出来的概率值，肯定是离样本的真实标记越接近越好。比如对于正样本$x_1$，肯定是值$f(x_1)$越大越好，对于负样本$x_2$，值$f(x_2)$越小越好，因为值$f(x_2)$越小，样本$x_2$被判为负样本的可能性越大。<br>对所有训练样本，我们希望最大化其似然函数：<br><div align="center"><img src="https://i.imgur.com/tt9pKjt.png" alt=""></div><br>当$y_i=1$时，$p$越大，$L(p)$越大。当$y_i=0$时，$p$越小，$L(p)$越大。对上式取对数之后，就得到对数似然函数：<div align="center"><img src="https://i.imgur.com/j0iIYfg.png" alt=""></div><br>这里的$p(y_i=1|x_i)$对我们来说还是未知的，想要求解参数$w$，还需要稍微推导下。在模型推导中，我们知道：$$p(y=1|x)=\frac {e^{w^Tx+b}}{1+e^{w^Tx+b}}$$<br>把这个等式代入到损失函数（对数似然函数）中：<br><div align="center"><img src="https://i.imgur.com/d01eJlT.png" alt=""></div><br>这样就可以使用最优化方法来求解参数$w$了。对$L(w)$求极大值，就可以得到$w$的估计值。当然，也可以将对数似然函数写成以下形式，就变成求极小值：<div align="center"><img src="https://i.imgur.com/cyfV69c.png" alt=""></div>   
+</0$时，代表样本点位于圆的里面，此时有$y=0$，把函数代入逻辑回归模型，会有$f(x)<0.5$，此时样本$(x_1,x_2)$被判为负类的可能性更大。></0$时，逻辑回归函数的取值$f(f(x_1,x_2))<0.5$，样本$(x_1,x_2)$被判为负类的可能性更大。></0$。></0$时，对应的样本被判为负类$y=0$，当$z=0$时，可视情况将样本归为任意类别。>]]></content>
     
     <summary type="html">
     
@@ -265,7 +1036,7 @@
     <link href="http://yoursite.com/posts/2017/09/02/SVM3.html"/>
     <id>http://yoursite.com/posts/2017/09/02/SVM3.html</id>
     <published>2017-09-02T01:47:45.236Z</published>
-    <updated>2018-09-06T05:40:04.647Z</updated>
+    <updated>2019-02-27T02:48:33.552Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;硬间隔支持向量机要求训练数据是完全线性可分的，否则会宕机（无法工作）；软间隔支持向量机则允许很少量的样本线性不可分，模型的容错能力相对前者好一点；但是，对于非线性问题应该如何处理呢，怎么用一个平面将二维平面中的两个不同半径的同心圆分隔开，怎么将高维线性不可分的图形分隔开，在实际应用中，遇到非线性问题（大部分都是），如何用SVM解决？这就需要引入核函数的概念了。<br><a id="more"></a>   </p>
 <h1 id="核函数定义"><a href="#核函数定义" class="headerlink" title="核函数定义"></a>核函数定义</h1><p>李航在《统计学习方法》中对核函数的定义如下：</p>
@@ -291,7 +1062,7 @@
 </ul>
 <h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>&emsp;&emsp;核函数的作用其实很简单，一言蔽之，就是计算映射到高维空间之后的内积的一种简便方法或者技巧，它能够将原本需要在高维空间计算的内积直接在原特征空间进行，无需变换空间。   </p>
 <p>&emsp;&emsp;说实话，写的这几篇文章中，核函数这篇是最耗时的，写到这里，感觉我对kenel trick 的理解还是很懵懂，不深刻，比如kenel 可以往那些方面进行推广、在实际应用中应该怎么选择kenel。写本文的时候，希望能够尽量通俗易懂地把它写明白，但是通俗易懂的前提是自己对这些概念的理解要很深入，所以在写的过程中出现过几次定好思路，写了大部分的时候发现不理想，重新整理的情况。不过从应用层面来说，了解SVM 和核函数的基本概念原理，知道模型是怎么运作的，在遇到问题的时候能够定位问题，并根据模型、方法的特性进行恰当的调整已经基本够用了。其他的再漫漫求索吧。   </p>
-<p>ps: 再次吐槽， mardown 编辑公式有时出个bug真能逼死强迫症。</p>
+<p>ps: hexo渲染公式有时出个bug真能逼死强迫症。</p>
 ]]></content>
     
     <summary type="html">
@@ -401,7 +1172,7 @@
     <link href="http://yoursite.com/posts/2017/08/07/Gradient_descent.html"/>
     <id>http://yoursite.com/posts/2017/08/07/Gradient_descent.html</id>
     <published>2017-08-07T08:19:01.063Z</published>
-    <updated>2017-08-10T09:39:11.797Z</updated>
+    <updated>2019-02-27T02:47:26.729Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;李航在其《统计学习方法》中提到，机器学习的核心由三大块组成，分别为模型、策略、算法，其实说白了，机器学习就是一个模型 + 一个损失函数 + 一个最优化算法。损失函数是为了让模型能够更好地拟合或分类数据，最优化算法是用来优化损失函数的，而在机器学习中，最常用的最优化算法应该算梯度下降了，这篇文章就来讲讲梯度下降，探究下它是如何优化损失函数的。<br><a id="more"></a>   </p>
 <h1 id="梯度下降原理"><a href="#梯度下降原理" class="headerlink" title="梯度下降原理"></a>梯度下降原理</h1><p>&emsp;&emsp;上文的感知机模型中有提到，梯度，其实就是求偏导，梯度下降就是沿着梯度的负方向移动。为了更直观地理解梯度下降，这里举一个网上的例子（实在想不出比这个更形象的解析了），比如我们现在站在山上的某个位置，如下图中的点A，目标是要最快速地下到山脚下，怎么一步一步走下去呢？我们可以选择往相对当前位置来说最陡峭的地方向下移动（也就是梯度的负方向），这样一直走到山脚。这个山脚有可能是整个大山的最低处（B点），也有可能是大山的局部低处（C或D点），这取决于我们移动的方向和幅度。这种情况下，梯度下降不一定能够找到全局最优解，有可能是一个局部最优解。  </p>
@@ -437,7 +1208,7 @@
 </blockquote>
 <p>&emsp;&emsp;使用批量梯度下降法准确率很高，但是效率低，随机梯度下降法效率高，但是准确率低，而小批量梯度下降法算是批量下降法和随机梯度下降法的一种折衷，其集合了前面两种下降方法的优势，具体操作过程如下：</p>
 <p><div align="center"><img src="http://i.imgur.com/4PAFFYu.png" alt=""></div><br>&emsp;&emsp;这里的$n$一般会选一个很小的数，比如10或者100，这样的话，在迭代过程中，参数值的方差不至于太大，收敛的过程会更加稳定。</p>
-<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>&emsp;&emsp;在机器学习中，梯度下降法通常用于优化损失函数，优化的过程，是沿着梯度的负方向不断逼近极值。从第二点‘梯度下降算法’里的实例图可以看到，一开始算法的下降速度很快，但是在极值附近时，算法的收敛速度很慢，比如在第二点的例子，在第四次迭代时已经逼近极小值了，但是在第38次迭代才解出极小值。另外，步长$\alpha$的选取很关键，步长过程可能会达不到极值点，甚至有可能发散，步长过短会导致收敛速度很慢。<br>&emsp;&emsp;批量梯度下降法每次迭代都用到所有训练数据，准确度高同时复杂度也高；随机梯度下降法每次迭代随机选取一个数据样本进行更新，准确度不高，复杂度较低；小批量梯度下降法集合了前面两种下降方法的优势，训练复杂度较低，精确度也较高。<br>&emsp;&emsp;最后，不得不吐槽下，markdown编辑公式真的是非常非常非常蛋疼。</p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>&emsp;&emsp;在机器学习中，梯度下降法通常用于优化损失函数，优化的过程，是沿着梯度的负方向不断逼近极值。从第二点‘梯度下降算法’里的实例图可以看到，一开始算法的下降速度很快，但是在极值附近时，算法的收敛速度很慢，比如在第二点的例子，在第四次迭代时已经逼近极小值了，但是在第38次迭代才解出极小值。另外，步长$\alpha$的选取很关键，步长过程可能会达不到极值点，甚至有可能发散，步长过短会导致收敛速度很慢。<br>&emsp;&emsp;批量梯度下降法每次迭代都用到所有训练数据，准确度高同时复杂度也高；随机梯度下降法每次迭代随机选取一个数据样本进行更新，准确度不高，复杂度较低；小批量梯度下降法集合了前面两种下降方法的优势，训练复杂度较低，精确度也较高。</p>
 ]]></content>
     
     <summary type="html">
@@ -458,9 +1229,9 @@
     <link href="http://yoursite.com/posts/2017/08/01/perceptron_model.html"/>
     <id>http://yoursite.com/posts/2017/08/01/perceptron_model.html</id>
     <published>2017-08-01T03:16:20.734Z</published>
-    <updated>2017-08-03T01:29:36.189Z</updated>
+    <updated>2019-02-27T02:41:23.930Z</updated>
     
-    <content type="html"><![CDATA[<p>&emsp;&emsp;刚从广发项目撤出来，未来几周应该都不会很忙，趁着闲暇时间整理一下机器学习方面的知识。<br>&emsp;&emsp;先从最简单的感知机模型说起。感知机是一种二分类的线性模型，其假设训练数据集是线性可分的，目标是找到一个能够将训练数据集的正样本和负样本完全正确分割开的分离超平面。其实，模型只要找到该分离超平面，学习目的就达到了，并不要求样本能被最大限度地划分。<br><a id="more"></a>   </p>
+    <content type="html"><![CDATA[<p>&emsp;&emsp;未来几周应该都不会很忙，趁着闲暇时间整理一下机器学习方面的知识。<br>&emsp;&emsp;先从最简单的感知机模型说起。感知机是一种二分类的线性模型，其假设训练数据集是线性可分的，目标是找到一个能够将训练数据集的正样本和负样本完全正确分割开的分离超平面。其实，模型只要找到该分离超平面，学习目的就达到了，并不要求样本能被最大限度地划分。<br><a id="more"></a>   </p>
 <h1 id="分类器"><a href="#分类器" class="headerlink" title="分类器"></a>分类器</h1><p>&emsp;&emsp;分类器能够通过输入的特征向量映射到给定类别中的一个，也就是所谓的物以聚类人以群分。如下图一，蓝色直线将A和B完全分割开，那么该直线$y=ax+b$就是一个分类器。根据分类器是否线性可分的性质，分类器有线性分类器(图一)和非线性分类器（图二图三），从类别上，有二元分类器（图一）和多元分类器（两个类别以上，图二图三），而本章要讨论的感知机模型，就是一个二分类线性模型。<div align="center"><img src="http://i.imgur.com/jH3FvKL.png" alt=""></div>   </p>
 <h1 id="感知机模型"><a href="#感知机模型" class="headerlink" title="感知机模型"></a>感知机模型</h1><p>&emsp;&emsp;感知机模型很简单，为什么说它简单呢，因为该模型只用了一个线性方程$y = ax + b$ 以及 一个符号函数$sign(x)$（初中的知识是不是？）<br>&emsp;&emsp;下面来看下感知机模型的定义。<br>&emsp;&emsp;假设有$N$维的特征输入$X = \lbrace x_1,x_2,…,x_n \rbrace $，输出的类别有两类$ Y = \lbrace +1,-1\rbrace $，则由特征输入映射到类别输出的函数$$f(x) = sign(w*x+b)$$称为感知机模型，其中，$w$ 和$b$是我们要求解的模型的参数，这里的$w$其实是一个跟特征输入维度一样$N$维的权值向量（也称为权重），而参数$b$为偏置（在二维平面上，$b$就是截距）。<br>&emsp;&emsp;我们从公式上去解读下为什么说感知机模型是一个线性二分类模型。<br>&emsp;&emsp;先看符号函数里面的线性方程$$y=w*x+b$$显然，方程$ y = w*x +b $在二维平面上是一条直线，在三维空间上是一个平面，在四维甚至更高维空间上就是一个超平面。（哈哈哈，这个实在是画不出来）<div align="center"><img src="http://i.imgur.com/RtXJNgB.png" alt=""></div><br>也就是说，不管是在二维三维空间还是更高维空间，超平面都可以将空间一分为二，并且都可以表示成方程$ y = w*x +b $，所以感知机模型首先是一个线性模型。<br>&emsp;&emsp;再看符号函数，这个更简单，符号函数的定义如下：<br>$$<br>sign(x)=\begin{cases}<br>+1,\quad x\geq 0\\<br>-1, \quad x&lt;0<br>\end{cases}$$   </p>
 <p>如果$x&gt;=0$则$f(x)=+1$，否则$f(x)=-1$。那么对于函数$f(x) = sign(w*x+b)$，如果输入样本$w*x+b&gt;=0$，那么该样本会被判为+1类，否则判为-1类。举个例子，回到上文图一，对于直线上方有$w*x+b&gt;0$，所以所有的A样本都会归为+1类，对于直线下方有$w*x+b&lt;0$，这样所有的B样本都会归为-1类。因此，感知机模型是一个线性二分类模型，其任务就是，找到这样的一个超平面，能够把两个不同的分类完全分割开。   </p>
@@ -519,13 +1290,13 @@ plt.ylabel(<span class="string">'x2'</span>)
 plt.show()
 </code></pre>
 <p>&emsp;&emsp;因为这里的两个样本区分度太明显，所以经过几次迭代就已经收敛了。最终求得参数$w=[1.03972853 \  0.97360177] ,b=0$，根据参数$(w,b)$画出的直线如下图所示：<div align="center"><img src="http://i.imgur.com/WftOMnU.png" alt=""></div><br>&emsp;&emsp;选取不同的初始值$(w,b)$或者不同的误分类点，划分的超平面很有可能会不一样，这也就是为什么在线性可分数据集中，用感知机模型求出来的解有无穷多个。如下面直线$A,B,C$都可作为解。</p>
-<p><div align="center"> <img src="http://i.imgur.com/ibURFh2.png" alt=""></div> </p>
+<p><div align="center"> <img src="http://i.imgur.com/ibURFh2.png" alt=""></div></p>
 <h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>&emsp;&emsp;感知机模型假设训练数据集是线性可分的，如果线性不可分，算法会一直震荡无法收敛，所以其无法处理一些复杂的数据，如在分类器中提到的图二和图三。考虑到实际业务的数据一般比较复杂，简单的感知机模型无法有效地处理如此复杂的数据，所以在建模中很少会使用该模型。但是感知机模型还是比较重要的，为什么这么说呢，因为只要稍微修改下模型的损失函数，感知机模型就可转变为广受欢迎的分类神器：支持向量机，而通过简单的堆叠可演变为神经网络模型。</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;&amp;emsp;&amp;emsp;刚从广发项目撤出来，未来几周应该都不会很忙，趁着闲暇时间整理一下机器学习方面的知识。&lt;br&gt;&amp;emsp;&amp;emsp;先从最简单的感知机模型说起。感知机是一种二分类的线性模型，其假设训练数据集是线性可分的，目标是找到一个能够将训练数据集的正样本和负样本完全正确分割开的分离超平面。其实，模型只要找到该分离超平面，学习目的就达到了，并不要求样本能被最大限度地划分。&lt;br&gt;
+      &lt;p&gt;&amp;emsp;&amp;emsp;未来几周应该都不会很忙，趁着闲暇时间整理一下机器学习方面的知识。&lt;br&gt;&amp;emsp;&amp;emsp;先从最简单的感知机模型说起。感知机是一种二分类的线性模型，其假设训练数据集是线性可分的，目标是找到一个能够将训练数据集的正样本和负样本完全正确分割开的分离超平面。其实，模型只要找到该分离超平面，学习目的就达到了，并不要求样本能被最大限度地划分。&lt;br&gt;
     
     </summary>
     
@@ -625,39 +1396,6 @@ plt.show()
       <category term="python" scheme="http://yoursite.com/tags/python/"/>
     
       <category term="爬虫" scheme="http://yoursite.com/tags/%E7%88%AC%E8%99%AB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>博客的搭建</title>
-    <link href="http://yoursite.com/posts/2017/03/05/blog.html"/>
-    <id>http://yoursite.com/posts/2017/03/05/blog.html</id>
-    <published>2017-03-04T18:08:32.627Z</published>
-    <updated>2017-03-14T07:58:02.019Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p>这个博客的搭建，完全得益于<a href="https://zhangslob.github.io/2017/02/28/%E6%95%99%E4%BD%A0%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%EF%BC%8CHexo-Github/" target="_blank" rel="external">教你免费搭建个人博客，Hexo&amp;Github</a>和<a href="http://www.jianshu.com/p/1cd86fac2585" target="_blank" rel="external">使用GitHub和Hexo搭建免费静态Blog</a>这两篇文章，非常详细地描述了基于hexo+github搭建个人博客的准备工作及安装和配置流程。<br><a id="more"></a></p>
-<h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><p>虽然上面这两篇文章写得很详细，但是我在按着教程搭建的过程中还是遇到一些小问题，这里记录一下：   </p>
-<h2 id="1、注意运行路径"><a href="#1、注意运行路径" class="headerlink" title="1、注意运行路径"></a>1、注意运行路径</h2><p>在浏览器中查看自带的hello world文章，需要执行 hexo generate 和hexo server两个命令，这里要注意一下这两个命令的执行路径，需要在hello world文章路径下执行。   </p>
-<h2 id="2、MarkdownPad无法预览"><a href="#2、MarkdownPad无法预览" class="headerlink" title="2、MarkdownPad无法预览"></a>2、MarkdownPad无法预览</h2><p>win10下首次安装MarkdownPad会出现右侧浏览页面无法浏览的情况，<br><img src="http://i.imgur.com/O9hUr8v.png" alt=""><br>这种情况下需要安装<a href="http://markdownpad.com/download/awesomium_v1.6.6_sdk_win.exe" target="_blank" rel="external">Awesomium 1.6.6 SDK</a>，安装完成之后问题可解决。<br><img src="http://i.imgur.com/oous83g.png" alt=""></p>
-<h2 id="3、yilia主题头像无法显示"><a href="#3、yilia主题头像无法显示" class="headerlink" title="3、yilia主题头像无法显示"></a>3、yilia主题头像无法显示</h2><p>若加载头像后，头像无法显示，需要将’themes/yilia/layout/_partial’路径下的文件left-col.ejs中的第6行修改为：</p>
-<pre><code class="bash">&lt;img src=<span class="string">"&lt;%=theme.avatar%&gt;"</span> class=<span class="string">"js-avatar show"</span>&gt;
-</code></pre>
-<h2 id="4、部署上传"><a href="#4、部署上传" class="headerlink" title="4、部署上传"></a>4、部署上传</h2><p>部署上传时执行以下命令时  </p>
-<pre><code class="bash">hexo d
-</code></pre>
-<p>报’ERROR Deployer not found: git’错误，可能是deployer-git插件未安装，在根目录下执行下面代码安装该插件即可。</p>
-<pre><code class="bash">npm install hexo-deployer-git --save
-</code></pre>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;参考文档&quot;&gt;&lt;a href=&quot;#参考文档&quot; class=&quot;headerlink&quot; title=&quot;参考文档&quot;&gt;&lt;/a&gt;参考文档&lt;/h1&gt;&lt;p&gt;这个博客的搭建，完全得益于&lt;a href=&quot;https://zhangslob.github.io/2017/02/28/%E6%95%99%E4%BD%A0%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%EF%BC%8CHexo-Github/&quot;&gt;教你免费搭建个人博客，Hexo&amp;amp;Github&lt;/a&gt;和&lt;a href=&quot;http://www.jianshu.com/p/1cd86fac2585&quot;&gt;使用GitHub和Hexo搭建免费静态Blog&lt;/a&gt;这两篇文章，非常详细地描述了基于hexo+github搭建个人博客的准备工作及安装和配置流程。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="其他" scheme="http://yoursite.com/categories/%E5%85%B6%E4%BB%96/"/>
-    
     
   </entry>
   

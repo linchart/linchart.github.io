@@ -25,7 +25,7 @@
 <meta property="og:image" content="http://i.imgur.com/txXGQRl.png">
 <meta property="og:image" content="http://i.imgur.com/rdbGBMV.png">
 <meta property="og:image" content="http://i.imgur.com/4PAFFYu.png">
-<meta property="og:updated_time" content="2017-08-10T09:39:11.797Z">
+<meta property="og:updated_time" content="2019-02-27T02:47:26.729Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="梯度下降">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;李航在其《统计学习方法》中提到，机器学习的核心由三大块组成，分别为模型、策略、算法，其实说白了，机器学习就是一个模型 + 一个损失函数 + 一个最优化算法。损失函数是为了让模型能够更好地拟合或分类数据，最优化算法是用来优化损失函数的，而在机器学习中，最常用的最优化算法应该算梯度下降了，这篇文章就来讲讲梯度下降，探究下它是如何优化损失函数的。">
@@ -223,7 +223,7 @@
 </blockquote>
 <p>&emsp;&emsp;使用批量梯度下降法准确率很高，但是效率低，随机梯度下降法效率高，但是准确率低，而小批量梯度下降法算是批量下降法和随机梯度下降法的一种折衷，其集合了前面两种下降方法的优势，具体操作过程如下：</p>
 <p><div align="center"><img src="http://i.imgur.com/4PAFFYu.png" alt=""></div><br>&emsp;&emsp;这里的$n$一般会选一个很小的数，比如10或者100，这样的话，在迭代过程中，参数值的方差不至于太大，收敛的过程会更加稳定。</p>
-<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>&emsp;&emsp;在机器学习中，梯度下降法通常用于优化损失函数，优化的过程，是沿着梯度的负方向不断逼近极值。从第二点‘梯度下降算法’里的实例图可以看到，一开始算法的下降速度很快，但是在极值附近时，算法的收敛速度很慢，比如在第二点的例子，在第四次迭代时已经逼近极小值了，但是在第38次迭代才解出极小值。另外，步长$\alpha$的选取很关键，步长过程可能会达不到极值点，甚至有可能发散，步长过短会导致收敛速度很慢。<br>&emsp;&emsp;批量梯度下降法每次迭代都用到所有训练数据，准确度高同时复杂度也高；随机梯度下降法每次迭代随机选取一个数据样本进行更新，准确度不高，复杂度较低；小批量梯度下降法集合了前面两种下降方法的优势，训练复杂度较低，精确度也较高。<br>&emsp;&emsp;最后，不得不吐槽下，markdown编辑公式真的是非常非常非常蛋疼。</p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>&emsp;&emsp;在机器学习中，梯度下降法通常用于优化损失函数，优化的过程，是沿着梯度的负方向不断逼近极值。从第二点‘梯度下降算法’里的实例图可以看到，一开始算法的下降速度很快，但是在极值附近时，算法的收敛速度很慢，比如在第二点的例子，在第四次迭代时已经逼近极小值了，但是在第38次迭代才解出极小值。另外，步长$\alpha$的选取很关键，步长过程可能会达不到极值点，甚至有可能发散，步长过短会导致收敛速度很慢。<br>&emsp;&emsp;批量梯度下降法每次迭代都用到所有训练数据，准确度高同时复杂度也高；随机梯度下降法每次迭代随机选取一个数据样本进行更新，准确度不高，复杂度较低；小批量梯度下降法集合了前面两种下降方法的优势，训练复杂度较低，精确度也较高。</p>
 
       
 
@@ -237,7 +237,7 @@
             <span class="tooltip-content">
               <span class="tooltip-text">
                 <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>你要请我大保健吗？<i class="icon icon-quo-right"></i></p>
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>赏个铜板呗<i class="icon icon-quo-right"></i></p>
                   <div class="reward-box">
                     
                     <div class="reward-box-item">
@@ -245,11 +245,6 @@
                       <span class="reward-type">支付宝</span>
                     </div>
                     
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="\img\wechat.png">
-                      <span class="reward-type">微信</span>
-                    </div>
                     
                   </div>
                 </span>
@@ -378,7 +373,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 山久丰
+    		&copy; 2019 山久丰
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -494,10 +489,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">效果评估</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
@@ -506,15 +497,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">效果评估</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">对数线性模型</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">广义线性模型</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -527,6 +522,26 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">无监督监督学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">分词</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NER</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">新词发现</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">attention</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">情感分类</a>
               </li>
             
             <div class="clearfix"></div>
