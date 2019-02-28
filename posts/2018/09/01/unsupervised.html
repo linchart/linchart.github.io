@@ -16,7 +16,7 @@
 <meta property="og:description" content="&amp;emsp;&amp;emsp;在实际的工程应用中，无监督聚类算法的使用频率相对于有监督分类预测算法的使用频率并不高，我们在开展业务过程中，很多时候，会很明确需要挖掘哪种类型的目标客户，比如是否会购买产品、是否潜在流失、是否投诉用户、是否欺诈用户等等。有时候也会有客户直接丢一堆无标签的数据过来，让你分析下这坨数据有什么特征，或者客户对他们产品的使用用户都是由哪些群体构成的并不清晰，无法针对性的做营销，这时">
 <meta property="og:image" content="https://i.imgur.com/ABEu70N.png">
 <meta property="og:image" content="https://i.imgur.com/jKTWaMn.png">
-<meta property="og:updated_time" content="2018-09-23T13:46:52.678Z">
+<meta property="og:updated_time" content="2019-02-28T02:15:08.824Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="聚类算法使用小结">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;在实际的工程应用中，无监督聚类算法的使用频率相对于有监督分类预测算法的使用频率并不高，我们在开展业务过程中，很多时候，会很明确需要挖掘哪种类型的目标客户，比如是否会购买产品、是否潜在流失、是否投诉用户、是否欺诈用户等等。有时候也会有客户直接丢一堆无标签的数据过来，让你分析下这坨数据有什么特征，或者客户对他们产品的使用用户都是由哪些群体构成的并不清晰，无法针对性的做营销，这时">
@@ -209,21 +209,23 @@
 <li>每次只合并两个簇，计算复杂度高，不适用于大数据量的聚类</li>
 <li>只能基于已有的数据聚类，无法对新的数据进行预测</li>
 </ul>
-<h3 id="sklearn-调参-1"><a href="#sklearn-调参-1" class="headerlink" title="sklearn 调参"></a>sklearn 调参</h3><h2 id="DBSCAN"><a href="#DBSCAN" class="headerlink" title="DBSCAN"></a>DBSCAN</h2><h3 id="原理-2"><a href="#原理-2" class="headerlink" title="原理"></a>原理</h3><p>DBSCAN(density-based spatial clustering of applications with noise)，翻译过来就是：具有噪声的基于密度的空间聚类应用。DBSCAN能够根据数据中的密度识别密集区域，并将密度高的区域划分为簇，这些簇由数据中相对密度相对较低的区域分隔开。</p>
+<h2 id="DBSCAN"><a href="#DBSCAN" class="headerlink" title="DBSCAN"></a>DBSCAN</h2><h3 id="原理-2"><a href="#原理-2" class="headerlink" title="原理"></a>原理</h3><p>DBSCAN(density-based spatial clustering of applications with noise)，翻译过来就是：具有噪声的基于密度的空间聚类应用。DBSCAN能够根据数据中的密度识别密集区域，并将密度高的区域划分为簇，这些簇由数据中相对密度相对较低的区域分隔开。</p>
 <h3 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a>优点</h3><ul>
 <li>无需指定聚类的个数</li>
 <li>可以处理复杂形状的数据</li>
 <li>抗噪声，能够识别噪声点<h3 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a>缺点</h3></li>
 <li>簇之间的密度不均匀时，聚类效果可能不好。（比如某个簇，密度较大，另一个簇密度较稀疏，当调大邻域内最小样本点时，密度较稀疏的簇会变化较快。）</li>
-<li>跟凝聚聚类一样，无法对新的数据进行预测<h3 id="sklearn-调参-2"><a href="#sklearn-调参-2" class="headerlink" title="sklearn 调参"></a>sklearn 调参</h3>该算法在大多数数据集上面都能够获得不错的效果，但是调参过程有时非常坎坷。关键是目前对复杂形状的聚类评估效果并不理想。 eps min_samples</li>
+<li>跟凝聚聚类一样，无法对新的数据进行预测<h3 id="sklearn-调参-1"><a href="#sklearn-调参-1" class="headerlink" title="sklearn 调参"></a>sklearn 调参</h3>该算法在大多数数据集上面都能够获得不错的效果，但是调参过程有时非常坎坷。关键是目前对复杂形状的聚类评估效果并不理想。 eps min_samples</li>
 </ul>
 <h2 id="高斯混合聚类"><a href="#高斯混合聚类" class="headerlink" title="高斯混合聚类"></a>高斯混合聚类</h2><h3 id="原理-3"><a href="#原理-3" class="headerlink" title="原理"></a>原理</h3><p>算法假定每个聚类的簇都符合高斯分布（正太分布），样本数据呈现的分布就是各个聚类的分布的叠加，所以称为高斯混合。该算法首先指定高斯混合成分个数K（这里K就是要聚类的个数），随机给每一个分布的均值和方差（协方差）赋初始值。对每一个样本，计算其在各个高斯分布下的后验概率（EM中的E步），在根据最大似然估计，将每个样本对该高斯分布的概率作为权重来计算加权均值和方差（协方差）（EM中的M步），用更新之后的值替换原来的初始值，直至模型满足停止条件（比如迭代次数），算法结束。</p>
 <h3 id="优点-3"><a href="#优点-3" class="headerlink" title="优点"></a>优点</h3><ul>
-<li>只要给定的成分个数足够多，理论上可以任意逼近任何连续的概率分布   </li>
-<li><h3 id="缺点-3"><a href="#缺点-3" class="headerlink" title="缺点"></a>缺点</h3><h3 id="sklearn-调参-3"><a href="#sklearn-调参-3" class="headerlink" title="sklearn 调参"></a>sklearn 调参</h3>调参经验</li>
+<li>只要给定的成分个数足够多，理论上可以任意逼近任何连续的概率分布    <h3 id="缺点-3"><a href="#缺点-3" class="headerlink" title="缺点"></a>缺点</h3></li>
+<li>计算量较大</li>
+<li>其实真实数据好多都是不服从正太分布的，对于一些复杂数据出现偏差的可能性还是挺高的。</li>
 </ul>
 <h2 id="MeanShift"><a href="#MeanShift" class="headerlink" title="MeanShift"></a>MeanShift</h2><h3 id="原理-4"><a href="#原理-4" class="headerlink" title="原理"></a>原理</h3><p>MeanShift是一种非参数聚类算法，无需指定聚类的数目。主要涉及两个概念Mean(均值)、Shift(偏移)。其算法思想很简单，算法首先随机选取初始迭代点$x$，将该点到附近区域内所有点分别组成向量求和取平均偏移量，移动该点$x$至平均偏移向量末端，作为新的迭代点，不断移动，直至满足指定条件，算法结束。   </p>
-<h3 id="优点-4"><a href="#优点-4" class="headerlink" title="优点"></a>优点</h3><h3 id="缺点-4"><a href="#缺点-4" class="headerlink" title="缺点"></a>缺点</h3><h1 id="sklearn-调参-4"><a href="#sklearn-调参-4" class="headerlink" title="sklearn 调参"></a>sklearn 调参</h1><h1 id="高维可视化PCA、TSNE"><a href="#高维可视化PCA、TSNE" class="headerlink" title="高维可视化PCA、TSNE"></a>高维可视化PCA、TSNE</h1><p>&emsp;&emsp;很多时候，即使做了前期的业务了解和数据探索，你也很难判断应该选择哪种聚类模型。如果每个模型都试一遍的话，时间成本未免太高，而将高维数据可视化，能够为我们选择聚类模型提供一些指导性意见。数据可视化首先是将高维数据降到低维（一般二维），然后基于低维数据进行可视化，常用的方法有两种：PCA 和TSNE。<br>&emsp;&emsp;PCA是一种被广泛应用的数据压缩、数据降维方法，该方法以方差最大的方向作为坐标轴方向对数据旋转以保留主要信，旋转后的特征在统计上不相关。这里以sklearn里的iris数据集为例，数据属性为：花萼长度、花萼宽度、花瓣长度、花瓣宽度 四个特征，将这四个特征标准化处理后用PCA降维得到下图。</p>
+<h3 id="调参"><a href="#调参" class="headerlink" title="调参"></a>调参</h3><p>MeanShift这个算法有稍微尝试了下，但是好像效果相对其他聚类算法不突出，用的不多</p>
+<h1 id="高维可视化PCA、TSNE"><a href="#高维可视化PCA、TSNE" class="headerlink" title="高维可视化PCA、TSNE"></a>高维可视化PCA、TSNE</h1><p>&emsp;&emsp;很多时候，即使做了前期的业务了解和数据探索，你也很难判断应该选择哪种聚类模型。如果每个模型都试一遍的话，时间成本未免太高，而将高维数据可视化，能够为我们选择聚类模型提供一些指导性意见。数据可视化首先是将高维数据降到低维（一般二维），然后基于低维数据进行可视化，常用的方法有两种：PCA 和TSNE。<br>&emsp;&emsp;PCA是一种被广泛应用的数据压缩、数据降维方法，该方法以方差最大的方向作为坐标轴方向对数据旋转以保留主要信，旋转后的特征在统计上不相关。这里以sklearn里的iris数据集为例，数据属性为：花萼长度、花萼宽度、花瓣长度、花瓣宽度 四个特征，将这四个特征标准化处理后用PCA降维得到下图。</p>
 <p><div align="center"><img src="https://i.imgur.com/ABEu70N.png" alt=""></div><br>PCA在旋转时没有用到任何类别信息，降维后的数据相对于原数据其实相当于新的数据变换，一般很难对图中的两个轴做出解析。有一类用于可视化的算法称为流行学习算法，TSNE是其中的一种，降维效果奇好，其思想是找到数据的一个二维表示，尽可能地保持数据点之间的距离。让在原始特征空间中距离较近的点更加靠近，原始特征空间中相距较远的点更加远离。t-SNE 重点关注距离较近的点，而不是保持距离较远的点之间的距离。换句话说，它试图保存那些表示哪些点比较靠近的信息，这里同样使用iris数据进行tsne可视化。</p>
 <p><div align="center"><img src="https://i.imgur.com/jKTWaMn.png" alt=""></div><br>tsne只能应用于训练的数据，不能应用于测试集，并且在处理稍大数据量的时候效率很低，如果要聚类的数据比较大，可以考虑抽样可视化。如果数据形状复杂，这时候基于指标的效果评估并不好，可以考虑基于抽样数据聚类，然后基于聚类结果建立分类模型。<br>这里pca和tsne可视化iris数据的效果区分度不是很明显，其实从使用经验来看，在数据量在千以上的情况下，同一份数据使用tsne进行可视化，数据的区分度比pca要好很多，这是因为pca需要对数据进行标准化处理，使得大部分数据都集中在一个很小的范围内。但是数据量越大tsne的处理速度越慢，很无奈。   </p>
 <h1 id="无监督特征选择"><a href="#无监督特征选择" class="headerlink" title="无监督特征选择"></a>无监督特征选择</h1><p>&emsp;&emsp;无监督机器学习模型的特征选择，sklearn上还没有相关的API，其实挺麻烦的，应该使用何种评判标准来认为这个特征是对聚类算法有效的？网上有一些方法，比如基于遗传算法、模式相似性判断、复相关系数之类的，也找了几篇论文，看到一篇讲到可以参考有监督学习的wrapper方法进行特征选择，感觉还蛮有意思的，参考着实现了下，用起来效果也还OK。</p>
@@ -482,6 +484,18 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NLP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">情感分类</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">分词</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
               </li>
              
@@ -498,11 +512,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NLP</a>
+                <a href="javascript:void(0)" class="js-tag color5">新词发现</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -510,7 +520,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">attention</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -534,23 +552,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">分词</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NER</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">新词发现</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">attention</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">情感分类</a>
               </li>
             
             <div class="clearfix"></div>

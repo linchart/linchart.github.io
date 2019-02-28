@@ -14,7 +14,7 @@
 <meta property="og:url" content="http://yoursite.com/posts/2019/02/23/基于CRF的命名实体识别.html">
 <meta property="og:site_name" content="linchart">
 <meta property="og:description" content="&amp;emsp;&amp;emsp; 分词、词性标注(POS)、实体识别(NER)都属于序列标注问题，解决的套路可以是一样的，在文章分词-基于CRF中讲了如何使用CRF分词，照葫芦画瓢，本文将会使用CRF提取1998年人民日报语料中的时间(TIME)、人名(PERSON)、地名(LOCATION)、组织机构(ORGANIZATION)四类实体。">
-<meta property="og:updated_time" content="2019-02-27T15:03:46.736Z">
+<meta property="og:updated_time" content="2019-02-28T02:03:40.123Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于CRF的命名实体识别">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp; 分词、词性标注(POS)、实体识别(NER)都属于序列标注问题，解决的套路可以是一样的，在文章分词-基于CRF中讲了如何使用CRF分词，照葫芦画瓢，本文将会使用CRF提取1998年人民日报语料中的时间(TIME)、人名(PERSON)、地名(LOCATION)、组织机构(ORGANIZATION)四类实体。">
@@ -291,7 +291,23 @@ U34:%x[-2,6]/%x[-1,6]/%x[1,6]%x[2,6]
 # Bigram
 B
 </code></pre>
-<h1 id="训练及效果评估"><a href="#训练及效果评估" class="headerlink" title="训练及效果评估"></a>训练及效果评估</h1><p>效果评估</p>
+<h1 id="训练及效果评估"><a href="#训练及效果评估" class="headerlink" title="训练及效果评估"></a>训练及效果评估</h1><p>先来看下单字作为特征的情况，仅仅用单字特征识别实体效果勉强还行。</p>
+<pre><code class="javascript">processed <span class="number">552006</span> tokens <span class="keyword">with</span> <span class="number">73148</span> phrases; found: <span class="number">69378</span> phrases; correct: <span class="number">61864.</span>
+accuracy:  <span class="number">97.13</span>%; precision:  <span class="number">89.17</span>%; recall:  <span class="number">84.57</span>%; FB1:  <span class="number">86.81</span>
+       B_LOCATION: precision:  <span class="number">90.09</span>%; recall:  <span class="number">85.84</span>%; FB1:  <span class="number">87.91</span>  <span class="number">6256</span>
+   B_ORGANIZATION: precision:  <span class="number">84.47</span>%; recall:  <span class="number">82.13</span>%; FB1:  <span class="number">83.28</span>  <span class="number">3193</span>
+         B_PERSON: precision:  <span class="number">95.74</span>%; recall:  <span class="number">89.97</span>%; FB1:  <span class="number">92.76</span>  <span class="number">5535</span>
+           B_TIME: precision:  <span class="number">95.40</span>%; recall:  <span class="number">92.58</span>%; FB1:  <span class="number">93.97</span>  <span class="number">5870</span>
+       E_LOCATION: precision:  <span class="number">88.37</span>%; recall:  <span class="number">84.21</span>%; FB1:  <span class="number">86.24</span>  <span class="number">6257</span>
+   E_ORGANIZATION: precision:  <span class="number">85.78</span>%; recall:  <span class="number">83.40</span>%; FB1:  <span class="number">84.58</span>  <span class="number">3193</span>
+         E_PERSON: precision:  <span class="number">95.10</span>%; recall:  <span class="number">89.37</span>%; FB1:  <span class="number">92.15</span>  <span class="number">5535</span>
+           E_TIME: precision:  <span class="number">95.21</span>%; recall:  <span class="number">92.40</span>%; FB1:  <span class="number">93.78</span>  <span class="number">5870</span>
+       M_LOCATION: precision:  <span class="number">81.19</span>%; recall:  <span class="number">73.40</span>%; FB1:  <span class="number">77.10</span>  <span class="number">3609</span>
+   M_ORGANIZATION: precision:  <span class="number">78.75</span>%; recall:  <span class="number">72.37</span>%; FB1:  <span class="number">75.42</span>  <span class="number">14725</span>
+         M_PERSON: precision:  <span class="number">94.98</span>%; recall:  <span class="number">93.18</span>%; FB1:  <span class="number">94.07</span>  <span class="number">5421</span>
+           M_TIME: precision:  <span class="number">98.04</span>%; recall:  <span class="number">97.36</span>%; FB1:  <span class="number">97.70</span>  <span class="number">3835</span>
+         S_PERSON: precision:  <span class="number">96.20</span>%; recall:  <span class="number">45.78</span>%; FB1:  <span class="number">62.04</span>  <span class="number">79</span>
+</code></pre>
 
       
 
@@ -541,6 +557,18 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NLP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">情感分类</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">分词</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
               </li>
              
@@ -557,11 +585,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NLP</a>
+                <a href="javascript:void(0)" class="js-tag color5">新词发现</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -569,7 +593,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">attention</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -593,23 +625,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">分词</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NER</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">新词发现</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">attention</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">情感分类</a>
               </li>
             
             <div class="clearfix"></div>

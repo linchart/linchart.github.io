@@ -14,13 +14,13 @@
 <meta property="og:url" content="http://yoursite.com/posts/2019/02/26/Deep_Learning_for_Sentiment_Analysis_A_Survey_note.html">
 <meta property="og:site_name" content="linchart">
 <meta property="og:description" content="（未完整版…）&amp;emsp;&amp;emsp;该论文详细论述了近年来深度学习在情感分析上的研究应用。论文前半部分先介绍了情感分析涉及的一些基本模型：FNN（前馈神经网络）、word embedding(提及word2vec,glove)、自编码及降噪自编码、CNN、RNN、LSTM、RNN与注意力机制、MemNN(记忆网络)、递归神经网络。后半部分对 Document level、sentence lev">
-<meta property="og:image" content="http://yoursite.com/img/pic1.jpg">
-<meta property="og:image" content="http://yoursite.com/img/pic2.jpg">
-<meta property="og:updated_time" content="2019-02-26T13:28:40.505Z">
+<meta property="og:image" content="https://i.imgur.com/yRv0TS8.png">
+<meta property="og:image" content="https://i.imgur.com/n7SmQAV.png">
+<meta property="og:updated_time" content="2019-02-28T02:04:29.297Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Deep Learning for Sentiment Analysis A Survey 笔记">
 <meta name="twitter:description" content="（未完整版…）&amp;emsp;&amp;emsp;该论文详细论述了近年来深度学习在情感分析上的研究应用。论文前半部分先介绍了情感分析涉及的一些基本模型：FNN（前馈神经网络）、word embedding(提及word2vec,glove)、自编码及降噪自编码、CNN、RNN、LSTM、RNN与注意力机制、MemNN(记忆网络)、递归神经网络。后半部分对 Document level、sentence lev">
-<meta name="twitter:image" content="http://yoursite.com/img/pic1.jpg">
+<meta name="twitter:image" content="https://i.imgur.com/yRv0TS8.png">
   
     <link rel="alternative" href="/atom.xml" title="linchart" type="application/atom+xml">
   
@@ -188,7 +188,7 @@
 <li>aspect level(如“the voice quality of    iPhone is great, bu its    battery    sucks 要识别 voice quality 是正向的，battery 是负向的)</li>
 </ul>
 <h1 id="Document-level"><a href="#Document-level" class="headerlink" title="Document level"></a>Document level</h1><p>下表总结了文档级情感分析的深度学习方法   </p>
-<div align="center"><br><p><img src="img/pic1.jpg"></p><br></div><br><div align="center"><br><p><img src="img/pic2.jpg"></p><br></div>
+<div align="center"><img src="https://i.imgur.com/yRv0TS8.png" alt=""></div><br><div align="center"><img src="https://i.imgur.com/n7SmQAV.png" alt=""></div>
 
 <p>简要介绍一下这些方法：   </p>
 <p>1、 <a href="https://www.researchgate.net/publication/320729882_Sentiment_Analysis_at_Document_Level" target="_blank" rel="external">Document-level sentiment classification: An empirical comparison between SVM and ANN</a><br>&emsp;&emsp;该论文主要是比较SVM 和ANN在Document level 上的情感分析应用效果，结论是大部分情况下ANN 优于 SVM ，尤其是在benchmark dataset of Movies reviews 上。<br>2、<a href="https://arxiv.org/pdf/1405.4053.pdf" target="_blank" rel="external">Distributed Representations of Sentences and Documents</a><br>&emsp;&emsp;为了克服BOW的缺点（没考虑词之间的顺序，以及词之间的关系），Le and Mikolov 提出了一种可以学习可变长度文本的段落向量，如句子、段落、文档。该段落向量表示通过预测抽取文本周围的词来学习。？   </p>
@@ -459,6 +459,18 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NLP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">情感分类</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">分词</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
               </li>
              
@@ -475,11 +487,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NLP</a>
+                <a href="javascript:void(0)" class="js-tag color5">新词发现</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -487,7 +495,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">attention</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -511,23 +527,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">分词</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NER</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">新词发现</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">attention</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">情感分类</a>
               </li>
             
             <div class="clearfix"></div>
